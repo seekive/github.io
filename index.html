@@ -628,9 +628,9 @@
             <div class="coming-soon">Coming Soon to App Stores</div>
             
             <div class="cta">
-                <form class="subscribe-form" name="early-access" onsubmit="return false">
+                <form class="subscribe-form" action="https://formspree.io/f/mblodkyo" method="POST">
     <input type="email" name="email" placeholder="Enter your email for early access" class="subscribe-input" required>
-    <button type="button" class="subscribe-btn" id="subscribeBtn">Notify Me</button>
+    <button type="submit" class="subscribe-btn">Notify Me</button>
 </form>
             </div>
         </div>
@@ -683,70 +683,5 @@
             <p class="copyright">&copy; 2025 Seekive. All rights reserved.</p>
         </div>
     </footer>
-    
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-
-    <script>
-      // Your Firebase configuration
-      const firebaseConfig = {
-  apiKey: "AIzaSyDLxbwUIRujt487DXEsKujb-6DC3yIoHAI",
-  authDomain: "seekiveprofile.firebaseapp.com",
-  projectId: "seekiveprofile",
-  storageBucket: "seekiveprofile.firebasestorage.app",
-  messagingSenderId: "284191726552",
-  appId: "1:284191726552:web:72d26bdc3b2a2056e4b0ad",
-  measurementId: "G-G373XT0EGB"
-};
-
-      // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-
-  // Handle form submission with click event instead
-  document.getElementById('subscribeBtn').addEventListener('click', function() {
-    const emailInput = document.querySelector('.subscribe-input');
-    const email = emailInput.value;
-    
-    // Validate email
-    if (!email || !email.includes('@')) {
-      alert('Please enter a valid email address');
-      return;
-    }
-    
-    const timestamp = new Date();
-    
-    // Show loading state
-    const button = this;
-    const originalText = button.textContent;
-    button.textContent = "Submitting...";
-    button.disabled = true;
-    
-    // Save email to Firestore
-    db.collection("early_access_emails").add({
-      email: email,
-      timestamp: timestamp,
-      source: 'website'
-    })
-    .then(() => {
-      // Show success message
-      button.textContent = "Success! ✓";
-      setTimeout(() => {
-        button.textContent = originalText;
-        button.disabled = false;
-        emailInput.value = ''; // Clear the input
-      }, 2000);
-    })
-    .catch((error) => {
-      console.error("Error adding email: ", error);
-      button.textContent = "Error! Try Again";
-      setTimeout(() => {
-        button.textContent = originalText;
-        button.disabled = false;
-      }, 2000);
-    });
-  });
-</script>
 </body>
 </html>

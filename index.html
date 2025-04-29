@@ -147,11 +147,21 @@
             align-items: center;
             gap: 15px;
             margin-top: 30px;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .email-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: left;
+            width: 100%;
+            margin-bottom: -10px;
+            padding-left: 5px;
         }
         
         .subscribe-form {
             display: flex;
-            max-width: 500px;
             width: 100%;
             position: relative;
             border-radius: 50px;
@@ -171,11 +181,9 @@
         }
         
         .subscribe-input::placeholder {
-    color: rgba(255, 255, 255, 0.5); /* Change color if desired */
-    font-size: 0.9rem; /* Change size (smaller than 1rem) */
-    font-style: italic; /* Add italic if desired */
-    font-weight: 300; /* Make it lighter */
-}
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+        }
         
         .subscribe-btn {
             background: linear-gradient(45deg, var(--primary), var(--secondary));
@@ -391,6 +399,11 @@
                 width: 100%;
                 padding: 15px;
                 border-radius: 0 0 15px 15px;
+            }
+            
+            .email-label {
+                text-align: center;
+                padding-left: 0;
             }
         }
 
@@ -631,10 +644,11 @@
             <div class="coming-soon">Coming Soon to App Stores</div>
             
             <div class="cta">
+                <div class="email-label">Enter your email for early access</div>
                 <form class="subscribe-form" action="https://formspree.io/f/mblodkyo" method="POST">
-    <input type="email" name="email" placeholder="Enter your email for early access" class="subscribe-input" required>
-    <button type="submit" class="subscribe-btn">Notify Me</button>
-</form>
+                    <input type="email" name="email" placeholder="youremail@example.com" class="subscribe-input" required>
+                    <button type="submit" class="subscribe-btn">Notify Me</button>
+                </form>
             </div>
         </div>
     </section>

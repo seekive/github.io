@@ -384,26 +384,36 @@
                 height: 300px;
             }
             
+            .cta {
+                max-width: 90%;
+            }
+            
             .subscribe-form {
-                flex-direction: column;
-                border-radius: 15px;
+                flex-direction: row; /* Keep horizontal layout on mobile */
+                border-radius: 25px;
+                height: 45px; /* Control the overall height */
             }
             
             .subscribe-input {
-                border-radius: 15px;
-                text-align: center;
-                padding: 15px;
+                border-radius: 25px 0 0 25px;
+                text-align: left;
+                padding: 10px 15px;
+                font-size: 0.9rem;
+                height: 100%;
             }
             
             .subscribe-btn {
-                width: 100%;
-                padding: 15px;
-                border-radius: 0 0 15px 15px;
+                width: auto;
+                padding: 0 15px;
+                font-size: 0.9rem;
+                height: 100%;
             }
             
             .email-label {
                 text-align: center;
                 padding-left: 0;
+                font-size: 0.85rem;
+                margin-bottom: 5px;
             }
         }
 

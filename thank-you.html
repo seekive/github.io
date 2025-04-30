@@ -9,6 +9,7 @@
         :root {
             --primary: #FAA22C;
             --secondary: #3B8200;
+            --primary-green: #3B8200; /* Added this variable */
             --dark-bg: #0F172A;
             --darker-bg: #080C1A;
             --light-text: #FFFFFF;
@@ -48,17 +49,17 @@
         }
         
         .logo {
-    font-size: 28px;
-    font-weight: bold;
-    color: var(--primary-green); /* Changed to green */
-}
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-green); /* Using green */
+        }
 
-.logo-icon {
-    animation: rotate 8s infinite linear;
-    display: inline-block;
-    margin-right: 10px;
-    color: var(--primary-green); /* Made icon explicitly green */
-}
+        .logo-icon {
+            animation: rotate 8s infinite linear;
+            display: inline-block;
+            margin-right: 10px;
+            color: var(--primary-green); /* Using green */
+        }
         
         @keyframes rotate {
             from { transform: rotate(0deg); }
@@ -85,11 +86,12 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(5px);
+            border: 1px solid rgba(59, 130, 0, 0.1); /* Subtle green border */
         }
 
         .thank-you-icon {
             font-size: 5rem;
-            color: var(--primary);
+            color: var(--primary-green); /* Changed to green */
             margin-bottom: 20px;
             animation: pulse 2s infinite;
         }
@@ -97,7 +99,7 @@
         .thank-you-content h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background: linear-gradient(45deg, var(--primary-green), var(--highlight));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -115,7 +117,7 @@
 
         .home-button {
             display: inline-block;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background: linear-gradient(45deg, var(--primary), var(--primary-green));
             color: white;
             text-decoration: none;
             padding: 12px 25px;
@@ -125,6 +127,7 @@
         }
 
         .home-button:hover {
+            background: linear-gradient(45deg, var(--primary-green), var(--primary));
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
@@ -145,7 +148,7 @@
         .footer-logo {
             font-size: 1.5rem;
             font-weight: bold;
-            color: var(--primary);
+            color: var(--primary-green); /* Changed to green */
             margin-bottom: 20px;
         }
         
@@ -185,7 +188,7 @@
         .bg-circle {
             position: absolute;
             border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background: linear-gradient(45deg, var(--primary), var(--primary-green));
             opacity: 0.1;
             filter: blur(60px);
         }

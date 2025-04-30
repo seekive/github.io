@@ -654,10 +654,11 @@
             <div class="coming-soon">Coming Soon to App Stores</div>
             
             <div class="cta">
-    <div class="email-label">Get early access to Seekive when it becomes available</div>
-    <a href="signup.html" style="text-decoration: none; display: inline-block;">
-        <button type="button" class="subscribe-btn" style="width: 200px; padding: 15px 20px; border-radius: 30px; cursor: pointer;">Sign Up Now</button>
-    </a>
+    <div class="email-label">Enter your email for early access when it becomes available</div>
+    <form id="emailForm" class="subscribe-form">
+        <input type="email" id="emailInput" name="email" placeholder="youremail@example.com" class="subscribe-input" required>
+        <button type="submit" class="subscribe-btn">Notify Me</button>
+    </form>
 </div>
         </div>
     </section>
@@ -735,6 +736,39 @@
             console.error('Error:', error);
             alert('Sorry, there was a problem submitting your form. Please try again.');
         });
+    });
+</script>
+    <script>
+    document.getElementById('emailForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent normal form submission
+        
+        // Get the email from the input
+        const email = document.getElementById('emailInput').value;
+        
+        // Create a hidden iframe to submit to Google Forms
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+        
+        // Create a form within the iframe
+        const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSc3IeuUsH4kGK8Zzs9ZTnOkt7SkgNYXRFS6lkiqBWvm6nztLA/formResponse';
+        iframe.contentWindow.document.write(`
+            <form id="hiddenForm" action="${googleFormUrl}" method="post">
+                <input name="entry.1741794365" value="${email}">
+            </form>
+        `);
+        
+        // Get the entry ID from your Google Form
+        // To find this, inspect your form or use the "Get pre-filled link" feature in Google Forms
+        // Replace entry.xxxxxxxx with your actual entry ID
+        
+        // Submit the hidden form
+        iframe.contentWindow.document.getElementById('hiddenForm').submit();
+        
+        // Redirect to thank you page after a short delay
+        setTimeout(function() {
+            window.location.href = 'thank-you.html';
+        }, 500);
     });
 </script>
 </body>

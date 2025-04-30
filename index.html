@@ -7,12 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary: #FAA22C;
-            --secondary: #3B8200;
-            --dark-bg: #0F172A;
-            --darker-bg: #080C1A;
-            --light-text: #FFFFFF;
-            --highlight: #21A88D;
+            --primary-green: #3B8200;       /* Green from your logo - now primary */
+            --secondary-orange: #FAA22C;    /* Orange from your logo - now secondary */
+            --accent-teal: #21A88D;         /* Teal color from your existing site */
+            --dark-bg: #0F172A;             /* Keeping original dark blue background */
+            --darker-bg: #080C1A;           /* Keeping original darker blue */
+            --light-text: #FFFFFF;          /* White text */
+            --success-green: #3B8200;       /* Green for success elements */
+            --highlight-orange: #FAA22C;    /* Orange highlight */
         }
         
         * {
@@ -50,13 +52,14 @@
         .logo {
             font-size: 28px;
             font-weight: bold;
-            color: var(--primary);
+            color: var(--primary-green); /* Changed to green */
         }
         
         .logo-icon {
             animation: rotate 8s infinite linear;
             display: inline-block;
             margin-right: 10px;
+            color: var(--primary-green); /* Explicitly set compass icon to green */
         }
         
         @keyframes rotate {
@@ -66,11 +69,11 @@
         
         @keyframes pulse-glow {
             0% { 
-                text-shadow: 0 0 5px rgba(250, 162, 44, 0.3);
+                text-shadow: 0 0 5px rgba(59, 130, 0, 0.3); /* Updated to green glow */
                 transform: scale(1);
             }
             100% { 
-                text-shadow: 0 0 15px rgba(250, 162, 44, 0.7);
+                text-shadow: 0 0 15px rgba(59, 130, 0, 0.7); /* Updated to green glow */
                 transform: scale(1.1);
             }
         }
@@ -113,7 +116,7 @@
             margin-bottom: 20px;
             font-weight: 800;
             line-height: 1.2;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background: linear-gradient(45deg, var(--primary-green), var(--accent-teal)); /* Updated gradient */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -127,7 +130,7 @@
         
         .coming-soon {
             font-size: 1.2rem;
-            background: linear-gradient(45deg, var(--highlight), var(--secondary));
+            background: linear-gradient(45deg, var(--accent-teal), var(--primary-green)); /* Updated gradient */
             padding: 10px 20px;
             border-radius: 50px;
             font-weight: bold;
@@ -186,7 +189,7 @@
         }
         
         .subscribe-btn {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background: linear-gradient(45deg, var(--secondary-orange), var(--primary-green)); /* Kept orange-to-green for button */
             color: white;
             border: none;
             padding: 0 30px;
@@ -197,7 +200,7 @@
         }
         
         .subscribe-btn:hover {
-            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            background: linear-gradient(45deg, var(--primary-green), var(--secondary-orange)); /* Reversed gradient on hover */
         }
         
         .features {
@@ -221,18 +224,19 @@
         .feature-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(59, 130, 0, 0.2); /* Subtle green border on hover */
         }
         
         .feature-icon {
             font-size: 2.5rem;
-            color: var(--primary);
+            color: var(--secondary-orange); /* Kept orange for feature icons for contrast */
             margin-bottom: 20px;
         }
         
         .feature-title {
             font-size: 1.5rem;
             margin-bottom: 15px;
-            color: var(--primary);
+            color: var(--primary-green); /* Changed to green */
         }
         
         .feature-desc {
@@ -253,14 +257,14 @@
             justify-content: center;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            color: var(--primary);
+            color: var(--secondary-orange); /* Kept orange for social icons */
             font-size: 1.3rem;
             transition: all 0.3s;
         }
         
         .social-icon:hover {
-            background-color: var(--primary);
-            color: var(--dark-bg);
+            background-color: var(--primary-green); /* Changed to green on hover */
+            color: var(--light-text); /* White text on hover for better contrast */
             transform: translateY(-5px);
         }
         
@@ -280,7 +284,7 @@
         .footer-logo {
             font-size: 1.5rem;
             font-weight: bold;
-            color: var(--primary);
+            color: var(--primary-green); /* Changed to green */
             margin-bottom: 20px;
         }
         
@@ -297,7 +301,7 @@
         }
         
         .footer-link:hover {
-            color: var(--primary);
+            color: var(--secondary-orange); /* Hover with orange for contrast */
         }
         
         .copyright {
@@ -318,7 +322,7 @@
         .bg-circle {
             position: absolute;
             border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background: linear-gradient(45deg, var(--secondary-orange), var(--primary-green)); /* Kept for consistency */
             opacity: 0.1;
             filter: blur(60px);
         }
@@ -417,7 +421,7 @@
             }
         }
 
-        /* Compass Animation */
+        /* Compass Animation - Updated for green colors */
         .compass-container {
             position: relative;
             width: 280px;
@@ -432,7 +436,7 @@
             border-radius: 50%;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(8, 12, 26, 0.9));
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 4px solid rgba(250, 162, 44, 0.3);
+            border: 4px solid rgba(59, 130, 0, 0.3); /* Changed to green border */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -452,8 +456,8 @@
         }
 
         @keyframes glow {
-            0% { box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), 0 0 5px rgba(250, 162, 44, 0.3); }
-            100% { box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(250, 162, 44, 0.6); }
+            0% { box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), 0 0 5px rgba(59, 130, 0, 0.3); } /* Changed to green glow */
+            100% { box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 0, 0.6); } /* Changed to green glow */
         }
 
         .compass-needle-container {
@@ -482,7 +486,7 @@
             height: 0;
             border-left: 12px solid transparent;
             border-right: 12px solid transparent;
-            border-bottom: 45% solid var(--primary);
+            border-bottom: 45% solid var(--primary-green); /* Changed to green */
         }
 
         .needle-south {
@@ -494,7 +498,7 @@
             height: 0;
             border-left: 8px solid transparent;
             border-right: 8px solid transparent;
-            border-top: 35% solid var(--secondary);
+            border-top: 35% solid var(--secondary-orange); /* Kept orange for contrast */
         }
 
         .center-pin {
@@ -504,7 +508,7 @@
             transform: translate(-50%, -50%);
             width: 20px;
             height: 20px;
-            background: radial-gradient(circle, var(--primary) 0%, var(--secondary) 100%);
+            background: radial-gradient(circle, var(--secondary-orange) 0%, var(--primary-green) 100%); /* Kept gradient for visual interest */
             border-radius: 50%;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             z-index: 10;
@@ -531,7 +535,7 @@
             top: 15px;
             left: 50%;
             transform: translateX(-50%);
-            color: var(--primary);
+            color: var(--primary-green); /* Changed to green */
         }
 
         .east {
@@ -564,7 +568,7 @@
             position: absolute;
             width: 4px;
             height: 4px;
-            background: var(--primary);
+            background: var(--secondary-orange); /* Kept orange for contrast with green elements */
             border-radius: 50%;
         }
 
@@ -654,12 +658,12 @@
             <div class="coming-soon">Coming Soon to App Stores</div>
             
             <div class="cta">
-    <div class="email-label">Enter your email for early access when it becomes available</div>
-    <form id="emailForm" class="subscribe-form">
-        <input type="email" id="emailInput" name="email" placeholder="youremail@example.com" class="subscribe-input" required>
-        <button type="submit" class="subscribe-btn">Notify Me</button>
-    </form>
-</div>
+                <div class="email-label">Enter your email for early access when it becomes available</div>
+                <form id="emailForm" class="subscribe-form">
+                    <input type="email" id="emailInput" name="email" placeholder="youremail@example.com" class="subscribe-input" required>
+                    <button type="submit" class="subscribe-btn">Notify Me</button>
+                </form>
+            </div>
         </div>
     </section>
 
@@ -711,34 +715,6 @@
         </div>
     </footer>
     <script>
-    const form = document.getElementById('subscribeForm');
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(form);
-        
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                window.location.href = '/thank-you.html';
-            } else {
-                throw new Error('Form submission failed');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Sorry, there was a problem submitting your form. Please try again.');
-        });
-    });
-</script>
-    <script>
     document.getElementById('emailForm').addEventListener('submit', function(e) {
         e.preventDefault(); // Prevent normal form submission
         
@@ -757,10 +733,6 @@
                 <input name="entry.1741794365" value="${email}">
             </form>
         `);
-        
-        // Get the entry ID from your Google Form
-        // To find this, inspect your form or use the "Get pre-filled link" feature in Google Forms
-        // Replace entry.xxxxxxxx with your actual entry ID
         
         // Submit the hidden form
         iframe.contentWindow.document.getElementById('hiddenForm').submit();

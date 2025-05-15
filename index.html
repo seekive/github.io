@@ -726,76 +726,78 @@
         
         <!-- Social Media Section -->
         <div class="social-section">
-            <h3 class="social-heading">Follow Us</h3>
-            
-            <!-- JavaScript Buttons (similar to Test 4 in the test page) -->
-            <div class="social-buttons">
-                <button onclick="window.location.href='https://www.instagram.com/seekiveapp/'" class="social-button">
-                    <i class="fa-brands fa-instagram"></i> Instagram
-                </button>
-                <button onclick="window.location.href='https://x.com/Seekive'" class="social-button">
-                    <i class="fa-brands fa-twitter"></i> Twitter
-                </button>
-                <button onclick="window.location.href='https://www.facebook.com/profile.php?id=61575759483549'" class="social-button">
-                    <i class="fa-brands fa-facebook-f"></i> Facebook
-                </button>
-                <button onclick="window.location.href='https://www.tiktok.com/@seekive'" class="social-button">
-                    <i class="fa-brands fa-tiktok"></i> TikTok
-                </button>
-            </div>
-            
-            <!-- Plain Links as Backup -->
-            <div class="plain-links">
-                <a href="https://www.instagram.com/seekiveapp/" target="_blank">Instagram</a>
-                <a href="https://x.com/Seekive" target="_blank">Twitter</a>
-                <a href="https://www.facebook.com/profile.php?id=61575759483549" target="_blank">Facebook</a>
-                <a href="https://www.tiktok.com/@seekive" target="_blank">TikTok</a>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-logo">
-                <i class="fa-solid fa-compass logo-icon"></i> Seekive
-            </div>
-            <div class="footer-links">
-                <a href="#" class="footer-link">Privacy Policy</a>
-                <a href="#" class="footer-link">Terms of Service</a>
-                <a href="#" class="footer-link">Contact</a>
-            </div>
-            <p class="copyright">&copy; 2025 Seekive. All rights reserved.</p>
-        </div>
-    </footer>
+    <h3 class="social-heading">Follow Us</h3>
     
-    <script>
-    document.getElementById('emailForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent normal form submission
+    <div style="margin-top: 30px; text-align: center;">
+        <p style="margin-bottom: 10px; font-size: 1.1rem;">Click any icon to visit our social media:</p>
         
-        // Get the email from the input
-        const email = document.getElementById('emailInput').value;
+        <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
+            <!-- Instagram -->
+            <div onclick="goToSocialMedia('instagram')" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; cursor: pointer;">
+                <i class="fa-brands fa-instagram" style="color: #FAA22C; font-size: 1.3rem;"></i>
+            </div>
+            
+            <!-- Twitter -->
+            <div onclick="goToSocialMedia('twitter')" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; cursor: pointer;">
+                <i class="fa-brands fa-twitter" style="color: #FAA22C; font-size: 1.3rem;"></i>
+            </div>
+            
+            <!-- Facebook -->
+            <div onclick="goToSocialMedia('facebook')" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; cursor: pointer;">
+                <i class="fa-brands fa-facebook-f" style="color: #FAA22C; font-size: 1.3rem;"></i>
+            </div>
+            
+            <!-- TikTok -->
+            <div onclick="goToSocialMedia('tiktok')" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; cursor: pointer;">
+                <i class="fa-brands fa-tiktok" style="color: #FAA22C; font-size: 1.3rem;"></i>
+            </div>
+        </div>
         
-        // Create a hidden iframe to submit to Google Forms
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
+        <div style="margin-top: 20px; font-size: 0.9rem; color: rgba(255,255,255,0.7);">
+            <p>Or copy these links:</p>
+            <p style="margin-top: 10px;">Instagram: https://www.instagram.com/seekiveapp/</p>
+            <p>Twitter: https://x.com/Seekive</p>
+            <p>Facebook: https://www.facebook.com/profile.php?id=61575759483549</p>
+            <p>TikTok: https://www.tiktok.com/@seekive</p>
+        </div>
+    </div>
+</div>
+
+<script>
+function goToSocialMedia(platform) {
+    const urls = {
+        'instagram': 'https://www.instagram.com/seekiveapp/',
+        'twitter': 'https://x.com/Seekive',
+        'facebook': 'https://www.facebook.com/profile.php?id=61575759483549',
+        'tiktok': 'https://www.tiktok.com/@seekive'
+    };
+    
+    // Try multiple approaches to navigate
+    try {
+        // Approach 1: window.location
+        window.location.href = urls[platform];
         
-        // Create a form within the iframe
-        const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSc3IeuUsH4kGK8Zzs9ZTnOkt7SkgNYXRFS6lkiqBWvm6nztLA/formResponse';
-        iframe.contentWindow.document.write(`
-            <form id="hiddenForm" action="${googleFormUrl}" method="post">
-                <input name="entry.1741794365" value="${email}">
-            </form>
-        `);
-        
-        // Submit the hidden form
-        iframe.contentWindow.document.getElementById('hiddenForm').submit();
-        
-        // Redirect to thank you page after a short delay
+        // If that doesn't work, try other approaches
         setTimeout(function() {
-            window.location.href = '/thank-you/';
-        }, 500);
-    });
-    </script>
+            // Approach 2: window.open
+            window.open(urls[platform], '_blank');
+            
+            // Approach 3: Create and click a link
+            setTimeout(function() {
+                const link = document.createElement('a');
+                link.href = urls[platform];
+                link.target = '_blank';
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }, 100);
+        }, 100);
+    } catch(e) {
+        console.error('Navigation failed:', e);
+        alert('Could not open link. Please copy the URL manually: ' + urls[platform]);
+    }
+}
+</script>
 </body>
 </html>

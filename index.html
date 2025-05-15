@@ -695,12 +695,12 @@
     </div>
     
     <div class="social-links">
-    <a href="https://www.instagram.com/seekiveapp/" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
-    <a href="https://x.com/Seekive" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitter"></i></a>
-    <a href="https://www.facebook.com/profile.php?id=61575759483549" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
-    <a href="https://www.tiktok.com/@seekive" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i></a>
-</div>
-</section>
+            <a href="https://www.instagram.com/seekiveapp/" class="social-icon" id="instagram-link" target="_blank" rel="noopener noreferrer" onclick="window.open('https://www.instagram.com/seekiveapp/', '_blank'); return false;"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://x.com/Seekive" class="social-icon" id="twitter-link" target="_blank" rel="noopener noreferrer" onclick="window.open('https://x.com/Seekive', '_blank'); return false;"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61575759483549" class="social-icon" id="facebook-link" target="_blank" rel="noopener noreferrer" onclick="window.open('https://www.facebook.com/profile.php?id=61575759483549', '_blank'); return false;"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.tiktok.com/@seekive" class="social-icon" id="tiktok-link" target="_blank" rel="noopener noreferrer" onclick="window.open('https://www.tiktok.com/@seekive', '_blank'); return false;"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+    </section>
 
     <footer>
         <div class="container footer-content">
@@ -715,6 +715,7 @@
             <p class="copyright">&copy; 2025 Seekive. All rights reserved.</p>
         </div>
     </footer>
+    
     <script>
     document.getElementById('emailForm').addEventListener('submit', function(e) {
         e.preventDefault(); // Prevent normal form submission
@@ -740,33 +741,35 @@
         
         // Redirect to thank you page after a short delay
         setTimeout(function() {
-    window.location.href = '/thank-you/';
-}, 500);
+            window.location.href = '/thank-you/';
+        }, 500);
     });
-<script>
-// Adding backup event listeners
-document.getElementById('instagram-link').addEventListener('click', function(e) {
-    window.open('https://www.instagram.com/seekiveapp/', '_blank');
-    e.preventDefault();
-});
 
-document.getElementById('twitter-link').addEventListener('click', function(e) {
-    window.open('https://x.com/Seekive', '_blank');
-    e.preventDefault();
-});
+    // Social media link handlers
+    document.addEventListener('DOMContentLoaded', function() {
+        // Backup event listeners for social links
+        document.getElementById('instagram-link').addEventListener('click', function(e) {
+            window.open('https://www.instagram.com/seekiveapp/', '_blank');
+            e.preventDefault();
+        });
 
-document.getElementById('facebook-link').addEventListener('click', function(e) {
-    window.open('https://www.facebook.com/profile.php?id=61575759483549', '_blank');
-    e.preventDefault();
-});
+        document.getElementById('twitter-link').addEventListener('click', function(e) {
+            window.open('https://x.com/Seekive', '_blank');
+            e.preventDefault();
+        });
 
-document.getElementById('tiktok-link').addEventListener('click', function(e) {
-    window.open('https://www.tiktok.com/@seekive', '_blank');
-    e.preventDefault();
-});
+        document.getElementById('facebook-link').addEventListener('click', function(e) {
+            window.open('https://www.facebook.com/profile.php?id=61575759483549', '_blank');
+            e.preventDefault();
+        });
 
-// Debug helper
-console.log('Social media link handlers initialized');
-</script>
+        document.getElementById('tiktok-link').addEventListener('click', function(e) {
+            window.open('https://www.tiktok.com/@seekive', '_blank');
+            e.preventDefault();
+        });
+
+        console.log('Social media link handlers initialized');
+    });
+    </script>
 </body>
 </html>

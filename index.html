@@ -3,775 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seekive - Seek. Discover. Experience.</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Seekive Link Test</title>
     <style>
-        :root {
-            --primary-green: #3B8200;       /* Green from your logo - now primary */
-            --secondary-orange: #FAA22C;    /* Orange from your logo - now secondary */
-            --accent-teal: #21A88D;         /* Teal color from your existing site */
-            --dark-bg: #0F172A;             /* Keeping original dark blue background */
-            --darker-bg: #080C1A;           /* Keeping original darker blue */
-            --light-text: #FFFFFF;          /* White text */
-            --success-green: #3B8200;       /* Green for success elements */
-            --highlight-orange: #FAA22C;    /* Orange highlight */
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
         body {
-            background-color: var(--dark-bg);
-            color: var(--light-text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        header {
-            padding: 20px 0;
-            position: relative;
-            z-index: 10;
-        }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--primary-green); /* Changed to green */
-        }
-        
-        .logo-icon {
-            animation: rotate 8s infinite linear;
-            display: inline-block;
-            margin-right: 10px;
-            color: var(--primary-green); /* Explicitly set compass icon to green */
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        @keyframes pulse-glow {
-            0% { 
-                text-shadow: 0 0 5px rgba(59, 130, 0, 0.3); /* Updated to green glow */
-                transform: scale(1);
-            }
-            100% { 
-                text-shadow: 0 0 15px rgba(59, 130, 0, 0.7); /* Updated to green glow */
-                transform: scale(1.1);
-            }
-        }
-        
-        .hero {
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            background-color: #0F172A;
+            color: white;
+            font-family: sans-serif;
+            padding: 20px;
             text-align: center;
-            padding: 50px 0;
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .hero-graphic {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 650px;
-            height: 650px;
-            opacity: 0.1;
-            z-index: 1;
         }
         
         h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            font-weight: 800;
-            line-height: 1.2;
-            background: linear-gradient(45deg, var(--primary-green), var(--accent-teal)); /* Updated gradient */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #3B8200;
         }
         
-        .tagline {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            color: rgba(255, 255, 255, 0.9);
+        .test-section {
+            margin: 40px 0;
+            padding: 20px;
+            border: 1px solid #666;
+            border-radius: 10px;
         }
         
-        .coming-soon {
-            font-size: 1.2rem;
-            background: linear-gradient(45deg, var(--accent-teal), var(--primary-green)); /* Updated gradient */
-            padding: 10px 20px;
-            border-radius: 50px;
+        .test-title {
             font-weight: bold;
-            margin-bottom: 40px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .cta {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            margin-top: 30px;
-            width: 100%;
-            max-width: 500px;
-        }
-        
-        .email-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
-            text-align: left;
-            width: 100%;
-            margin-bottom: -10px;
-            padding-left: 5px;
-        }
-        
-        .subscribe-form {
-            display: flex;
-            width: 100%;
-            position: relative;
-            border-radius: 50px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .subscribe-input {
-            flex: 1;
-            padding: 18px 25px;
-            border: none;
-            outline: none;
-            font-size: 1rem;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-radius: 50px 0 0 50px;
-        }
-        
-        .subscribe-input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.9rem;
-        }
-        
-        .subscribe-btn {
-            background: linear-gradient(45deg, var(--secondary-orange), var(--primary-green)); /* Kept orange-to-green for button */
-            color: white;
-            border: none;
-            padding: 0 30px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
-        }
-        
-        .subscribe-btn:hover {
-            background: linear-gradient(45deg, var(--primary-green), var(--secondary-orange)); /* Reversed gradient on hover */
-        }
-        
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin: 60px 0;
-        }
-        
-        .feature-card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 30px;
-            width: 300px;
-            text-align: center;
-            backdrop-filter: blur(5px);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(59, 130, 0, 0.2); /* Subtle green border on hover */
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--secondary-orange); /* Kept orange for feature icons for contrast */
             margin-bottom: 20px;
+            color: #FAA22C;
         }
         
-        .feature-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--primary-green); /* Changed to green */
+        p {
+            margin: 10px 0;
         }
         
-        .feature-desc {
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        /* Social media styling */
-        .social-section {
-            margin-top: 40px;
-            text-align: center;
-        }
-        
-        .social-heading {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: var(--primary-green);
-        }
-        
-        .social-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .social-link {
+        /* Remove all custom styling from links */
+        .test-1 a {
+            color: white;
+            background: blue;
             display: block;
-            padding: 10px 20px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.3s;
-            min-width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            width: 200px;
         }
         
-        .social-link:hover {
-            background-color: var(--primary-green);
-            transform: translateY(-5px);
+        /* Add direct inline style to links */
+        .test-2 a {
+            /* No CSS - using inline style */
         }
         
-        .social-link i {
-            margin-right: 10px;
-            color: var(--secondary-orange);
-        }
-        
-        footer {
-            background-color: var(--darker-bg);
-            padding: 30px 0;
-            text-align: center;
-            margin-top: 100px;
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-green); /* Changed to green */
-            margin-bottom: 20px;
-        }
-        
-        .footer-links {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .footer-link {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-link:hover {
-            color: var(--secondary-orange); /* Hover with orange for contrast */
-        }
-        
-        .copyright {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.9rem;
-        }
-        
-        /* Animated background */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-        
-        .bg-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--secondary-orange), var(--primary-green)); /* Kept for consistency */
-            opacity: 0.1;
-            filter: blur(60px);
-        }
-        
-        .bg-circle:nth-child(1) {
-            top: 10%;
-            left: 10%;
-            width: 300px;
-            height: 300px;
-            animation: float 20s infinite alternate ease-in-out;
-        }
-        
-        .bg-circle:nth-child(2) {
-            top: 60%;
-            right: 10%;
-            width: 400px;
-            height: 400px;
-            animation: float 15s infinite alternate-reverse ease-in-out;
-        }
-        
-        @keyframes float {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .tagline {
-                font-size: 1.2rem;
-            }
-            
-            .hero-graphic {
-                width: 450px;
-                height: 450px;
-            }
-            
-            .features {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .feature-card {
-                width: 100%;
-                max-width: 400px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .tagline {
-                font-size: 1rem;
-            }
-            
-            .hero-graphic {
-                width: 300px;
-                height: 300px;
-            }
-            
-            .cta {
-                max-width: 90%;
-            }
-            
-            .subscribe-form {
-                flex-direction: row; /* Keep horizontal layout on mobile */
-                border-radius: 25px;
-                height: 45px; /* Control the overall height */
-            }
-            
-            .subscribe-input {
-                border-radius: 25px 0 0 25px;
-                text-align: left;
-                padding: 10px 15px;
-                font-size: 0.9rem;
-                height: 100%;
-            }
-            
-            .subscribe-btn {
-                width: auto;
-                padding: 0 15px;
-                font-size: 0.9rem;
-                height: 100%;
-            }
-            
-            .email-label {
-                text-align: center;
-                padding-left: 0;
-                font-size: 0.85rem;
-                margin-bottom: 5px;
-            }
-        }
-
-        /* Compass Animation - Updated for green colors */
-        .compass-container {
-            position: relative;
-            width: 280px;
-            height: 280px;
-            margin: 0 auto 30px;
-        }
-
-        .compass-base {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(8, 12, 26, 0.9));
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 4px solid rgba(59, 130, 0, 0.3); /* Changed to green border */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .compass-face {
-            width: 90%;
-            height: 90%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(15, 23, 42, 0.9) 0%, rgba(8, 12, 26, 1) 90%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            animation: glow 3s infinite alternate;
-        }
-
-        @keyframes glow {
-            0% { box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), 0 0 5px rgba(59, 130, 0, 0.3); } /* Changed to green glow */
-            100% { box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 0, 0.6); } /* Changed to green glow */
-        }
-
-        .compass-needle-container {
-            position: absolute;
-            width: 70%;
-            height: 70%;
-            animation: spin 20s infinite ease-in-out;
-        }
-
-        .compass-needle {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 8px;
-            height: 90%;
-            overflow: visible;
-        }
-
-        .needle-north {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-bottom: 45% solid var(--primary-green); /* Changed to green */
-        }
-
-        .needle-south {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 35% solid var(--secondary-orange); /* Kept orange for contrast */
-        }
-
-        .center-pin {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle, var(--secondary-orange) 0%, var(--primary-green) 100%); /* Kept gradient for visual interest */
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            z-index: 10;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            20% { transform: rotate(70deg); }
-            40% { transform: rotate(30deg); }
-            60% { transform: rotate(190deg); }
-            80% { transform: rotate(230deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Cardinal markers */
-        .cardinal-marker {
-            position: absolute;
-            font-weight: bold;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 14px;
-        }
-
-        .north {
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--primary-green); /* Changed to green */
-        }
-
-        .east {
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .south {
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .west {
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .discovery-particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--secondary-orange); /* Kept orange for contrast with green elements */
-            border-radius: 50%;
-        }
-
-        .particle:nth-child(1) {
-            top: 20%;
-            left: 30%;
-            animation: float-particle 4s infinite alternate;
-        }
-
-        .particle:nth-child(2) {
-            top: 70%;
-            left: 60%;
-            animation: float-particle 6s infinite alternate-reverse;
-        }
-
-        .particle:nth-child(3) {
-            top: 40%;
-            left: 80%;
-            animation: float-particle 5s infinite alternate;
-        }
-
-        .particle:nth-child(4) {
-            top: 80%;
-            left: 20%;
-            animation: float-particle 7s infinite alternate-reverse;
-        }
-
-        .particle:nth-child(5) {
-            top: 30%;
-            left: 50%;
-            animation: float-particle 3.5s infinite alternate;
-        }
-
-        @keyframes float-particle {
-            0% { transform: translate(0, 0); opacity: 0.5; }
-            100% { transform: translate(20px, 20px); opacity: 1; }
+        /* Remove all event listeners */
+        .test-notice {
+            margin-top: 30px;
+            font-style: italic;
+            color: #999;
         }
     </style>
 </head>
 <body>
-    <!-- Background Animation -->
-    <div class="bg-animation">
-        <div class="bg-circle"></div>
-        <div class="bg-circle"></div>
+    <h1>Seekive Link Test</h1>
+    <p>This page tests different link configurations to identify why links aren't working.</p>
+    
+    <div class="test-section test-1">
+        <div class="test-title">Test 1: Basic Links with CSS</div>
+        <a href="https://www.instagram.com/seekiveapp/" target="_blank">Instagram Link</a>
+        <a href="https://x.com/Seekive" target="_blank">Twitter Link</a>
     </div>
-
-    <header>
-        <div class="container">
-            <div class="logo-container">
-                <div class="logo">
-                    <i class="fa-solid fa-compass logo-icon"></i> Seekive
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section class="hero">
-        <div class="hero-content container">
-            <div class="compass-container">
-                <div class="compass-base">
-                    <div class="compass-face">
-                        <div class="cardinal-marker north">N</div>
-                        <div class="cardinal-marker east">E</div>
-                        <div class="cardinal-marker south">S</div>
-                        <div class="cardinal-marker west">W</div>
-                        
-                        <div class="compass-needle-container">
-                            <div class="compass-needle">
-                                <div class="needle-north"></div>
-                                <div class="needle-south"></div>
-                            </div>
-                        </div>
-                        <div class="center-pin"></div>
-                        <div class="discovery-particles">
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                            <div class="particle"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <h1>Seek. Discover. Experience.</h1>
-            <p class="tagline">Let curiosity guide your journey. Uncover new experiences perfectly matched to your mood, time, and budget.</p>
-            <div class="coming-soon">Coming Soon to App Stores</div>
-            
-            <div class="cta">
-                <div class="email-label">Enter your email for early access when it becomes available</div>
-                <form id="emailForm" class="subscribe-form">
-                    <input type="email" id="emailInput" name="email" placeholder="youremail@example.com" class="subscribe-input" required>
-                    <button type="submit" class="subscribe-btn">Notify Me</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <section class="container">
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-compass"></i>
-                </div>
-                <h3 class="feature-title">Curated Discovery</h3>
-                <p class="feature-desc">Break free from your routine with personalized recommendations that expand your horizons and introduce new possibilities.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-sliders"></i>
-                </div>
-                <h3 class="feature-title">Tailored Exploration</h3>
-                <p class="feature-desc">Set your preferences for time, budget, and distance to get recommendations that perfectly fit your current situation.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fa-solid fa-lightbulb"></i>
-                </div>
-                <h3 class="feature-title">Spontaneous Inspiration</h3>
-                <p class="feature-desc">Let Seekive inspire your next adventure with AI-powered suggestions that consider the weather, time of day, and your past interests.</p>
-            </div>
-        </div>
-        
-        <!-- Simple social media links that work -->
-        <div class="social-section">
-            <h3 class="social-heading">Follow Us</h3>
-            <div class="social-links">
-                <a href="https://www.instagram.com/seekiveapp/" class="social-link" target="_blank">
-                    <i class="fa-brands fa-instagram"></i> Instagram
-                </a>
-                <a href="https://x.com/Seekive" class="social-link" target="_blank">
-                    <i class="fa-brands fa-twitter"></i> Twitter
-                </a>
-                <a href="https://www.facebook.com/profile.php?id=61575759483549" class="social-link" target="_blank">
-                    <i class="fa-brands fa-facebook-f"></i> Facebook
-                </a>
-                <a href="https://www.tiktok.com/@seekive" class="social-link" target="_blank">
-                    <i class="fa-brands fa-tiktok"></i> TikTok
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-logo">
-                <i class="fa-solid fa-compass logo-icon"></i> Seekive
-            </div>
-            <div class="footer-links">
-                <a href="#" class="footer-link">Privacy Policy</a>
-                <a href="#" class="footer-link">Terms of Service</a>
-                <a href="#" class="footer-link">Contact</a>
-            </div>
-            <p class="copyright">&copy; 2025 Seekive. All rights reserved.</p>
-        </div>
-    </footer>
+    
+    <div class="test-section test-2">
+        <div class="test-title">Test 2: Links with Inline Styles Only</div>
+        <a href="https://www.instagram.com/seekiveapp/" target="_blank" style="display:block; margin:20px auto; padding:10px; background:red; color:white; width:200px;">Instagram with Inline Style</a>
+        <a href="https://x.com/Seekive" target="_blank" style="display:block; margin:20px auto; padding:10px; background:purple; color:white; width:200px;">Twitter with Inline Style</a>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">Test 3: Plain Text Links</div>
+        <p>Instagram: <a href="https://www.instagram.com/seekiveapp/" target="_blank">https://www.instagram.com/seekiveapp/</a></p>
+        <p>Twitter: <a href="https://x.com/Seekive" target="_blank">https://x.com/Seekive</a></p>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">Test 4: JavaScript Navigation</div>
+        <button onclick="window.location.href='https://www.instagram.com/seekiveapp/'">Go to Instagram via JavaScript</button>
+        <p style="margin-top: 20px;">
+            <button onclick="window.location.href='https://x.com/Seekive'">Go to Twitter via JavaScript</button>
+        </p>
+    </div>
+    
+    <div class="test-notice">
+        <p>If none of these links work, the issue might be with your browser settings or with how your development environment is handling HTML files.</p>
+    </div>
     
     <script>
-    document.getElementById('emailForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent normal form submission
+        // Confirm the page loaded properly
+        console.log('Link test page loaded successfully');
         
-        // Get the email from the input
-        const email = document.getElementById('emailInput').value;
-        
-        // Create a hidden iframe to submit to Google Forms
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
-        
-        // Create a form within the iframe
-        const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSc3IeuUsH4kGK8Zzs9ZTnOkt7SkgNYXRFS6lkiqBWvm6nztLA/formResponse';
-        iframe.contentWindow.document.write(`
-            <form id="hiddenForm" action="${googleFormUrl}" method="post">
-                <input name="entry.1741794365" value="${email}">
-            </form>
-        `);
-        
-        // Submit the hidden form
-        iframe.contentWindow.document.getElementById('hiddenForm').submit();
-        
-        // Redirect to thank you page after a short delay
-        setTimeout(function() {
-            window.location.href = '/thank-you/';
-        }, 500);
-    });
+        // Check if there are any event listeners interfering with clicks
+        document.addEventListener('click', function(e) {
+            console.log('Document click detected on:', e.target);
+        });
     </script>
 </body>
 </html>

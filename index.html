@@ -606,6 +606,33 @@
             0% { transform: translate(0, 0); opacity: 0.5; }
             100% { transform: translate(20px, 20px); opacity: 1; }
         }
+        .social-links {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.social-button {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: #FAA22C; /* Orange color for social icons */
+    font-size: 1.3rem;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.social-button:hover {
+    background-color: #3B8200; /* Green on hover */
+    color: white; /* White text on hover for better contrast */
+    transform: translateY(-5px);
+}
     </style>
 </head>
 <body>
@@ -695,11 +722,19 @@
     </div>
     
     <div class="social-links">
-            <a href="https://www.instagram.com/seekiveapp/" class="social-icon" id="instagram-link" target="_blank" rel="noopener noreferrer" onclick="window.open('https://www.instagram.com/seekiveapp/', '_blank'); return false;"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://x.com/Seekive" class="social-icon" id="twitter-link" target="_blank" rel="noopener noreferrer" onclick="window.open('https://x.com/Seekive', '_blank'); return false;"><i class="fa-brands fa-twitter"></i></a>
-            <a href="https://www.facebook.com/profile.php?id=61575759483549" class="social-icon" id="facebook-link" target="_blank" rel="noopener noreferrer" onclick="window.open('https://www.facebook.com/profile.php?id=61575759483549', '_blank'); return false;"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="https://www.tiktok.com/@seekive" class="social-icon" id="tiktok-link" target="_blank" rel="noopener noreferrer" onclick="window.open('https://www.tiktok.com/@seekive', '_blank'); return false;"><i class="fa-brands fa-tiktok"></i></a>
-        </div>
+    <button class="social-button" onclick="window.open('https://www.instagram.com/seekiveapp/', '_blank')">
+        <i class="fa-brands fa-instagram"></i>
+    </button>
+    <button class="social-button" onclick="window.open('https://x.com/Seekive', '_blank')">
+        <i class="fa-brands fa-twitter"></i>
+    </button>
+    <button class="social-button" onclick="window.open('https://www.facebook.com/profile.php?id=61575759483549', '_blank')">
+        <i class="fa-brands fa-facebook-f"></i>
+    </button>
+    <button class="social-button" onclick="window.open('https://www.tiktok.com/@seekive', '_blank')">
+        <i class="fa-brands fa-tiktok"></i>
+    </button>
+</div>
     </section>
 
     <footer>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Seekive</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #3B8200;
+            --secondary-orange: #FAA22C;
+            --accent-teal: #21A88D;
+            --dark-bg: #0F172A;
+            --darker-bg: #080C1A;
+            --light-text: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 20px 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            animation: rotate 8s infinite linear;
+            display: inline-block;
+            margin-right: 10px;
+            color: var(--primary-green);
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .content-section {
+            padding: 50px 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary-green), var(--accent-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section h2 {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--primary-green);
+            padding-bottom: 5px;
+        }
+        
+        .section h3 {
+            color: var(--secondary-orange);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+        
+        .section p, .section li {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 10px;
+        }
+        
+        .section ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .last-updated {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        
+        .contact-info {
+            background-color: rgba(59, 130, 0, 0.1);
+            border: 1px solid var(--primary-green);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .contact-info h3 {
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+        
+        .contact-info a {
+            color: var(--secondary-orange);
+            text-decoration: none;
+        }
+        
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            background-color: var(--darker-bg);
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: var(--secondary-orange);
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+        
+        /* Background Animation */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--secondary-orange), var(--primary-green));
+            opacity: 0.1;
+            filter: blur(60px);
+            pointer-events: none;
+        }
+        
+        .bg-circle:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+        
+        .bg-circle:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            width: 400px;
+            height: 400px;
+            animation: float 15s infinite alternate-reverse ease-in-out;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .content-container {
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .content-container {
+                padding: 20px;
+            }
+            
+            .footer-links {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <a href="/" class="logo">
+                    <i class="fa-solid fa-compass logo-icon"></i> Seekive
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">Terms of Service</h1>
+                <p class="page-subtitle">Agreement for using Seekive</p>
+            </div>
+            
+            <div class="content-container">
+                <div class="last-updated">
+                    Last Updated: July 17, 2025
+                </div>
+                
+                <div class="section">
+                    <h2>1. Acceptance of Terms</h2>
+                    <p>By accessing and using Seekive ("the app," "our service"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by these Terms of Service, please do not use this service.</p>
+                </div>
+
+                <div class="section">
+                    <h2>2. Description of Service</h2>
+                    <p>Seekive is a mobile application and web service that provides personalized recommendations for activities, experiences, and discoveries based on user preferences, location, time, and budget constraints. Our service uses artificial intelligence and machine learning to deliver curated suggestions.</p>
+                </div>
+
+                <div class="section">
+                    <h2>3. User Accounts and Registration</h2>
+                    <h3>Account Creation</h3>
+                    <ul>
+                        <li>You must provide accurate and complete information when creating an account</li>
+                        <li>You are responsible for maintaining the security of your account credentials</li>
+                        <li>You must be at least 13 years old to use this service</li>
+                        <li>One person may not maintain more than one account</li>
+                    </ul>
+                    
+                    <h3>Account Responsibilities</h3>
+                    <ul>
+                        <li>You are responsible for all activities that occur under your account</li>
+                        <li>You must notify us immediately of any unauthorized use of your account</li>
+                        <li>We reserve the right to terminate accounts that violate these terms</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>4. Acceptable Use Policy</h2>
+                    <p>You agree not to use Seekive to:</p>
+                    <ul>
+                        <li>Violate any applicable local, state, national, or international law</li>
+                        <li>Transmit or post any content that is unlawful, harmful, threatening, abusive, or discriminatory</li>
+                        <li>Impersonate any person or entity or misrepresent your affiliation</li>
+                        <li>Interfere with or disrupt our services or servers</li>
+                        <li>Attempt to gain unauthorized access to our systems</li>
+                        <li>Use automated scripts or bots to access our service</li>
+                        <li>Collect or harvest personal information of other users</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>5. Intellectual Property Rights</h2>
+                    <h3>Our Content</h3>
+                    <p>All content, features, and functionality of Seekive, including but not limited to text, graphics, logos, icons, images, audio clips, and software, are owned by Seekive and are protected by copyright, trademark, and other intellectual property laws.</p>
+                    
+                    <h3>User Content</h3>
+                    <p>By submitting content to Seekive, you grant us a non-exclusive, worldwide, royalty-free license to use, reproduce, modify, and distribute your content in connection with our service.</p>
+                </div>
+
+                <div class="section">
+                    <h2>6. Privacy and Data Protection</h2>
+                    <p>Your privacy is important to us. Please review our Privacy Policy, which also governs your use of our service, to understand our practices regarding the collection and use of your personal information.</p>
+                </div>
+
+                <div class="section">
+                    <h2>7. Third-Party Services and Content</h2>
+                    <p>Seekive may contain links to third-party websites, services, or applications. We are not responsible for the content, privacy policies, or practices of any third-party services. You acknowledge and agree that we shall not be liable for any damage or loss caused by your use of any third-party services.</p>
+                </div>
+
+                <div class="section">
+                    <h2>8. Service Availability and Modifications</h2>
+                    <ul>
+                        <li>We strive to maintain service availability but cannot guarantee uninterrupted access</li>
+                        <li>We reserve the right to modify, suspend, or discontinue our service at any time</li>
+                        <li>We may perform maintenance that temporarily affects service availability</li>
+                        <li>We may update these terms from time to time with notice to users</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>9. Limitation of Liability</h2>
+                    <p>To the maximum extent permitted by applicable law, Seekive and its affiliates, officers, employees, agents, partners, and licensors shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, data, use, goodwill, or other intangible losses.</p>
+                </div>
+
+                <div class="section">
+                    <h2>10. Indemnification</h2>
+                    <p>You agree to defend, indemnify, and hold harmless Seekive and its affiliates from and against any claims, damages, obligations, losses, liabilities, costs, or debt, and expenses (including attorney's fees) arising from your use of our service or violation of these terms.</p>
+                </div>
+
+                <div class="section">
+                    <h2>11. Termination</h2>
+                    <p>We may terminate or suspend your account and access to our service immediately, without prior notice, for conduct that we believe violates these Terms of Service or is harmful to other users, us, or third parties, or for any other reason.</p>
+                </div>
+
+                <div class="section">
+                    <h2>12. Governing Law</h2>
+                    <p>These Terms of Service and any dispute arising out of or related to them shall be governed by and construed in accordance with the laws of the jurisdiction where Seekive is based, without regard to conflict of law principles.</p>
+                </div>
+
+                <div class="section">
+                    <h2>13. Changes to Terms</h2>
+                    <p>We reserve the right to modify these Terms of Service at any time. We will notify users of any changes by posting the new Terms of Service on this page and updating the "Last Updated" date. Your continued use of our service after any such changes constitutes your acceptance of the new terms.</p>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>If you have any questions about these Terms of Service, please contact us at:</p>
+                    <p><a href="mailto:info@seekive.com">info@seekive.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <i class="fa-solid fa-compass logo-icon"></i> Seekive
+            </div>
+            <div class="footer-links">
+                <a href="/" class="footer-link">Home</a>
+                <a href="/privacy-policy/" class="footer-link">Privacy Policy</a>
+                <a href="/terms-of-service/" class="footer-link">Terms of Service</a>
+                <a href="/contact/" class="footer-link">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2025 Seekive. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

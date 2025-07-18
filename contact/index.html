@@ -550,51 +550,34 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
         return;
     }
     
-    // Show loading state
-    const submitBtn = document.querySelector('.submit-btn');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-    submitBtn.disabled = true;
+    // Map your dropdown values to match Google Form exactly
+    let googleSubject = subject;
+    if (subject === 'general') googleSubject = 'General Inquiry';
+    if (subject === 'partnership') googleSubject = 'Partnership/Business';
+    if (subject === 'press') googleSubject = 'Press/Media';
+    if (subject === 'technical') googleSubject = 'Technical Support';
+    if (subject === 'feedback') googleSubject = 'Feedback/Suggestions';
+    if (subject === 'other') googleSubject = 'Other';
     
-    // Create a simple form and submit it
-    const hiddenForm = document.createElement('form');
-    hiddenForm.action = 'https://docs.google.com/forms/d/e/1FAIpQLScVmjjba3lH1E1iUz5NWsC6u-UTxcE-Cx0KEkx_lHWy7nPEKw/formResponse';
-    hiddenForm.method = 'POST';
-    hiddenForm.style.display = 'none';
-    
-    // Add form fields
-    const entries = [
-        {name: 'entry.1532751025', value: name},
-        {name: 'entry.1415617857', value: email},
-        {name: 'entry.211695791', value: subject},
-        {name: 'entry.1766406493', value: message}
-    ];
-    
-    entries.forEach(entry => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = entry.name;
-        input.value = entry.value;
-        hiddenForm.appendChild(input);
+    // Create pre-filled Google Form URL
+    const baseUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScVmjjba3lH1E1iUz5NWsC6u-UTxcE-Cx0KEkx_lHWy7nPEKw/viewform';
+    const params = new URLSearchParams({
+        'entry.1532751025': name,
+        'entry.1415617857': email,
+        'entry.211695791': googleSubject,
+        'entry.1766406493': message
     });
     
-    // Submit form in hidden iframe
-    const iframe = document.createElement('iframe');
-    iframe.name = 'hidden_iframe';
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
+    const finalUrl = baseUrl + '?' + params.toString();
     
-    hiddenForm.target = 'hidden_iframe';
-    document.body.appendChild(hiddenForm);
+    // Show loading message
+    const submitBtn = document.querySelector('.submit-btn');
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
+    submitBtn.disabled = true;
     
-    // Submit and clean up
-    hiddenForm.submit();
-    
-    // Redirect after submission
+    // Redirect to pre-filled form
     setTimeout(() => {
-        document.body.removeChild(hiddenForm);
-        document.body.removeChild(iframe);
-        window.location.href = '/contact-thank-you/';
+        window.location.href = finalUrl;
     }, 1000);
 });
 </script>

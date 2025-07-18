@@ -536,7 +536,7 @@
 
     <script>
 document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+    e.preventDefault(); // Prevent normal form submission
     
     // Get form data
     const name = document.getElementById('name').value;
@@ -550,7 +550,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
         return;
     }
     
-    // Map your dropdown values to match Google Form exactly
+    // Map subject values to match Google Form exactly
     let googleSubject = subject;
     if (subject === 'general') googleSubject = 'General Inquiry';
     if (subject === 'partnership') googleSubject = 'Partnership/Business';
@@ -559,26 +559,29 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     if (subject === 'feedback') googleSubject = 'Feedback/Suggestions';
     if (subject === 'other') googleSubject = 'Other';
     
-    // Create pre-filled Google Form URL
-    const baseUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScVmjjba3lH1E1iUz5NWsC6u-UTxcE-Cx0KEkx_lHWy7nPEKw/viewform';
-    const params = new URLSearchParams({
-        'entry.1532751025': name,
-        'entry.1415617857': email,
-        'entry.211695791': googleSubject,
-        'entry.1766406493': message
-    });
+    // Create a hidden iframe to submit to Google Forms (same method as early access)
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
     
-    const finalUrl = baseUrl + '?' + params.toString();
+    // Create a form within the iframe
+    const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScVmjjba3lH1E1iUz5NWsC6u-UTxcE-Cx0KEkx_lHWy7nPEKw/formResponse';
+    iframe.contentWindow.document.write(`
+        <form id="hiddenContactForm" action="${googleFormUrl}" method="post">
+            <input name="entry.1532751025" value="${name}">
+            <input name="entry.1415617857" value="${email}">
+            <input name="entry.211695791" value="${googleSubject}">
+            <input name="entry.1766406493" value="${message}">
+        </form>
+    `);
     
-    // Show loading message
-    const submitBtn = document.querySelector('.submit-btn');
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
-    submitBtn.disabled = true;
+    // Submit the hidden form
+    iframe.contentWindow.document.getElementById('hiddenContactForm').submit();
     
-    // Redirect to pre-filled form
-    setTimeout(() => {
-        window.location.href = finalUrl;
-    }, 1000);
+    // Redirect to contact thank you page after a short delay (same as early access)
+    setTimeout(function() {
+        window.location.href = '/contact-thank-you/';
+    }, 500);
 });
 </script>
 </body>

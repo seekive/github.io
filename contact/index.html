@@ -544,38 +544,58 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     const subject = document.getElementById('subject').value;
     const message = document.getElementById('message').value;
     
-    // Create form data for submission
-    const formData = new FormData();
-    formData.append('entry.1532751025', name);
-    formData.append('entry.1415617857', email);
-    formData.append('entry.211695791', subject);
-    formData.append('entry.1766406493', message);
+    // Debug: Log the values
+    console.log('Form values:', {name, email, subject, message});
     
-    // Show loading state
-    const submitBtn = document.querySelector('.submit-btn');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-    submitBtn.disabled = true;
+    // Check if all required fields have values
+    if (!name || !email || !subject || !message) {
+        alert('Please fill in all required fields');
+        return;
+    }
     
-    // Submit to Google Forms using fetch
-    fetch('https://docs.google.com/forms/d/e/1FAIpQLScVmjjba3lH1E1iUz5NWsC6u-UTxcE-Cx0KEkx_lHWy7nPEKw/formResponse', {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors'
-    }).then(() => {
-        // Redirect to thank you page
-        window.location.href = '/contact-thank-you/';
-    }).catch((error) => {
-        console.log('Form submitted (this error is normal):', error);
-        // Even with an error, the form usually submits successfully
-        // Redirect to thank you page
-        window.location.href = '/contact-thank-you/';
+    // Try a different approach - redirect directly to Google Form with pre-filled data
+    const baseUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScVmjjba3lH1E1iUz5NWsC6u-UTxcE-Cx0KEkx_lHWy7nPEKw/viewform';
+    const params = new URLSearchParams({
+        'entry.1532751025': name,
+        'entry.1415617857': email,
+        'entry.211695791': subject,
+        'entry.1766406493': message,
+        'submit': 'Submit'
     });
     
-    // Fallback redirect after 3 seconds
+    // Option 1: Open pre-filled form in new tab (for testing)
+    // window.open(baseUrl + '?' + params.toString(), '_blank');
+    
+    // Option 2: Try hidden form submission
+    const form = document.createElement('form');
+    form.action = 'https://docs.google.com/forms/d/e/1FAIpQLScVmjjba3lH1E1iUz5NWsC6u-UTxcE-Cx0KEkx_lHWy7nPEKw/formResponse';
+    form.method = 'POST';
+    form.target = '_blank'; // Opens in new tab so you can see if it works
+    
+    // Add hidden inputs
+    const fields = [
+        {name: 'entry.1532751025', value: name},
+        {name: 'entry.1415617857', value: email},
+        {name: 'entry.211695791', value: subject},
+        {name: 'entry.1766406493', value: message}
+    ];
+    
+    fields.forEach(field => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = field.name;
+        input.value = field.value;
+        form.appendChild(input);
+    });
+    
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+    
+    // Redirect after a short delay
     setTimeout(() => {
         window.location.href = '/contact-thank-you/';
-    }, 3000);
+    }, 2000);
 });
 </script>
 </body>

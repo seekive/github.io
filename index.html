@@ -807,11 +807,11 @@
         
         // Create a form within the iframe
         const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSc3IeuUsH4kGK8Zzs9ZTnOkt7SkgNYXRFS6lkiqBWvm6nztLA/formResponse';
-        iframe.contentWindow.document.write(
-            <form id="hiddenForm" action="${googleFormUrl}" method="post">
-                <input name="entry.1741794365" value="${email}">
-            </form>
-        );
+        iframe.contentWindow.document.write(`
+    <form id="hiddenForm" action="${googleFormUrl}" method="post">
+        <input name="entry.1741794365" value="${email}">
+    </form>
+`);
         
         // Submit the hidden form
         iframe.contentWindow.document.getElementById('hiddenForm').submit();

@@ -1055,6 +1055,20 @@
         background: transparent;
         margin-left: 20px;
     }
+
+    @media (max-width: 768px) {
+    .hero-compass {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-compass {
+        width: 200px;
+        height: 200px;
+    }
+}
 }
         }
     </style>
@@ -1109,16 +1123,18 @@
                     </p>
                     
                     <div class="hero-cta">
-                        <div class="coming-soon">Coming Soon to App Stores</div>
-
-<div class="early-access-compact">
-    <h3 style="color: var(--primary-blue); margin-bottom: 15px; font-size: 1.3rem;">Be First to Explore</h3>
-    <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95rem;">Join our early access list and be among the first to experience Seekive when it launches.</p>
+                        <div class="hero-cta">
+    <div class="coming-soon">Coming Soon to App Stores</div>
     
-    <form id="heroEmailForm" class="email-form">
-        <input type="email" id="heroEmailInput" name="email" placeholder="Enter your email for early access" class="email-input" required>
-        <button type="submit" class="submit-btn">Join Early Access</button>
-    </form>
+    <div class="early-access-compact">
+        <h3 style="color: var(--primary-blue); margin-bottom: 15px; font-size: 1.3rem;">Be First to Explore</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95rem;">Join our early access list and be among the first to experience Seekive when it launches.</p>
+        
+        <form id="heroEmailForm" class="email-form">
+            <input type="email" id="heroEmailInput" name="email" placeholder="Enter your email for early access" class="email-input" required>
+            <button type="submit" class="submit-btn">Join Early Access</button>
+        </form>
+    </div>
 </div>
                 </div>
 

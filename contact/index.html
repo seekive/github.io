@@ -1300,18 +1300,14 @@
         })();
 
         // Enhanced scroll effect for header
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%)';
-                header.style.backdropFilter = 'blur(25px)';
-                header.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)';
-                header.style.backdropFilter = 'none';
-                header.style.boxShadow = 'none';
-            }
-        });
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    if (window.scrollY > 100) {
+        header.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+    } else {
+        header.style.boxShadow = 'none';
+    }
+});
 
         // CRITICAL: Contact form functionality - PRESERVED EXACTLY
         document.getElementById('contactForm').addEventListener('submit', function(e) {

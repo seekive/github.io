@@ -392,12 +392,21 @@
 /* Tighten spacing + larger relative size on small screens */
 @media (max-width: 768px){
     .hero-compass-wrap{
-        margin: clamp(24px, 6vw, 60px) 0 0 0;
+        /* slightly tighter top margin so the larger compass still fits nicely */
+        margin: clamp(16px, 4vw, 36px) 0 0 0;
     }
     .hero-compass{
-        width: clamp(200px, 70vw, 360px);
+        /* ↑ bigger on mobile only */
+        width: clamp(300px, 92vw, 560px);
+        aspect-ratio: 1 / 1;
     }
 }
+
+/* Optional: ultra-small devices */
+@media (max-width: 360px){
+    .hero-compass{ width: clamp(280px, 96vw, 520px); }
+}
+
 
 @keyframes float {
     0%, 100% { transform: translateY(0); }

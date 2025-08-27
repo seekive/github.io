@@ -229,9 +229,9 @@
 
 .dropdown-menu {
     position: absolute;
-    top: 100%;
+    top: 100%;          /* sits flush under "Home" */
     left: 0;
-    margin-top: 12px;
+    margin-top: 0;      /* remove the gap that kills hover */
     min-width: 220px;
     background: var(--surface);
     border: 1px solid var(--border);
@@ -240,9 +240,11 @@
     list-style: none;
     padding: 8px 0;
     opacity: 0;
-    transform: translateY(8px);
+    visibility: hidden; /* hide without moving it */
+    transform: scale(0.98);    /* subtle open animation, no gap */
+    transform-origin: top;
     pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
     z-index: 1001;
 }
 
@@ -272,8 +274,10 @@
 .dropdown:hover .dropdown-menu,
 .dropdown:focus-within .dropdown-menu {
     opacity: 1;
-    transform: translateY(0);
+    visibility: visible;
+    transform: scale(1);
     pointer-events: auto;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s;
 }
 
 /* Nav is already hidden on mobile in your CSS (@media max-width:768px) */

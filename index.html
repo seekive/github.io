@@ -364,25 +364,46 @@
             background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
         }
 
-        /* Hero Visual - Large Compass */
-        .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
+        /* Compass (responsive) */
+.hero-compass-wrap{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Top spacing scales with viewport */
+    margin: clamp(32px, 8vw, 120px) 0 0 0;
+}
 
-        .hero-compass {
-            width: 420px;
-            height: 420px;
-            position: relative;
-            animation: float 8s ease-in-out infinite;
-        }
+.hero-compass{
+    /* Grows smoothly between mobile and desktop */
+    width: clamp(220px, 45vw, 520px);
+    aspect-ratio: 1 / 1;
+    position: relative;
+    animation: float 8s ease-in-out infinite;
+}
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-25px); }
-        }
+.hero-compass img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Tighten spacing + larger relative size on small screens */
+@media (max-width: 768px){
+    .hero-compass-wrap{
+        margin: clamp(24px, 6vw, 60px) 0 0 0;
+    }
+    .hero-compass{
+        width: clamp(200px, 70vw, 360px);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-25px); }
+}
+
 
         .hero-compass-outer {
             width: 100%;
@@ -970,10 +991,9 @@
             }
 
             /* Fix compass centering on mobile */
-    .hero-compass img {
-        width: 280px !important;
-        height: 280px !important;
-    }
+    /* Compass is sized fluidly above; no fixed pixels needed */
+.hero-compass img { width: 100%; height: 100%; }
+
 
             .email-form {
                 flex-direction: column;
@@ -1068,12 +1088,13 @@
             </div>
         </div>
         
-        <!-- Centered Compass Section -->
-        <div style="width: 100vw; display: flex; justify-content: center; margin: 120px 0 0 0;">
-            <div class="hero-compass">
-                <img src="appcompass.png" alt="Seekive Compass" style="width: 420px; height: 420px; object-fit: contain; animation: float 8s ease-in-out infinite;">
-            </div>
-        </div>
+        
+        <!-- Compass -->
+<div class="hero-compass-wrap">
+  <div class="hero-compass">
+    <img src="appcompass.png" alt="Seekive Compass">
+  </div>
+</div>
     </section>
 
     <!-- Features Section -->

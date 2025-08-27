@@ -245,14 +245,22 @@
 
         .hero-content {
             display: flex;
-            gap: 80px;
+            flex-direction: column;
             align-items: center;
+            text-align: center;
+            gap: 60px;
             position: relative;
             z-index: 2;
         }
 
-        .hero-text, .hero-visual {
-            flex: 1;
+        .hero-text {
+            max-width: 800px;
+        }
+
+        .hero-visual {
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .hero-text h1 {
@@ -892,9 +900,7 @@
             }
 
             .hero-content {
-                flex-direction: column;
-                text-align: center;
-                gap: 50px;
+                gap: 40px;
             }
 
             .hero-text h1 {
@@ -1027,7 +1033,7 @@
                         <div class="coming-soon">Coming Soon to App Stores</div>
                         
                         <div class="early-access-compact">
-        <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95rem;">Join our early access list and be among the first to be notified and experience Seekive when it launches.</p>
+        <p>Join our early access list and be among the first to experience Seekive when it launches.</p>
         
                         <form id="heroEmailForm" class="email-form">
                             <input type="email" id="heroEmailInput" name="email" placeholder="Enter your email for early access" class="email-input" required>
@@ -1282,7 +1288,7 @@
         <div class="container">
             <h2>Be First to Explore</h2>
             <p class="hero-description" style="max-width: 650px; margin: 0 auto 50px;">
-                Join our early access list and be among the first to be notified and experience Seekive when it launches. Get exclusive access and help shape the future of discovery.
+                Join our early access list and be among the first to experience Seekive when it launches. Get exclusive access and help shape the future of discovery.
             </p>
             
             <form id="mainEmailForm" class="early-access-form">

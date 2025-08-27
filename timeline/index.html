@@ -351,49 +351,98 @@
             background: var(--surface-light); 
             color: var(--text-primary); 
         }
-
-/* Top-level row (Home/About/Timeline/Contact) */
-.mobile-item{
-  display:flex; align-items:center; justify-content:space-between;
-  padding:12px; border-radius:10px;
-}
-.mobile-item:hover{ background: var(--surface-light); }
-
-/* Keep "Home" link styled like other links */
-.mobile-root-link{
-  flex:1; color:var(--text-secondary); text-decoration:none; font-weight:500;
+/* In the mobile drawer, remove gray hover bg for top-level links */
+#mobileNav .mobile-list > li > a:hover{
+  background: transparent;
+  color: var(--primary-blue);
 }
 
-/* Chevron button – minimal, aligned */
-.sub-toggle{
-  width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center;
-  border:1px solid var(--border); border-radius:10px; background:var(--surface);
-  color:var(--text-primary); cursor:pointer;
-}
-.chev{ transition: transform .2s ease; }
-.mobile-collapsible.open .chev{ transform: rotate(180deg); }
-
-/* Sublist – no bullets, no chunky boxes */
-.sublist{
-  list-style:none;
-  margin: 4px 0 0 0;
-  padding: 0;
-}
-.sublist li a{
-  display:block; padding:10px 16px 10px 22px; /* small indent */
-  border-radius:8px; text-decoration:none; color:var(--text-secondary); font-weight:500;
-}
-.sublist li a:hover{ background: var(--surface-light); color: var(--text-primary); }
-
-/* Active item: blue text ONLY (no gray background) */
-.mobile-list a.is-active{
+/* Active = blue text only (no background) */
+#mobileNav .mobile-list a.is-active{
   color: var(--primary-blue) !important;
   background: transparent !important;
   font-weight: 600;
 }
 
+        
+/* Top-level row (Home/About/Timeline/Contact) — no background */
+.mobile-item{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;                 /* match anchors exactly */
+  border-radius: 0;
+  background: transparent !important;
+}
+.mobile-item:hover{           /* kill the gray hover */
+  background: transparent !important;
+}
+
+/* Keep Home styled/inline exactly like the others (with space for chevron) */
+.mobile-root-link{
+  flex: 1;
+  display: block;
+  padding: 12px 44px 12px 12px; /* same left pad as others, extra right for chevron */
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.sub-toggle,
+.mobile-list a { -webkit-tap-highlight-color: transparent; }
 
         
+/* Chevron — transparent, absolute, no gray block */
+.sub-toggle{
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;     /* no gray */
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.chev{ transition: transform .2s ease; }
+.mobile-collapsible.open .chev{ transform: rotate(180deg); }
+
+
+/* Sublist — animate height + hide overflow so text can't leak out */
+.sublist{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;                 /* critical */
+  height: 0;                        /* collapsed by default (matches [hidden]) */
+  transition: height .22s ease;     /* critical */
+}
+
+        /* Guarantee hidden state snaps shut (prevents ghost text) */
+#mobileNav .sublist[hidden]{
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+.sublist li a{
+  display: block;
+  padding: 10px 12px 10px 24px;     /* subtle indent */
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.sublist li a:hover{
+  background: var(--surface-light);
+  color: var(--text-primary);
+}
+
 
         .mobile-section-label{
   color: var(--text-muted);

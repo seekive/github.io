@@ -1090,10 +1090,87 @@
 .mobile-section{ color: var(--primary-blue); font-weight:600; padding:6px 12px; margin-top:8px; }
 
 .mobile-cta{ display:inline-block; text-align:center; }
-
+        
 /* Prevent page scroll when menu is open */
 body.no-scroll{ overflow:hidden; }
 
+/* --- New mobile drawer polish --- */
+#mobileNav .mobile-list > li > a:hover{
+  background: transparent;
+  color: var(--primary-blue);
+}
+
+/* Active = blue text only (no background) */
+#mobileNav .mobile-list a.is-active{
+  color: var(--primary-blue) !important;
+  background: transparent !important;
+  font-weight: 600;
+}
+
+/* Top row for Home with chevron */
+.mobile-item{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  background: transparent !important;
+}
+.mobile-item:hover{ background: transparent !important; }
+
+.mobile-root-link{
+  flex: 1;
+  display: block;
+  padding: 12px 44px 12px 12px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Chevron button */
+.sub-toggle{
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.chev{ transition: transform .2s ease; }
+.mobile-collapsible.open .chev{ transform: rotate(180deg); }
+
+/* Collapsible sublist */
+.sublist{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 0;
+  transition: height .22s ease;
+}
+#mobileNav .sublist[hidden]{ height: 0 !important; overflow: hidden !important; }
+.sublist li a{
+  display: block;
+  padding: 10px 12px 10px 24px; /* indent */
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.sublist li a:hover{
+  background: var(--surface-light);
+  color: var(--text-primary);
+}
+
+        
 /* Show mobile UI / hide desktop bits under 768px */
 @media (max-width: 768px){
   .nav-toggle{ display:inline-flex; }
@@ -1232,9 +1309,9 @@ body.no-scroll{ overflow:hidden; }
         Home <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
       </a>
       <ul class="dropdown-menu" role="menu" aria-label="Home">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#categories">Discover</a></li>
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#how-it-works">How It Works</a></li>
+        <li><a href="/#categories">Discover</a></li>
       </ul>
     </li>
     <li><a href="/about/">About</a></li>
@@ -1255,14 +1332,26 @@ body.no-scroll{ overflow:hidden; }
       <img src="logo1.png" alt="Seekive" width="28" height="28" style="vertical-align:middle;margin-right:8px;"> Seekive
     </a>
 
+    <!-- Top-level items (Home has a collapsible sublist) -->
     <ul class="mobile-list">
-      <li class="mobile-section">Home</li>
-      <li><a href="#features" data-close>Features</a></li>
-      <li><a href="#how-it-works" data-close>How It Works</a></li>
-      <li><a href="#categories" data-close>Discover</a></li>
-    </ul>
+      <li class="mobile-collapsible" id="homeCollapsible">
+        <div class="mobile-item">
+          <a href="/" class="mobile-root-link" data-close>Home</a>
+          <button type="button"
+                  class="sub-toggle"
+                  aria-expanded="false"
+                  aria-controls="homeSublist"
+                  aria-label="Show Home sections">
+            <i class="fa-solid fa-chevron-down chev" aria-hidden="true"></i>
+          </button>
+        </div>
+        <ul id="homeSublist" class="sublist" hidden>
+          <li><a href="/#features" data-close>Features</a></li>
+          <li><a href="/#how-it-works" data-close>How It Works</a></li>
+          <li><a href="/#categories" data-close>Discover</a></li>
+        </ul>
+      </li>
 
-    <ul class="mobile-list">
       <li><a href="/about/" data-close>About</a></li>
       <li><a href="/timeline/" data-close>Timeline</a></li>
       <li><a href="/contact/" data-close>Contact</a></li>
@@ -1271,6 +1360,7 @@ body.no-scroll{ overflow:hidden; }
     <a href="#early-access" class="cta-nav mobile-cta" data-close>Get Early Access</a>
   </div>
 </div>
+
 
         </div>
     </header>
@@ -1697,48 +1787,17 @@ window.addEventListener('scroll', function() {
         });
     });
 
-  /* ===== Mobile nav (open/close) ===== */
-  const navToggle = document.querySelector('.nav-toggle');
-  const mobileNav = document.getElementById('mobileNav');
-  const panel = mobileNav?.querySelector('.mobile-nav__panel');
-  const overlay = mobileNav?.querySelector('.mobile-nav__overlay');
-  const closeBtn = mobileNav?.querySelector('.mobile-close');
+  // ===== Mobile nav (open/close) =====
+const navToggle = document.querySelector('.nav-toggle');
+const mobileNav = document.getElementById('mobileNav');
+const panel = mobileNav?.querySelector('.mobile-nav__panel');
+const overlay = mobileNav?.querySelector('.mobile-nav__overlay');
+const closeBtn = mobileNav?.querySelector('.mobile-close');
 
-  function openMenu(){
-    mobileNav.classList.add('open');
-    document.body.classList.add('no-scroll');
-    navToggle.setAttribute('aria-expanded','true');
-    mobileNav.setAttribute('aria-hidden','false');
-    // focus first link
-    const firstLink = mobileNav.querySelector('a,button');
-    firstLink && firstLink.focus();
-  }
-  function closeMenu(){
-    mobileNav.classList.remove('open');
-    document.body.classList.remove('no-scroll');
-    navToggle.setAttribute('aria-expanded','false');
-    mobileNav.setAttribute('aria-hidden','true');
-    navToggle.focus();
-  }
-
-  if (navToggle && mobileNav){
-  navToggle.addEventListener('click', ()=>{
-    if (mobileNav.classList.contains('open')) { closeMenu(); }
-    else { openMenu(); }
-  });
-  overlay.addEventListener('click', closeMenu);
-  closeBtn.addEventListener('click', closeMenu);
-  window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
-  mobileNav.querySelectorAll('[data-close]').forEach(el=> el.addEventListener('click', closeMenu));
-  panel.addEventListener('wheel', (e)=> e.stopPropagation(), { passive:true });
-  panel.addEventListener('touchmove', (e)=> e.stopPropagation(), { passive:true });
-}
-
-/* also update these to toggle the hamburger */
 function openMenu(){
   mobileNav.classList.add('open');
   document.body.classList.add('no-scroll');
-  navToggle.classList.add('active');            // NEW
+  navToggle.classList.add('active');
   navToggle.setAttribute('aria-expanded','true');
   mobileNav.setAttribute('aria-hidden','false');
   const firstLink = mobileNav.querySelector('a,button');
@@ -1747,12 +1806,95 @@ function openMenu(){
 function closeMenu(){
   mobileNav.classList.remove('open');
   document.body.classList.remove('no-scroll');
-  navToggle.classList.remove('active');         // NEW
+  navToggle.classList.remove('active');
   navToggle.setAttribute('aria-expanded','false');
   mobileNav.setAttribute('aria-hidden','true');
   navToggle.focus();
 }
 
+if (navToggle && mobileNav){
+  navToggle.addEventListener('click', () => {
+    mobileNav.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  overlay?.addEventListener('click', closeMenu);
+  closeBtn?.addEventListener('click', closeMenu);
+  window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
+  mobileNav.querySelectorAll('[data-close]').forEach(el=> el.addEventListener('click', closeMenu));
+  panel?.addEventListener('wheel', (e)=> e.stopPropagation(), { passive:true });
+  panel?.addEventListener('touchmove', (e)=> e.stopPropagation(), { passive:true });
+}
+
+// --- Collapsible "Home" sublist ---
+(function(){
+  const coll = document.getElementById('homeCollapsible');
+  if(!coll) return;
+  const btn = coll.querySelector('.sub-toggle');
+  const sub = coll.querySelector('.sublist');
+
+  function expand(){
+    coll.classList.add('open');
+    btn.setAttribute('aria-expanded','true');
+    sub.hidden = false;
+    sub.style.height = 'auto';
+    const h = sub.scrollHeight + 'px';
+    sub.style.height = '0px';
+    sub.getBoundingClientRect();
+    sub.style.height = h;
+    sub.addEventListener('transitionend', function done(e){
+      if(e.propertyName === 'height'){
+        sub.style.height = 'auto';
+        sub.removeEventListener('transitionend', done);
+      }
+    });
+  }
+  function collapse(){
+    coll.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+    sub.style.height = sub.scrollHeight + 'px';
+    sub.getBoundingClientRect();
+    sub.style.height = '0px';
+    sub.addEventListener('transitionend', function done(e){
+      if(e.propertyName === 'height'){
+        sub.hidden = true;
+        sub.removeEventListener('transitionend', done);
+      }
+    });
+  }
+
+  btn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    expanded ? collapse() : expand();
+  });
+})();
+
+// --- Mark active link in the mobile drawer ---
+(function(){
+  const here = new URL(window.location.href);
+  const herePath = here.pathname.replace(/\/+$/,'/') || '/';
+  document.querySelectorAll('#mobileNav .mobile-list a').forEach(a=>{
+    try{
+      const u = new URL(a.getAttribute('href'), window.location.origin);
+      const path = u.pathname.replace(/\/+$/,'/') || '/';
+      if (path === herePath && (u.hash === '' || herePath !== '/')) {
+        a.classList.add('is-active');
+      }
+      if (herePath === '/' && path === '/' && u.hash && u.hash === here.hash && here.hash !== '') {
+        a.classList.add('is-active');
+      }
+    } catch(e){}
+  });
+})();
+
+// --- Auto-expand Home sublist if we're on the homepage ---
+(function(){
+  const onHome = location.pathname.replace(/\/+$/,'/') === '/';
+  if (!onHome) return;
+  const coll = document.getElementById('homeCollapsible');
+  const btn = coll?.querySelector('.sub-toggle');
+  if (btn && coll && !coll.classList.contains('open')) btn.click();
+})();
 </script>
 
 </body>

@@ -979,13 +979,20 @@
             .early-access-compact {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
-    padding: 25px;
+    padding: 30px 35px;
     margin-top: 30px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(76, 139, 245, 0.2);
     text-align: center;
-    max-width: 500px;
     width: 100%;
+    min-width: 450px;
+}
+
+@media (max-width: 768px) {
+    .early-access-compact {
+        min-width: unset;
+        padding: 25px;
+    }
 }
         }
     </style>

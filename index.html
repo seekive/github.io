@@ -1816,22 +1816,6 @@ window.addEventListener('scroll', function() {
   const overlay = mobileNav?.querySelector('.mobile-nav__overlay');
   const closeBtn = mobileNav?.querySelector('.mobile-close');
 
-  function openMenu(){
-    mobileNav.classList.add('open');
-    document.body.classList.add('no-scroll');
-    navToggle.setAttribute('aria-expanded','true');
-    mobileNav.setAttribute('aria-hidden','false');
-    // focus first link
-    const firstLink = mobileNav.querySelector('a,button');
-    firstLink && firstLink.focus();
-  }
-  function closeMenu(){
-    mobileNav.classList.remove('open');
-    document.body.classList.remove('no-scroll');
-    navToggle.setAttribute('aria-expanded','false');
-    mobileNav.setAttribute('aria-hidden','true');
-    navToggle.focus();
-  }
 
   if (navToggle && mobileNav){
   navToggle.addEventListener('click', ()=>{
@@ -1846,24 +1830,6 @@ window.addEventListener('scroll', function() {
   panel.addEventListener('touchmove', (e)=> e.stopPropagation(), { passive:true });
 }
 
-/* also update these to toggle the hamburger */
-function openMenu(){
-  mobileNav.classList.add('open');
-  document.body.classList.add('no-scroll');
-  navToggle.classList.add('active');            // NEW
-  navToggle.setAttribute('aria-expanded','true');
-  mobileNav.setAttribute('aria-hidden','false');
-  const firstLink = mobileNav.querySelector('a,button');
-  firstLink && firstLink.focus();
-}
-function closeMenu(){
-  mobileNav.classList.remove('open');
-  document.body.classList.remove('no-scroll');
-  navToggle.classList.remove('active');         // NEW
-  navToggle.setAttribute('aria-expanded','false');
-  mobileNav.setAttribute('aria-hidden','true');
-  navToggle.focus();
-}
 
         // --- Collapsible "Home" sublist ---
 (function(){

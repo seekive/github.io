@@ -175,38 +175,109 @@
         }
 
         .nav-links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
-        }
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    align-items: center;
+}
 
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 15px;
-            transition: color 0.3s;
-            position: relative;
-        }
+.nav-links > li {
+    position: relative;
+}
 
-        .nav-links a:hover {
-            color: var(--primary-blue);
-        }
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: color 0.3s;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-blue);
-            transition: width 0.3s;
-        }
+.nav-links a:hover {
+    color: var(--primary-blue);
+}
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-blue);
+    transition: width 0.3s;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Dropdown */
+.dropdown-toggle i {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* Prevent underline animation on the parent "Home" link */
+.dropdown > .dropdown-toggle::after {
+    display: none;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 12px;
+    min-width: 220px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+    list-style: none;
+    padding: 8px 0;
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 1001;
+}
+
+.dropdown-menu li {
+    width: 100%;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* No underline animation inside dropdown items */
+.dropdown-menu a::after {
+    display: none;
+}
+
+.dropdown-menu a:hover {
+    background: var(--surface-light);
+    color: var(--text-primary);
+    border-radius: 8px;
+}
+
+/* Show menu on hover/focus (desktop) */
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Nav is already hidden on mobile in your CSS (@media max-width:768px) */
+
 
         .cta-nav {
             background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));

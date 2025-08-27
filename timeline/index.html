@@ -352,40 +352,46 @@
             color: var(--text-primary); 
         }
 
-/* Collapsible Home row */
-.mobile-collapsible-toggle{
+/* Top-level row (Home/About/Timeline/Contact) */
+.mobile-item{
   display:flex; align-items:center; justify-content:space-between;
-  gap:12px; padding:12px; border-radius:10px;
+  padding:12px; border-radius:10px;
 }
-.mobile-collapsible-toggle .mobile-root-link{
+.mobile-item:hover{ background: var(--surface-light); }
+
+/* Keep "Home" link styled like other links */
+.mobile-root-link{
   flex:1; color:var(--text-secondary); text-decoration:none; font-weight:500;
 }
-.mobile-collapsible-toggle:hover{ background: var(--surface-light); }
-.mobile-collapsible .sub-toggle{
+
+/* Chevron button – minimal, aligned */
+.sub-toggle{
   width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center;
   border:1px solid var(--border); border-radius:10px; background:var(--surface);
   color:var(--text-primary); cursor:pointer;
 }
-.mobile-collapsible .chev{ transition: transform .2s ease; }
+.chev{ transition: transform .2s ease; }
 .mobile-collapsible.open .chev{ transform: rotate(180deg); }
 
-/* Sublist (animated open/close) */
+/* Sublist – no bullets, no chunky boxes */
 .sublist{
-  overflow:hidden;
-  padding-left:12px;
-  border-left:1px dashed var(--border);
-  margin-left:12px;
-  transition: height .22s ease;
+  list-style:none;
+  margin: 4px 0 0 0;
+  padding: 0;
 }
-.sublist li a{ display:block; padding:10px 12px; border-radius:8px; }
+.sublist li a{
+  display:block; padding:10px 16px 10px 22px; /* small indent */
+  border-radius:8px; text-decoration:none; color:var(--text-secondary); font-weight:500;
+}
 .sublist li a:hover{ background: var(--surface-light); color: var(--text-primary); }
 
-/* Active link styling in mobile */
+/* Active item: blue text ONLY (no gray background) */
 .mobile-list a.is-active{
-  background: var(--surface-light);
-  color: var(--text-primary);
-  border-radius:10px;
+  color: var(--primary-blue) !important;
+  background: transparent !important;
+  font-weight: 600;
 }
+
 
         
 
@@ -900,13 +906,12 @@
       <img src="logo1.png" alt="Seekive" width="28" height="28" style="vertical-align:middle;margin-right:8px;"> Seekive
     </a>
 
-    <!-- Home collapsible -->
+    <!-- One clean list for top-level items; Home is inline with others -->
     <ul class="mobile-list">
+      <!-- HOME with chevron -->
       <li class="mobile-collapsible" id="homeCollapsible">
-        <div class="mobile-collapsible-toggle">
-          <!-- Left: real Home link (taps go to /) -->
+        <div class="mobile-item">
           <a href="/" class="mobile-root-link" data-close>Home</a>
-          <!-- Right: chevron button toggles the sublist; doesn't navigate -->
           <button type="button"
                   class="sub-toggle"
                   aria-expanded="false"
@@ -915,17 +920,14 @@
             <i class="fa-solid fa-chevron-down chev" aria-hidden="true"></i>
           </button>
         </div>
-
         <ul id="homeSublist" class="sublist" hidden>
           <li><a href="/#features" data-close>Features</a></li>
           <li><a href="/#how-it-works" data-close>How It Works</a></li>
           <li><a href="/#categories" data-close>Discover</a></li>
         </ul>
       </li>
-    </ul>
 
-    <!-- Site pages -->
-    <ul class="mobile-list">
+      <!-- The rest: exactly inline with Home -->
       <li><a href="/about/" data-close>About</a></li>
       <li><a href="/timeline/" data-close>Timeline</a></li>
       <li><a href="/contact/" data-close>Contact</a></li>
@@ -934,6 +936,7 @@
     <a href="/#early-access" class="cta-nav mobile-cta" data-close>Get Early Access</a>
   </div>
 </div>
+
 
 
 

@@ -64,16 +64,17 @@
 
         /* Header */
         header {
-  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); /* fully opaque */
-            padding: 16px 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(76, 139, 245, 0.2);
-            transition: all 0.3s ease;
-        }
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); /* fully opaque */
+    padding: 16px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(76, 139, 245, 0.2);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: none; /* kill glass effect */
+}
+
 
         nav {
             display: flex;
@@ -229,24 +230,30 @@
 
 .dropdown-menu {
     position: absolute;
-    top: 100%;          /* sits flush under "Home" */
+    top: 100%;
     left: 0;
-    margin-top: 0;      /* remove the gap that kills hover */
+    margin-top: 0;
     min-width: 220px;
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: #0F172A;                 /* solid background */
+    border: 1px solid #334155;           /* solid border */
     border-radius: 12px;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.6);
     list-style: none;
     padding: 8px 0;
     opacity: 0;
-    visibility: hidden; /* hide without moving it */
-    transform: scale(0.98);    /* subtle open animation, no gap */
+    visibility: hidden;
+    transform: scale(0.98);
     transform-origin: top;
     pointer-events: none;
     transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
-    z-index: 1001;
+    z-index: 2000;                        /* sit above header */
 }
+.dropdown-menu a:hover {
+    background: #1E293B;                  /* solid hover */
+    color: var(--text-primary);
+    border-radius: 8px;
+}
+
 
 .dropdown-menu li {
     width: 100%;
@@ -1670,19 +1677,16 @@ body.no-scroll{ overflow:hidden; }
         });
     });
 
-    // Enhanced scroll effect for header
-    window.addEventListener('scroll', function() {
-        const header = document.querySelector('header');
-        if (window.scrollY > 100) {
-            header.style.background = 'linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%)';
-            header.style.backdropFilter = 'blur(25px)';
-            header.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
-        } else {
-            header.style.background = 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%)';
-            header.style.backdropFilter = 'blur(20px)';
-            header.style.boxShadow = 'none';
-        }
-    });
+    // Enhanced scroll effect for header (no transparency/blur)
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    if (window.scrollY > 100) {
+        header.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+    } else {
+        header.style.boxShadow = 'none';
+    }
+});
+
 
     // Category cards interaction
     document.querySelectorAll('.category-card').forEach(card => {

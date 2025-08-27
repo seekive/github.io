@@ -234,14 +234,17 @@
         }
 
         .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at top, rgba(76, 139, 245, 0.1) 0%, transparent 70%);
-        }
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at top, rgba(76, 139, 245, 0.1) 0%, transparent 70%);
+    pointer-events: none; /* <-- allow clicks through the overlay */
+    z-index: 0;
+}
+
 
         .hero-content {
             display: flex;
@@ -1384,80 +1387,78 @@
     </footer>
 
     <script>
-        // Email form handlers - both forms submit to the same Google Form
-        function handleFormSubmit(formId, inputId) {
-            document.getElementById(formId).addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const email = document.getElementById(inputId).value;
-                
-                const iframe = document.createElement('iframe');
-                iframe.style.display = 'none';
-                document.body.appendChild(iframe);
-                
-                const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSc3IeuUsH4kGK8Zzs9ZTnOkt7SkgNYXRFS6lkiqBWvm6nztLA/formResponse';
-        iframe.contentWindow.document.write(`
-    <form id="hiddenForm" action="${googleFormUrl}" method="post">
-        <input name="entry.1741794365" value="${email}">
-    </form>
-                `);
-                
-                iframe.contentWindow.document.getElementById('hiddenForm').submit();
-                
-                setTimeout(function() {
-                    window.location.href = '/thank-you/';
-                }, 500);
-            });
-        }
+    // Email form handlers - both forms submit to the same Google Form
+    function handleFormSubmit(formId, inputId) {
+        const form = document.getElementById(formId);
+        const btn = form.querySelector('.submit-btn');
 
-        // Initialize both forms
-        handleFormSubmit('heroEmailForm', 'heroEmailInput');
-        handleFormSubmit('mainEmailForm', 'mainEmailInput');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+            // Set loading state on submit (not on click) to avoid blocking native submit
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+            btn.disabled = true;
+
+            const email = document.getElementById(inputId).value;
+
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+
+            const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSc3IeuUsH4kGK8Zzs9ZTnOkt7SkgNYXRFS6lkiqBWvm6nztLA/formResponse';
+            iframe.contentWindow.document.write(`
+<form id="hiddenForm" action="${googleFormUrl}" method="post">
+    <input name="entry.1741794365" value="${email}">
+</form>
+            `);
+            iframe.contentWindow.document.close();
+            iframe.contentWindow.document.getElementById('hiddenForm').submit();
+
+            setTimeout(function() {
+                window.location.href = '/thank-you/';
+            }, 500);
         });
+    }
 
-        // Enhanced scroll effect for header
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%)';
-                header.style.backdropFilter = 'blur(25px)';
-                header.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%)';
-                header.style.backdropFilter = 'blur(20px)';
-                header.style.boxShadow = 'none';
+    // Initialize both forms
+    handleFormSubmit('heroEmailForm', 'heroEmailInput');
+    handleFormSubmit('mainEmailForm', 'mainEmailInput');
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
         });
+    });
 
-        // Category cards interaction
-        document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('click', function() {
-                // Future: Navigate to category detail or filter
-                console.log('Category clicked:', this.querySelector('.category-name').textContent);
-            });
-        });
+    // Enhanced scroll effect for header
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('header');
+        if (window.scrollY > 100) {
+            header.style.background = 'linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%)';
+            header.style.backdropFilter = 'blur(25px)';
+            header.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+        } else {
+            header.style.background = 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%)';
+            header.style.backdropFilter = 'blur(20px)';
+            header.style.boxShadow = 'none';
+        }
+    });
 
-        // Add loading states for form submissions
-        const submitButtons = document.querySelectorAll('.submit-btn');
-        submitButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
-                this.disabled = true;
-            });
+    // Category cards interaction
+    document.querySelectorAll('.category-card').forEach(card => {
+        card.addEventListener('click', function() {
+            console.log('Category clicked:', this.querySelector('.category-name').textContent);
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>

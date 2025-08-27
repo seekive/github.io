@@ -1010,19 +1010,26 @@
         /* Mobile hamburger (hidden on desktop) */
 .nav-toggle{
   display:none;
-  align-items:center;
-  justify-content:center;
-  width:42px; height:42px;
-  border:1px solid var(--border);
-  background: var(--surface);
-  color: var(--text-primary);
-  border-radius: 10px;
-  cursor: pointer;
+  width:40px; height:40px; padding:0;
+  border:none; background:transparent; cursor:pointer;
+  position:relative;
 }
 .nav-toggle .bar{
-  width:18px; height:2px; background: var(--text-primary);
-  display:block; margin:3px 0; border-radius:2px;
+  position:absolute; left:50%;
+  width:22px; height:2px; background:var(--text-secondary);
+  border-radius:2px; transform:translateX(-50%);
+  transition:transform .2s ease, opacity .2s ease, top .2s ease, background-color .2s ease;
 }
+.nav-toggle .bar:nth-child(1){ top:12px; }
+.nav-toggle .bar:nth-child(2){ top:19px; }
+.nav-toggle .bar:nth-child(3){ top:26px; }
+.nav-toggle:hover .bar{ background:var(--text-primary); }
+
+/* Morph to X when active */
+.nav-toggle.active .bar:nth-child(1){ top:19px; transform:translateX(-50%) rotate(45deg); }
+.nav-toggle.active .bar:nth-child(2){ opacity:0; }
+.nav-toggle.active .bar:nth-child(3){ top:19px; transform:translateX(-50%) rotate(-45deg); }
+
 
 /* Off-canvas mobile nav */
 .mobile-nav{ position:fixed; inset:0; z-index:1500; display:none; }
@@ -1030,15 +1037,18 @@
 .mobile-nav__overlay{ position:absolute; inset:0; background:rgba(2,6,23,0.6); backdrop-filter: blur(4px); }
 .mobile-nav__panel{
   position:absolute; top:0; right:0; height:100%;
-  width:min(90vw, 360px);
+  width:min(92vw, 380px);
   background: var(--surface);
   border-left: 1px solid var(--border);
   box-shadow: -20px 0 60px rgba(0,0,0,.4);
   transform: translateX(100%);
   transition: transform .25s ease;
-  padding: 20px;
-  display: flex; flex-direction: column; gap: 16px;
+  padding: max(18px, calc(env(safe-area-inset-top) + 12px)) 20px 20px 20px;
+  display:flex; flex-direction:column; gap:12px;
 }
+.mobile-list a{ padding:14px 14px; font-size:16px; }
+.mobile-cta{ margin-top:8px; }
+
 .mobile-nav.open .mobile-nav__panel{ transform: translateX(0); }
 
 .mobile-close{
@@ -1696,18 +1706,37 @@ body.no-scroll{ overflow:hidden; }
   }
 
   if (navToggle && mobileNav){
-    navToggle.addEventListener('click', openMenu);
-    overlay.addEventListener('click', closeMenu);
-    closeBtn.addEventListener('click', closeMenu);
-    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
-    // Close after selecting any link marked data-close
-    mobileNav.querySelectorAll('[data-close]').forEach(el=>{
-      el.addEventListener('click', closeMenu);
-    });
-    // Prevent scroll propagation on the panel
-    panel.addEventListener('wheel', (e)=> e.stopPropagation(), { passive:true });
-    panel.addEventListener('touchmove', (e)=> e.stopPropagation(), { passive:true });
-  }
+  navToggle.addEventListener('click', ()=>{
+    if (mobileNav.classList.contains('open')) { closeMenu(); }
+    else { openMenu(); }
+  });
+  overlay.addEventListener('click', closeMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
+  mobileNav.querySelectorAll('[data-close]').forEach(el=> el.addEventListener('click', closeMenu));
+  panel.addEventListener('wheel', (e)=> e.stopPropagation(), { passive:true });
+  panel.addEventListener('touchmove', (e)=> e.stopPropagation(), { passive:true });
+}
+
+/* also update these to toggle the hamburger */
+function openMenu(){
+  mobileNav.classList.add('open');
+  document.body.classList.add('no-scroll');
+  navToggle.classList.add('active');            // NEW
+  navToggle.setAttribute('aria-expanded','true');
+  mobileNav.setAttribute('aria-hidden','false');
+  const firstLink = mobileNav.querySelector('a,button');
+  firstLink && firstLink.focus();
+}
+function closeMenu(){
+  mobileNav.classList.remove('open');
+  document.body.classList.remove('no-scroll');
+  navToggle.classList.remove('active');         // NEW
+  navToggle.setAttribute('aria-expanded','false');
+  mobileNav.setAttribute('aria-hidden','true');
+  navToggle.focus();
+}
+
 </script>
 
 </body>

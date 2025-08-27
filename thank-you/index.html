@@ -41,83 +41,6 @@
             --border: #374151;
             --overlay: "rgba(15, 23, 42, 0.95)";
         }
-
-        // --- Collapsible "Home" sublist ---
-        (function(){
-            const coll = document.getElementById('homeCollapsible');
-            if(!coll) return;
-            const btn = coll.querySelector('.sub-toggle');
-            const sub = coll.querySelector('.sublist');
-
-            function expand(){
-                coll.classList.add('open');
-                btn.setAttribute('aria-expanded','true');
-                sub.hidden = false;
-                sub.style.height = 'auto';
-                const h = sub.scrollHeight + 'px';
-                sub.style.height = '0px';
-                sub.getBoundingClientRect(); // reflow
-                sub.style.height = h;
-                sub.addEventListener('transitionend', function done(e){
-                    if(e.propertyName === 'height'){
-                        sub.style.height = 'auto';
-                        sub.removeEventListener('transitionend', done);
-                    }
-                });
-            }
-
-            function collapse(){
-                coll.classList.remove('open');
-                btn.setAttribute('aria-expanded','false');
-                sub.style.height = sub.scrollHeight + 'px';
-                sub.getBoundingClientRect(); // reflow
-                sub.style.height = '0px';
-                sub.addEventListener('transitionend', function done(e){
-                    if(e.propertyName === 'height'){
-                        sub.hidden = true;
-                        sub.removeEventListener('transitionend', done);
-                    }
-                });
-            }
-
-            btn.addEventListener('click', (e)=>{
-                e.preventDefault();
-                e.stopPropagation();
-                const expanded = btn.getAttribute('aria-expanded') === 'true';
-                expanded ? collapse() : expand();
-            });
-        })();
-
-        // --- Mark active link correctly in the mobile drawer ---
-        (function(){
-            const here = new URL(window.location.href);
-            const herePath = here.pathname.replace(/\/+$/,'/') || '/';
-
-            document.querySelectorAll('#mobileNav .mobile-list a').forEach(a=>{
-                try{
-                    const u = new URL(a.getAttribute('href'), window.location.origin);
-                    const path = u.pathname.replace(/\/+$/,'/') || '/';
-
-                    // exact page match
-                    if (path === herePath && (u.hash === '' || herePath !== '/')) {
-                        a.classList.add('is-active');
-                    }
-                    // On the homepage, highlight the matching section by hash
-                    if (herePath === '/' && path === '/' && u.hash && u.hash === here.hash && here.hash !== '') {
-                        a.classList.add('is-active');
-                    }
-                } catch(e){}
-            });
-        })();
-
-        // Auto-expand Home section when on homepage
-        (function(){
-            const onHome = location.pathname.replace(/\/+$/,'/') === '/';
-            if (!onHome) return;
-            const coll = document.getElementById('homeCollapsible');
-            const btn = coll?.querySelector('.sub-toggle');
-            if (btn && coll && !coll.classList.contains('open')) btn.click();
-        })();
         
         * {
             margin: 0;
@@ -431,39 +354,39 @@
 
         /* In the mobile drawer, remove gray hover bg for top-level links */
         #mobileNav .mobile-list > li > a:hover{
-            background: transparent;
-            color: var(--primary-blue);
+          background: transparent;
+          color: var(--primary-blue);
         }
 
         /* Active = blue text only (no background) */
         #mobileNav .mobile-list a.is-active{
-            color: var(--primary-blue) !important;
-            background: transparent !important;
-            font-weight: 600;
+          color: var(--primary-blue) !important;
+          background: transparent !important;
+          font-weight: 600;
         }
 
         /* Top-level row (Home/About/Timeline/Contact) — no background */
         .mobile-item{
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0;                 /* match anchors exactly */
-            border-radius: 0;
-            background: transparent !important;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0;                 /* match anchors exactly */
+          border-radius: 0;
+          background: transparent !important;
         }
         .mobile-item:hover{           /* kill the gray hover */
-            background: transparent !important;
+          background: transparent !important;
         }
 
         /* Keep Home styled/inline exactly like the others (with space for chevron) */
         .mobile-root-link{
-            flex: 1;
-            display: block;
-            padding: 12px 44px 12px 12px; /* same left pad as others, extra right for chevron */
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
+          flex: 1;
+          display: block;
+          padding: 12px 44px 12px 12px; /* same left pad as others, extra right for chevron */
+          color: var(--text-secondary);
+          text-decoration: none;
+          font-weight: 500;
         }
 
         .sub-toggle,
@@ -471,58 +394,61 @@
 
         /* Chevron — transparent, absolute, no gray block */
         .sub-toggle{
-            position: absolute;
-            right: 6px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 32px;
-            height: 32px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: 0;
-            border-radius: 8px;
-            background: transparent;     /* no gray */
-            color: var(--text-primary);
-            cursor: pointer;
+          position: absolute;
+          right: 6px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 32px;
+          height: 32px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border: 0;
+          border-radius: 8px;
+          background: transparent;     /* no gray */
+          color: var(--text-primary);
+          cursor: pointer;
         }
         .chev{ transition: transform .2s ease; }
         .mobile-collapsible.open .chev{ transform: rotate(180deg); }
 
         /* Sublist — animate height + hide overflow so text can't leak out */
         .sublist{
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;                 /* critical */
-            height: 0;                        /* collapsed by default (matches [hidden]) */
-            transition: height .22s ease;     /* critical */
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;                 /* critical */
+          height: 0;                        /* collapsed by default (matches [hidden]) */
+          transition: height .22s ease;     /* critical */
         }
 
         /* Guarantee hidden state snaps shut (prevents ghost text) */
         #mobileNav .sublist[hidden]{
-            height: 0 !important;
-            overflow: hidden !important;
+          height: 0 !important;
+          overflow: hidden !important;
         }
 
         .sublist li a{
-            display: block;
-            padding: 10px 12px 10px 24px;     /* subtle indent */
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
+          display: block;
+          padding: 10px 12px 10px 24px;     /* subtle indent */
+          border-radius: 8px;
+          text-decoration: none;
+          color: var(--text-secondary);
+          font-weight: 500;
         }
         .sublist li a:hover{
-            background: var(--surface-light);
-            color: var(--text-primary);
+          background: var(--surface-light);
+          color: var(--text-primary);
         }
 
-        .mobile-section { 
-            color: var(--primary-blue); 
-            font-weight: 600; 
-            padding: 6px 12px; 
-            margin-top: 8px; 
+        .mobile-section-label{
+          color: var(--text-muted);
+          font-weight: 700;
+          padding: 6px 12px;
+          margin-top: 8px;
+          font-size: 12px;
+          letter-spacing: .08em;
+          text-transform: uppercase;
         }
 
         .mobile-cta { 
@@ -855,45 +781,45 @@
             </nav>
 
             <!-- Off-canvas mobile menu -->
-<div id="mobileNav" class="mobile-nav" aria-hidden="true">
-  <div class="mobile-nav__overlay" data-close></div>
-  <div class="mobile-nav__panel">
-    <button class="mobile-close" aria-label="Close menu">&times;</button>
+            <div id="mobileNav" class="mobile-nav" aria-hidden="true">
+              <div class="mobile-nav__overlay" data-close></div>
+              <div class="mobile-nav__panel">
+                <button class="mobile-close" aria-label="Close menu">&times;</button>
 
-    <a class="mobile-brand" href="/">
-      <img src="logo1.png" alt="Seekive" width="28" height="28" style="vertical-align:middle;margin-right:8px;"> Seekive
-    </a>
+                <a class="mobile-brand" href="/">
+                  <img src="logo1.png" alt="Seekive" width="28" height="28" style="vertical-align:middle;margin-right:8px;"> Seekive
+                </a>
 
-    <!-- One clean list for top-level items; Home is inline with others -->
-    <ul class="mobile-list">
-      <!-- HOME with chevron -->
-      <li class="mobile-collapsible" id="homeCollapsible">
-        <div class="mobile-item">
-          <a href="/" class="mobile-root-link" data-close>Home</a>
-          <button type="button"
-                  class="sub-toggle"
-                  aria-expanded="false"
-                  aria-controls="homeSublist"
-                  aria-label="Show Home sections">
-            <i class="fa-solid fa-chevron-down chev" aria-hidden="true"></i>
-          </button>
-        </div>
-        <ul id="homeSublist" class="sublist" hidden>
-          <li><a href="/#features" data-close>Features</a></li>
-          <li><a href="/#how-it-works" data-close>How It Works</a></li>
-          <li><a href="/#categories" data-close>Discover</a></li>
-        </ul>
-      </li>
+                <!-- One clean list for top-level items; Home is inline with others -->
+                <ul class="mobile-list">
+                  <!-- HOME with chevron -->
+                  <li class="mobile-collapsible" id="homeCollapsible">
+                    <div class="mobile-item">
+                      <a href="/" class="mobile-root-link" data-close>Home</a>
+                      <button type="button"
+                              class="sub-toggle"
+                              aria-expanded="false"
+                              aria-controls="homeSublist"
+                              aria-label="Show Home sections">
+                        <i class="fa-solid fa-chevron-down chev" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <ul id="homeSublist" class="sublist" hidden>
+                      <li><a href="/#features" data-close>Features</a></li>
+                      <li><a href="/#how-it-works" data-close>How It Works</a></li>
+                      <li><a href="/#categories" data-close>Discover</a></li>
+                    </ul>
+                  </li>
 
-      <!-- The rest: exactly inline with Home -->
-      <li><a href="/about/" data-close>About</a></li>
-      <li><a href="/timeline/" data-close>Timeline</a></li>
-      <li><a href="/contact/" data-close>Contact</a></li>
-    </ul>
+                  <!-- The rest: exactly inline with Home -->
+                  <li><a href="/about/" data-close>About</a></li>
+                  <li><a href="/timeline/" data-close>Timeline</a></li>
+                  <li><a href="/contact/" data-close>Contact</a></li>
+                </ul>
 
-    <a href="/#early-access" class="cta-nav mobile-cta" data-close>Get Early Access</a>
-  </div>
-</div>
+                <a href="/#early-access" class="cta-nav mobile-cta" data-close>Get Early Access</a>
+              </div>
+            </div>
         </div>
     </header>
 
@@ -1016,6 +942,82 @@
             panel.addEventListener('wheel', (e)=> e.stopPropagation(), { passive:true });
             panel.addEventListener('touchmove', (e)=> e.stopPropagation(), { passive:true });
         }
+
+        // --- Collapsible "Home" sublist ---
+        (function(){
+          const coll = document.getElementById('homeCollapsible');
+          if(!coll) return;
+          const btn = coll.querySelector('.sub-toggle');
+          const sub = coll.querySelector('.sublist');
+
+          function expand(){
+            coll.classList.add('open');
+            btn.setAttribute('aria-expanded','true');
+            sub.hidden = false;
+            sub.style.height = 'auto';
+            const h = sub.scrollHeight + 'px';
+            sub.style.height = '0px';
+            sub.getBoundingClientRect(); // reflow
+            sub.style.height = h;
+            sub.addEventListener('transitionend', function done(e){
+              if(e.propertyName === 'height'){
+                sub.style.height = 'auto';
+                sub.removeEventListener('transitionend', done);
+              }
+            });
+          }
+
+          function collapse(){
+            coll.classList.remove('open');
+            btn.setAttribute('aria-expanded','false');
+            sub.style.height = sub.scrollHeight + 'px';
+            sub.getBoundingClientRect(); // reflow
+            sub.style.height = '0px';
+            sub.addEventListener('transitionend', function done(e){
+              if(e.propertyName === 'height'){
+                sub.hidden = true;
+                sub.removeEventListener('transitionend', done);
+              }
+            });
+          }
+
+          btn.addEventListener('click', (e)=>{
+            e.preventDefault();
+            e.stopPropagation();
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            expanded ? collapse() : expand();
+          });
+        })();
+
+        // --- Mark active link correctly in the mobile drawer ---
+        (function(){
+          const here = new URL(window.location.href);
+          const herePath = here.pathname.replace(/\/+$/,'/') || '/';
+
+          document.querySelectorAll('#mobileNav .mobile-list a').forEach(a=>{
+            try{
+              const u = new URL(a.getAttribute('href'), window.location.origin);
+              const path = u.pathname.replace(/\/+$/,'/') || '/';
+
+              // exact page match
+              if (path === herePath && (u.hash === '' || herePath !== '/')) {
+                a.classList.add('is-active');
+              }
+              // On the homepage, highlight the matching section by hash
+              if (herePath === '/' && path === '/' && u.hash && u.hash === here.hash && here.hash !== '') {
+                a.classList.add('is-active');
+              }
+            } catch(e){}
+          });
+        })();
+
+        (function(){
+          const onHome = location.pathname.replace(/\/+$/,'/') === '/';
+          if (!onHome) return;
+          const coll = document.getElementById('homeCollapsible');
+          const btn = coll?.querySelector('.sub-toggle');
+          if (btn && coll && !coll.classList.contains('open')) btn.click();
+        })();
 
         // Enhanced scroll effect for header
         window.addEventListener('scroll', function() {

@@ -352,6 +352,43 @@
             color: var(--text-primary); 
         }
 
+/* Collapsible Home row */
+.mobile-collapsible-toggle{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; padding:12px; border-radius:10px;
+}
+.mobile-collapsible-toggle .mobile-root-link{
+  flex:1; color:var(--text-secondary); text-decoration:none; font-weight:500;
+}
+.mobile-collapsible-toggle:hover{ background: var(--surface-light); }
+.mobile-collapsible .sub-toggle{
+  width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center;
+  border:1px solid var(--border); border-radius:10px; background:var(--surface);
+  color:var(--text-primary); cursor:pointer;
+}
+.mobile-collapsible .chev{ transition: transform .2s ease; }
+.mobile-collapsible.open .chev{ transform: rotate(180deg); }
+
+/* Sublist (animated open/close) */
+.sublist{
+  overflow:hidden;
+  padding-left:12px;
+  border-left:1px dashed var(--border);
+  margin-left:12px;
+  transition: height .22s ease;
+}
+.sublist li a{ display:block; padding:10px 12px; border-radius:8px; }
+.sublist li a:hover{ background: var(--surface-light); color: var(--text-primary); }
+
+/* Active link styling in mobile */
+.mobile-list a.is-active{
+  background: var(--surface-light);
+  color: var(--text-primary);
+  border-radius:10px;
+}
+
+        
+
         .mobile-section-label{
   color: var(--text-muted);
   font-weight: 700;
@@ -854,7 +891,7 @@
             </nav>
 
             <!-- Off-canvas mobile menu -->
-            <div id="mobileNav" class="mobile-nav" aria-hidden="true">
+<div id="mobileNav" class="mobile-nav" aria-hidden="true">
   <div class="mobile-nav__overlay" data-close></div>
   <div class="mobile-nav__panel">
     <button class="mobile-close" aria-label="Close menu">&times;</button>
@@ -863,13 +900,28 @@
       <img src="logo1.png" alt="Seekive" width="28" height="28" style="vertical-align:middle;margin-right:8px;"> Seekive
     </a>
 
-    <!-- Home + sections on the home page -->
+    <!-- Home collapsible -->
     <ul class="mobile-list">
-      <li><a href="/" data-close>Home</a></li>
-      <li class="mobile-section-label">On Home</li>
-      <li><a href="/#features" data-close>Features</a></li>
-      <li><a href="/#how-it-works" data-close>How It Works</a></li>
-      <li><a href="/#categories" data-close>Discover</a></li>
+      <li class="mobile-collapsible" id="homeCollapsible">
+        <div class="mobile-collapsible-toggle">
+          <!-- Left: real Home link (taps go to /) -->
+          <a href="/" class="mobile-root-link" data-close>Home</a>
+          <!-- Right: chevron button toggles the sublist; doesn't navigate -->
+          <button type="button"
+                  class="sub-toggle"
+                  aria-expanded="false"
+                  aria-controls="homeSublist"
+                  aria-label="Show Home sections">
+            <i class="fa-solid fa-chevron-down chev" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <ul id="homeSublist" class="sublist" hidden>
+          <li><a href="/#features" data-close>Features</a></li>
+          <li><a href="/#how-it-works" data-close>How It Works</a></li>
+          <li><a href="/#categories" data-close>Discover</a></li>
+        </ul>
+      </li>
     </ul>
 
     <!-- Site pages -->
@@ -882,6 +934,7 @@
     <a href="/#early-access" class="cta-nav mobile-cta" data-close>Get Early Access</a>
   </div>
 </div>
+
 
 
     <!-- Page Content -->
@@ -1082,6 +1135,84 @@
             panel.addEventListener('wheel', (e)=> e.stopPropagation(), { passive:true });
             panel.addEventListener('touchmove', (e)=> e.stopPropagation(), { passive:true });
         }
+
+// --- Collapsible "Home" sublist ---
+(function(){
+  const coll = document.getElementById('homeCollapsible');
+  if(!coll) return;
+  const btn = coll.querySelector('.sub-toggle');
+  const sub = coll.querySelector('.sublist');
+
+  function expand(){
+    coll.classList.add('open');
+    btn.setAttribute('aria-expanded','true');
+    sub.hidden = false;
+    sub.style.height = 'auto';
+    const h = sub.scrollHeight + 'px';
+    sub.style.height = '0px';
+    sub.getBoundingClientRect(); // reflow
+    sub.style.height = h;
+    sub.addEventListener('transitionend', function done(e){
+      if(e.propertyName === 'height'){
+        sub.style.height = 'auto';
+        sub.removeEventListener('transitionend', done);
+      }
+    });
+  }
+
+  function collapse(){
+    coll.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+    sub.style.height = sub.scrollHeight + 'px';
+    sub.getBoundingClientRect(); // reflow
+    sub.style.height = '0px';
+    sub.addEventListener('transitionend', function done(e){
+      if(e.propertyName === 'height'){
+        sub.hidden = true;
+        sub.removeEventListener('transitionend', done);
+      }
+    });
+  }
+
+  btn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    expanded ? collapse() : expand();
+  });
+})();
+
+// --- Mark active link correctly in the mobile drawer ---
+(function(){
+  const here = new URL(window.location.href);
+  const herePath = here.pathname.replace(/\/+$/,'/') || '/';
+
+  document.querySelectorAll('#mobileNav .mobile-list a').forEach(a=>{
+    try{
+      const u = new URL(a.getAttribute('href'), window.location.origin);
+      const path = u.pathname.replace(/\/+$/,'/') || '/';
+
+      // exact page match
+      if (path === herePath && (u.hash === '' || herePath !== '/')) {
+        a.classList.add('is-active');
+      }
+      // On the homepage, highlight the matching section by hash
+      if (herePath === '/' && path === '/' && u.hash && u.hash === here.hash && here.hash !== '') {
+        a.classList.add('is-active');
+      }
+    } catch(e){}
+  });
+})();
+
+        (function(){
+  const onHome = location.pathname.replace(/\/+$/,'/') === '/';
+  if (!onHome) return;
+  const coll = document.getElementById('homeCollapsible');
+  const btn = coll?.querySelector('.sub-toggle');
+  if (btn && coll && !coll.classList.contains('open')) btn.click();
+})();
+
+        
 
         // Enhanced scroll effect for header
         window.addEventListener('scroll', function() {

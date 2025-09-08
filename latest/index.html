@@ -556,7 +556,6 @@
     justify-content: center;
     box-shadow: 0 4px 15px rgba(76, 139, 245, 0.3);
     overflow: hidden;
-    padding: 8px; /* Add padding so logo doesn't touch edges */
 }
 
         .post-author-info h4 {
@@ -988,7 +987,7 @@
     <div class="post-header">
         <div class="post-author">
             <div class="post-author-avatar">
-                <img src="logo1.png" alt="Marc Shave" style="width: 100%; height: 100%; object-fit: contain;">
+                <img src="logo1.png" alt="Marc Shave" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
             </div>
             <div class="post-author-info">
                 <h4>Marc Shave, Seekive</h4>
@@ -1013,7 +1012,8 @@
                 <h3>Stay Updated</h3>
                 <p>Get the latest insights, development updates, and behind-the-scenes stories from Marc and the Seekive journey.</p>
                 <form id="newsletterForm" class="newsletter-form">
-                    <button type="submit" class="newsletter-btn">Coming Soon</button>
+                    <input type="email" id="newsletterEmail" name="email" placeholder="Enter your email for updates" class="newsletter-input" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
                 </form>
             </div>
 

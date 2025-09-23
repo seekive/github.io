@@ -489,6 +489,43 @@
             margin: 0 auto;
         }
 
+/* Loading state */
+.loading-posts {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+}
+
+.loading-posts i {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    color: var(--primary-blue);
+}
+
+/* Empty state */
+.empty-posts {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+}
+
+.empty-posts h3 {
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+/* Error state */
+.error-posts {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+}
+
+.error-posts h3 {
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+        
         .post {
             background: linear-gradient(135deg, var(--dark-bg) 0%, var(--surface-light) 100%);
             border-radius: 24px;
@@ -991,30 +1028,12 @@
             </div>
             
             <div class="posts-container">
-                
-                <article class="post">
-    <div class="post-header">
-        <div class="post-author">
-            <div class="post-author-avatar">
-                <img src="logo1.png" alt="Marc Shave" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
-            </div>
-            <div class="post-author-info">
-                <h4>Marc Shave, Seekive</h4>
-                <div class="post-date">September 8, 2025</div>
-            </div>
-        </div>
-        <div class="post-category">Testing</div>
+    <!-- Loading state (will be replaced by JavaScript) -->
+    <div class="loading-posts">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        <p>Loading latest posts...</p>
     </div>
-    <h2 class="post-title">Testing the Latest Page</h2>
-    <div class="post-content">
-        <p>Just testing out this new blog section to make sure everything works as expected. Posts should flow nicely down the page with the right spacing and styling.</p>
-        <p>This is what a typical post will look like once I start sharing regular updates about the Seekive journey.</p>
-    </div>
-</article>
-
-                
-
-            </div>
+</div>
 
 
         </div>
@@ -1198,32 +1217,114 @@
         });
 
         // Newsletter form handler
-        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const btn = this.querySelector('.newsletter-btn');
-            const email = document.getElementById('newsletterEmail').value;
-            
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Subscribing...';
-            btn.disabled = true;
+        // Dynamic blog post loader
+async function loadBlogPosts() {
+    try {
+        const response = await fetch('/posts.json');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        const container = document.querySelector('.posts-container');
+        
+        if (!data.posts || data.posts.length === 0) {
+            container.innerHTML = `
+                <div class="empty-posts">
+                    <h3>No posts yet</h3>
+                    <p>Check back soon for updates from the Seekive journey!</p>
+                </div>
+            `;
+            return;
+        }
+        
+        // Sort posts by date (newest first)
+        const sortedPosts = data.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        container.innerHTML = sortedPosts.map((post, index) => `
+            <article class="post" style="animation-delay: ${(index + 1) * 0.1}s;">
+                <div class="post-header">
+                    <div class="post-author">
+                        <div class="post-author-avatar">
+                            <img src="logo1.png" alt="Marc Shave" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        <div class="post-author-info">
+                            <h4>${escapeHtml(post.author)}</h4>
+                            <div class="post-date">${formatDate(post.date)}</div>
+                        </div>
+                    </div>
+                    <div class="post-category">${escapeHtml(post.category)}</div>
+                </div>
+                <h2 class="post-title">${escapeHtml(post.title)}</h2>
+                <div class="post-content">
+                    ${post.content.map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('')}
+                </div>
+            </article>
+        `).join('');
+        
+    } catch (error) {
+        console.error('Failed to load blog posts:', error);
+        document.querySelector('.posts-container').innerHTML = `
+            <div class="error-posts">
+                <h3>Unable to load posts</h3>
+                <p>Please try again later.</p>
+            </div>
+        `;
+    }
+}
 
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            document.body.appendChild(iframe);
+// Format date to match your current style
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    };
+    return date.toLocaleDateString('en-US', options);
+}
 
-            const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSc3IeuUsH4kGK8Zzs9ZTnOkt7SkgNYXRFS6lkiqBWvm6nztLA/formResponse';
-            iframe.contentWindow.document.write(`
-                <form id="hiddenForm" action="${googleFormUrl}" method="post">
-                    <input name="entry.1741794365" value="${email}">
-                </form>
-            `);
-            iframe.contentWindow.document.close();
-            iframe.contentWindow.document.getElementById('hiddenForm').submit();
+// Escape HTML to prevent XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 
-            setTimeout(function() {
-                window.location.href = '/thank-you/';
-            }, 500);
-        });
+// Load posts when the page loads
+document.addEventListener('DOMContentLoaded', loadBlogPosts);
+
+// Newsletter form handler
+const newsletterForm = document.getElementById('newsletterForm');
+if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const btn = this.querySelector('.newsletter-btn');
+        const email = document.getElementById('newsletterEmail').value;
+        
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Subscribing...';
+        btn.disabled = true;
+
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+
+        const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSc3IeuUsH4kGK8Zzs9ZTnOkt7SkgNYXRFS6lkiqBWvm6nztLA/formResponse';
+        iframe.contentWindow.document.write(`
+            <form id="hiddenForm" action="${googleFormUrl}" method="post">
+                <input name="entry.1741794365" value="${email}">
+            </form>
+        `);
+        iframe.contentWindow.document.close();
+        iframe.contentWindow.document.getElementById('hiddenForm').submit();
+
+        setTimeout(function() {
+            window.location.href = '/thank-you/';
+        }, 500);
+    });
+}
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

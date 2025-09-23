@@ -1,0 +1,47 @@
+name: Build Blog Posts
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ '_posts/**' ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build posts.json from individual files
+      run: |
+        echo '{"posts":[' > posts.json
+        
+        # Find all JSON files in _posts and sort them by filename (newest first)
+        first=true
+        for file in $(ls _posts/*.json 2>/dev/null | sort -r); do
+          if [ "$first" = true ]; then
+            first=false
+          else
+            echo ',' >> posts.json
+          fi
+          cat "$file" >> posts.json
+        done
+        
+        echo ']}' >> posts.json
+        
+        # Show what we built
+        echo "Generated posts.json:"
+        cat posts.json
+    
+    - name: Commit and push if changed
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add posts.json
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Auto-update posts.json from _posts"
+          git push
+        fi

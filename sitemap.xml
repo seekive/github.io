@@ -16,14 +16,19 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.seekive.com/about/</loc>
-    <lastmod>2025-09-23</lastmod>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://www.seekive.com/contact/</loc>
     <lastmod>2025-09-23</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.seekive.com/store/</loc>
+    <lastmod>2025-09-23</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.seekive.com/community/</loc>
+    <lastmod>2025-09-23</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.seekive.com/privacy-policy/</loc>
@@ -32,7 +37,7 @@
   </url>
   <url>
     <loc>https://www.seekive.com/terms-of-service/</loc>
-    <lastmod>2025-09-23</lastmod>
+    <lastmod>2025-09-24</lastmod>
     <priority>0.3</priority>
   </url>
 </urlset>

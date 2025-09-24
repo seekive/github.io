@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store - Seekive</title>
+
+    <!-- Favicons for browser tab & mobile -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon1-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon1-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon1-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon1.png">
+    <link rel="shortcut icon" href="/favicon1.ico">
+
+    <!-- Social preview for search engines & sharing -->
+    <meta property="og:title" content="Store - Seekive">
+    <meta property="og:description" content="Discover premium experiences and exclusive gear to enhance your adventures with Seekive.">
+    <meta property="og:image" content="/seekive-social-preview1.png">
+    <meta property="og:url" content="https://www.seekive.com/store/">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VVZ6LW4N55"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-VVZ6LW4N55');
+    </script>
+    
+    <style>
+        :root {
+            /* Modern blue-based palette matching the app */
+            --primary-blue: #4C8BF5;
+            --primary-dark: #2563EB;
+            --secondary-orange: #F59E0B;
+            --accent-emerald: #10B981;
+            --teal-accent: #06B6D4;
+            --dark-bg: #0F172A;
+            --darker-bg: #020617;
+            --surface: #1E293B;
+            --surface-light: #334155;
+            --surface-lighter: #475569;
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --border: #374151;
+            --overlay: "rgba(15, 23, 42, 0.95)";
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            padding: 16px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(76, 139, 245, 0.2);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .seekive-logo {
+            width: 42px;
+            height: 42px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links > li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Dropdown */
+        .dropdown-toggle i {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .dropdown > .dropdown-toggle::after {
+            display: none;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 0;
+            min-width: 220px;
+            background: #0F172A;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+            list-style: none;
+            padding: 8px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.98);
+            transform-origin: top;
+            pointer-events: none;
+            transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
+            z-index: 2000;
+        }
+
+        .dropdown-menu li {
+            width: 100%;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 14px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .dropdown-menu a::after {
+            display: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: #1E293B;
+            color: var(--text-primary);
+            border-radius: 8px;
+        }
+
+        .dropdown:hover .dropdown-menu,
+        .dropdown:focus-within .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            pointer-events: auto;
+            transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s;
+        }
+
+        .cta-nav {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(76, 139, 245, 0.3);
+        }
+
+        .cta-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 139, 245, 0.4);
+        }
+
+        /* Mobile hamburger */
+        .nav-toggle {
+            display: none;
+            width: 42px; 
+            height: 42px; 
+            padding: 0;
+            border: 1px solid var(--border);
+            background: var(--surface-light);
+            border-radius: 12px;
+            cursor: pointer; 
+            position: relative;
+            box-shadow: 0 4px 14px rgba(0,0,0,.25);
+        }
+
+        .nav-toggle:hover { 
+            background: var(--surface); 
+        }
+
+        .nav-toggle .bar {
+            position: absolute; 
+            left: 50%;
+            width: 22px; 
+            height: 2px; 
+            background: var(--text-primary);
+            border-radius: 2px; 
+            transform: translateX(-50%);
+            transition: transform .2s ease, opacity .2s ease, top .2s ease;
+        }
+
+        .nav-toggle .bar:nth-child(1) { top: 12px; }
+        .nav-toggle .bar:nth-child(2) { top: 19px; }
+        .nav-toggle .bar:nth-child(3) { top: 26px; }
+
+        .nav-toggle.active .bar:nth-child(1) { 
+            top: 19px; 
+            transform: translateX(-50%) rotate(45deg); 
+        }
+        .nav-toggle.active .bar:nth-child(2) { 
+            opacity: 0; 
+        }
+        .nav-toggle.active .bar:nth-child(3) { 
+            top: 19px; 
+            transform: translateX(-50%) rotate(-45deg); 
+        }
+
+        /* Off-canvas mobile nav */
+        .mobile-nav { 
+            position: fixed; 
+            inset: 0; 
+            z-index: 1500; 
+            display: none; 
+        }
+
+        .mobile-nav.open { 
+            display: block; 
+        }
+
+        .mobile-nav__overlay {
+            position: absolute; 
+            inset: 0;
+            background: rgba(2, 6, 23, 0.92);
+        }
+
+        .mobile-nav__panel {
+            position: absolute; 
+            top: 0; 
+            right: 0; 
+            height: 100%;
+            width: min(92vw, 380px);
+            background: #0F172A;
+            border-left: 1px solid var(--border);
+            box-shadow: -20px 0 60px rgba(0,0,0,.5);
+            transform: translateX(100%);
+            transition: transform .25s ease;
+            padding: max(18px, calc(env(safe-area-inset-top) + 12px)) 20px 20px 20px;
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px;
+        }
+
+        .mobile-nav.open .mobile-nav__panel { 
+            transform: translateX(0); 
+        }
+
+        .mobile-close {
+            align-self: flex-end;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid var(--border); 
+            background: var(--surface-light);
+            color: var(--text-primary); 
+            font-size: 22px; 
+            line-height: 1; 
+            cursor: pointer;
+        }
+
+        .mobile-brand {
+            color: var(--text-primary); 
+            text-decoration: none; 
+            font-weight: 700;
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px;
+            margin-top: -6px;
+        }
+
+        .mobile-list { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+        }
+
+        .mobile-list a {
+            display: block; 
+            padding: 12px 12px; 
+            border-radius: 10px;
+            color: var(--text-secondary); 
+            text-decoration: none; 
+            font-weight: 500;
+        }
+
+        .mobile-list a:hover { 
+            background: var(--surface-light); 
+            color: var(--text-primary); 
+        }
+
+        #mobileNav .mobile-list > li > a:hover{
+            background: transparent;
+            color: var(--primary-blue);
+        }
+
+        #mobileNav .mobile-list a.is-active{
+            color: var(--primary-blue) !important;
+            background: transparent !important;
+            font-weight: 600;
+        }
+
+        .mobile-item{
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0;
+            border-radius: 0;
+            background: transparent !important;
+        }
+        .mobile-item:hover{
+            background: transparent !important;
+        }
+
+        .mobile-root-link{
+            flex: 1;
+            display: block;
+            padding: 12px 44px 12px 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .sub-toggle,
+        .mobile-list a { -webkit-tap-highlight-color: transparent; }
+
+        .sub-toggle{
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+        .chev{ transition: transform .2s ease; }
+        .mobile-collapsible.open .chev{ transform: rotate(180deg); }
+
+        .sublist{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 0;
+            transition: height .22s ease;
+        }
+
+        #mobileNav .sublist[hidden]{
+            height: 0 !important;
+            overflow: hidden !important;
+        }
+
+        .sublist li a{
+            display: block;
+            padding: 10px 12px 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .sublist li a:hover{
+            background: var(--surface-light);
+            color: var(--text-primary);
+        }
+
+        .mobile-cta { 
+            display: inline-block; 
+            text-align: center; 
+        }
+
+        body.no-scroll { 
+            overflow: hidden; 
+        }
+
+        /* Page Content */
+        .content-section {
+            padding: 130px 0 50px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .page-title {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--teal-accent) 50%, var(--accent-emerald) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .page-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* Store Hero */
+        .store-hero {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 100px;
+            background: linear-gradient(135deg, var(--surface) 0%, var(--surface-light) 100%);
+            border-radius: 32px;
+            padding: 60px 50px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(76, 139, 245, 0.1);
+        }
+
+        .store-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(76, 139, 245, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .store-hero-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--teal-accent));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            font-size: 3rem;
+            box-shadow: 0 12px 40px rgba(76, 139, 245, 0.3);
+            position: relative;
+            z-index: 2;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .coming-soon-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-emerald), var(--teal-accent));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 24px;
+            animation: pulse 3s infinite;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+            50% { transform: scale(1.02); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); }
+            100% { transform: scale(1); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+        }
+
+        .store-hero h2 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .store-hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Store Categories Grid */
+        .store-categories {
+            margin-bottom: 100px;
+        }
+
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--surface-light) 100%);
+            border-radius: 24px;
+            padding: 40px 32px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(76, 139, 245, 0.1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--teal-accent), var(--accent-emerald));
+            border-radius: 26px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .category-card:hover::before {
+            opacity: 1;
+        }
+
+        .category-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--secondary-orange), var(--primary-blue));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 2rem;
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.1);
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 16px;
+        }
+
+        .category-desc {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .category-status {
+            display: inline-block;
+            background: rgba(148, 163, 184, 0.1);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid var(--text-muted);
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            text-align: center;
+            background: linear-gradient(135deg, var(--surface) 0%, var(--surface-light) 100%);
+            border-radius: 32px;
+            padding: 60px 40px;
+            border: 1px solid rgba(76, 139, 245, 0.1);
+            position: relative;
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .newsletter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(76, 139, 245, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .newsletter-section h3 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--teal-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 2;
+        }
+
+        .newsletter-section p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 450px;
+            margin: 0 auto;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(76, 139, 245, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 20px 28px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            background: rgba(30, 41, 59, 0.8);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .newsletter-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .newsletter-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 20px 36px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+
+        .newsletter-btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker-bg);
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--border);
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 24px;
+            font-size: 18px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 15px;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-blue);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-orange);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-4px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 8px 24px rgba(76, 139, 245, 0.3);
+        }
+        
+        /* Background Animation */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--teal-accent));
+            opacity: 0.03;
+            filter: blur(80px);
+        }
+
+        .bg-circle:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 350px;
+            height: 350px;
+            animation: float-bg 25s infinite alternate ease-in-out;
+        }
+
+        .bg-circle:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            width: 450px;
+            height: 450px;
+            animation: float-bg 20s infinite alternate-reverse ease-in-out;
+        }
+
+        .bg-circle:nth-child(3) {
+            bottom: 20%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            animation: float-bg 22s infinite alternate ease-in-out;
+        }
+
+        @keyframes float-bg {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(60px, 40px) scale(1.1); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-toggle { display: inline-flex; }
+            .nav-links { display: none; }
+            .desktop-only { display: none; }
+            
+            .page-title {
+                font-size: 2.8rem;
+            }
+            
+            .store-hero {
+                padding: 40px 30px;
+            }
+
+            .store-hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                border-radius: 20px;
+            }
+
+            .newsletter-input, .newsletter-btn {
+                border-radius: 0;
+                padding: 16px 24px;
+            }
+
+            .newsletter-input {
+                border-radius: 20px 20px 0 0;
+            }
+
+            .newsletter-btn {
+                border-radius: 0 0 20px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            .store-hero {
+                padding: 32px 24px;
+            }
+            
+            .category-card {
+                padding: 32px 24px;
+            }
+
+            .newsletter-section {
+                padding: 40px 24px;
+            }
+
+            .store-hero-icon {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <div class="seekive-logo">
+                        <img src="logo1.png" alt="Seekive Logo" style="width: 42px; height: 42px; object-fit: contain;">
+                    </div>
+                    <div class="logo-text">Seekive</div>
+                </div>
+
+                <!-- Mobile hamburger -->
+                <button class="nav-toggle" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+
+                <!-- Desktop links -->
+                <ul class="nav-links">
+                    <li class="dropdown">
+                        <a href="/" class="dropdown-toggle">
+                            Home <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-label="Home">
+                            <li><a href="/#features">Features</a></li>
+                            <li><a href="/#categories">Discover</a></li>
+                            <li><a href="/#how-it-works">How It Works</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/latest/">Latest</a></li>
+                    <li><a href="/timeline/">Timeline</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                    <li><a href="/store/" style="color: var(--primary-blue);">Store</a></li>
+                    <li><a href="/community/">Community</a></li>
+                </ul>
+
+                <a href="/#early-access" class="cta-nav desktop-only">Get Early Access</a>
+            </nav>
+
+            <!-- Off-canvas mobile menu -->
+            <div id="mobileNav" class="mobile-nav" aria-hidden="true">
+                <div class="mobile-nav__overlay" data-close></div>
+                <div class="mobile-nav__panel">
+                    <button class="mobile-close" aria-label="Close menu">&times;</button>
+
+                    <a class="mobile-brand" href="/">
+                        <img src="logo1.png" alt="Seekive" width="28" height="28" style="vertical-align:middle;margin-right:8px;"> Seekive
+                    </a>
+
+                    <ul class="mobile-list">
+                        <li class="mobile-collapsible" id="homeCollapsible">
+                            <div class="mobile-item">
+                                <a href="/" class="mobile-root-link" data-close>Home</a>
+                                <button type="button"
+                                        class="sub-toggle"
+                                        aria-expanded="false"
+                                        aria-controls="homeSublist"
+                                        aria-label="Show Home sections">
+                                    <i class="fa-solid fa-chevron-down chev" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <ul id="homeSublist" class="sublist" hidden>
+                                <li><a href="/#features" data-close>Features</a></li>
+                                <li><a href="/#categories" data-close>Discover</a></li>
+                                <li><a href="/#how-it-works" data-close>How It Works</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="/latest/" data-close>Latest</a></li>
+                        <li><a href="/timeline/" data-close>Timeline</a></li>
+                        <li><a href="/contact/" data-close>Contact</a></li>
+                        <li><a href="/store/" data-close>Store</a></li>
+                        <li><a href="/community/" data-close>Community</a></li>
+                    </ul>
+
+                    <a href="/#early-access" class="cta-nav mobile-cta" data-close>Get Early Access</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <section class="content-section">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">Store</h1>
+                <p class="page-subtitle">Premium experiences and exclusive gear for your adventures</p>
+            </div>
+            
+            <!-- Store Hero -->
+            <div class="store-hero">
+                <div class="store-hero-icon">
+                    <i class="fa-solid fa-shopping-bag"></i>
+                </div>
+                <div class="coming-soon-badge">Coming Soon</div>
+                <h2>Your Adventure Marketplace</h2>
+                <p>Discover premium experiences, exclusive gear, and curated collections to enhance your discoveries. From guided adventures to unique local products, the Seekive Store will be your gateway to turning discoveries into unforgettable experiences.</p>
+            </div>
+
+            <!-- Store Categories -->
+            <div class="store-categories">
+                <h2 class="section-title">What's Coming</h2>
+                
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fa-solid fa-compass"></i>
+                        </div>
+                        <h3 class="category-title">Premium Experiences</h3>
+                        <p class="category-desc">Exclusive guided tours, workshops, and curated adventures from trusted local providers and experts.</p>
+                        <span class="category-status">Coming Soon</span>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fa-solid fa-tshirt"></i>
+                        </div>
+                        <h3 class="category-title">Adventure Gear</h3>
+                        <p class="category-desc">Carefully selected equipment, apparel, and accessories to enhance your discoveries and outdoor adventures.</p>
+                        <span class="category-status">Coming Soon</span>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                        </div>
+                        <h3 class="category-title">Local Treasures</h3>
+                        <p class="category-desc">Unique products from local artisans and businesses discovered through the Seekive community.</p>
+                        <span class="category-status">Coming Soon</span>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fa-solid fa-gift"></i>
+                        </div>
+                        <h3 class="category-title">Discovery Boxes</h3>
+                        <p class="category-desc">Curated monthly boxes filled with items that inspire new discoveries and adventures in your area.</p>
+                        <span class="category-status">Coming Soon</span>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <h3 class="category-title">Seekive Exclusives</h3>
+                        <p class="category-desc">Limited edition merchandise, branded gear, and exclusive access to special events and experiences.</p>
+                        <span class="category-status">Coming Soon</span>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <h3 class="category-title">Event Tickets</h3>
+                        <p class="category-desc">Early access to local events, workshops, and community gatherings discovered through Seekive.</p>
+                        <span class="category-status">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Section -->
+            <div class="newsletter-section">
+                <h3>Be First to Shop</h3>
+                <p>Join our early access list to be notified when the Seekive Store launches and get exclusive previews of premium experiences and gear.</p>
+                
+                <form id="storeNewsletterForm" class="newsletter-form">
+                    <input type="email" id="storeNewsletterEmail" name="email" placeholder="Enter your email for store updates" class="newsletter-input" required>
+                    <button type="submit" class="newsletter-btn">
+                        <i class="fa-solid fa-bell"></i> Notify Me
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <img src="logo1.png" alt="Seekive Logo" style="width: 32px; height: 32px; object-fit: contain;">
+                            <span>Seekive</span>
+                        </div>
+                    </h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-top: 16px;">
+                        Your compass to new experiences. Discover adventures perfectly matched to your mood, time, and curiosity.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="/latest/">Latest</a></li>
+                        <li><a href="/timeline/">Timeline</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="/store/" style="color: var(--primary-blue);">Store</a></li>
+                        <li><a href="/community/">Community</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/privacy-policy/">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service/">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px;">
+                        <a href="https://www.instagram.com/seekiveapp/" target="_blank" class="social-btn" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://x.com/seekiveapp" target="_blank" class="social-btn" aria-label="X (Twitter)">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61575759483549" target="_blank" class="social-btn" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@seekive" target="_blank" class="social-btn" aria-label="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@seekiveapp" target="_blank" class="social-btn" aria-label="YouTube">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Seekive. All rights reserved. • Seek It. Find It. Live It.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile nav functionality
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const panel = mobileNav?.querySelector('.mobile-nav__panel');
+        const overlay = mobileNav?.querySelector('.mobile-nav__overlay');
+        const closeBtn = mobileNav?.querySelector('.mobile-close');
+
+        function openMenu(){
+            mobileNav.classList.add('open');
+            document.body.classList.add('no-scroll');
+            navToggle.classList.add('active');
+            navToggle.setAttribute('aria-expanded','true');
+            mobileNav.setAttribute('aria-hidden','false');
+            const firstLink = mobileNav.querySelector('a,button');
+            firstLink && firstLink.focus();
+        }
+
+        function closeMenu(){
+            mobileNav.classList.remove('open');
+            document.body.classList.remove('no-scroll');
+            navToggle.classList.remove('active');
+            navToggle.setAttribute('aria-expanded','false');
+            mobileNav.setAttribute('aria-hidden','true');
+            navToggle.focus();
+        }
+
+        if (navToggle && mobileNav){
+            navToggle.addEventListener('click', ()=>{
+                if (mobileNav.classList.contains('open')) { closeMenu(); }
+                else { openMenu(); }
+            });
+            overlay.addEventListener('click', closeMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
+            mobileNav.querySelectorAll('[data-close]').forEach(el=> el.addEventListener('click', closeMenu));
+            panel.addEventListener('wheel', (e)=> e.stopPropagation(), { passive:true });
+            panel.addEventListener('touchmove', (e)=> e.stopPropagation(), { passive:true });
+        }
+
+        // Collapsible "Home" sublist
+        (function(){
+            const coll = document.getElementById('homeCollapsible');
+            if(!coll) return;
+            const btn = coll.querySelector('.sub-toggle');
+            const sub = coll.querySelector('.sublist');
+
+            function expand(){
+                coll.classList.add('open');
+                btn.setAttribute('aria-expanded','true');
+                sub.hidden = false;
+                sub.style.height = 'auto';
+                const h = sub.scrollHeight + 'px';
+                sub.style.height = '0px';
+                sub.getBoundingClientRect();
+                sub.style.height = h;
+                sub.addEventListener('transitionend', function done(e){
+                    if(e.propertyName === 'height'){
+                        sub.style.height = 'auto';
+                        sub.removeEventListener('transitionend', done);
+                    }
+                });
+            }
+
+            function collapse(){
+                coll.classList.remove('open');
+                btn.setAttribute('aria-expanded','false');
+                sub.style.height = sub.scrollHeight + 'px';
+                sub.getBoundingClientRect();
+                sub.style.height = '0px';
+                sub.addEventListener('transitionend', function done(e){
+                    if(e.propertyName === 'height'){
+                        sub.hidden = true;
+                        sub.removeEventListener('transitionend', done);
+                    }
+                });
+            }
+
+            btn.addEventListener('click', (e)=>{
+                e.preventDefault();
+                e.stopPropagation();
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                expanded ? collapse() : expand();
+            });
+        })();
+
+        // Mark active link correctly in the mobile drawer
+        (function(){
+            const here = new URL(window.location.href);
+            const herePath = here.pathname.replace(/\/+$/,'/') || '/';
+
+            document.querySelectorAll('#mobileNav .mobile-list a').forEach(a=>{
+                try{
+                    const u = new URL(a.getAttribute('href'), window.location.origin);
+                    const path = u.pathname.replace(/\/+$/,'/') || '/';
+
+                    if (path === herePath && (u.hash === '' || herePath !== '/')) {
+                        a.classList.add('is-active');
+                    }
+                    if (herePath === '/' && path === '/' && u.hash && u.hash === here.hash && here.hash !== '') {
+                        a.classList.add('is-active');
+                    }
+                } catch(e){}
+            });
+        })();
+
+        // Enhanced scroll effect for header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Store newsletter form handler
+        const storeNewsletterForm = document.getElementById('storeNewsletterForm');
+        if (storeNewsletterForm) {
+            storeNewsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const btn = this.querySelector('.newsletter-btn');
+                const email = document.getElementById('storeNewsletterEmail').value;
+                
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Subscribing...';
+                btn.disabled = true;
+
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+
+                const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSc3IeuUsH4kGK8Zzs9ZTnOkt7SkgNYXRFS6lkiqBWvm6nztLA/formResponse';
+                iframe.contentWindow.document.write(`
+                    <form id="hiddenForm" action="${googleFormUrl}" method="post">
+                        <input name="entry.1741794365" value="${email}">
+                    </form>
+                `);
+                iframe.contentWindow.document.close();
+                iframe.contentWindow.document.getElementById('hiddenForm').submit();
+
+                setTimeout(function() {
+                    window.location.href = '/thank-you/';
+                }, 500);
+            });
+        }
+    </script>
+
+</body>
+</html>

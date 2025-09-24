@@ -1400,20 +1400,22 @@ body.no-scroll{ overflow:hidden; }
 
   <!-- Desktop links -->
   <ul class="nav-links">
-    <li class="dropdown">
-      <a href="/" class="dropdown-toggle">
-        Home <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-      </a>
-      <ul class="dropdown-menu" role="menu" aria-label="Home">
-        <li><a href="#features">Features</a></li>
-        <li><a href="/#categories">Discover</a></li>
-        <li><a href="#how-it-works">How It Works</a></li>
-      </ul>
-    </li>
-    <li><a href="/latest/">Latest</a></li>
-    <li><a href="/timeline/">Timeline</a></li>
-    <li><a href="/contact/">Contact</a></li>
-  </ul>
+  <li class="dropdown">
+    <a href="/" class="dropdown-toggle">
+      Home <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-label="Home">
+      <li><a href="/#features">Features</a></li>
+      <li><a href="/#categories">Discover</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+    </ul>
+  </li>
+  <li><a href="/store/">Store</a></li>
+  <li><a href="/latest/">Latest</a></li>
+  <li><a href="/community/">Community</a></li>
+  <li><a href="/timeline/">Timeline</a></li>
+  <li><a href="/contact/">Contact</a></li>
+</ul>
 
   <a href="#early-access" class="cta-nav desktop-only">Get Early Access</a>
 </nav>
@@ -1430,30 +1432,31 @@ body.no-scroll{ overflow:hidden; }
 
     <!-- One clean list for top-level items; Home is inline with others -->
     <ul class="mobile-list">
-      <!-- HOME with chevron -->
-      <li class="mobile-collapsible" id="homeCollapsible">
-        <div class="mobile-item">
-          <a href="/" class="mobile-root-link" data-close>Home</a>
-          <button type="button"
-                  class="sub-toggle"
-                  aria-expanded="false"
-                  aria-controls="homeSublist"
-                  aria-label="Show Home sections">
-            <i class="fa-solid fa-chevron-down chev" aria-hidden="true"></i>
-          </button>
-        </div>
-        <ul id="homeSublist" class="sublist" hidden>
-          <li><a href="#features" data-close>Features</a></li>
-            <li><a href="#categories" data-close>Discover</a></li>
-          <li><a href="#how-it-works" data-close>How It Works</a></li>
-        </ul>
-      </li>
-
-      <!-- The rest: exactly inline with Home -->
-      <li><a href="/latest/" data-close>Latest</a></li>
-      <li><a href="/timeline/" data-close>Timeline</a></li>
-      <li><a href="/contact/" data-close>Contact</a></li>
+  <!-- HOME with chevron -->
+  <li class="mobile-collapsible" id="homeCollapsible">
+    <div class="mobile-item">
+      <a href="/" class="mobile-root-link" data-close>Home</a>
+      <button type="button"
+              class="sub-toggle"
+              aria-expanded="false"
+              aria-controls="homeSublist"
+              aria-label="Show Home sections">
+        <i class="fa-solid fa-chevron-down chev" aria-hidden="true"></i>
+      </button>
+    </div>
+    <ul id="homeSublist" class="sublist" hidden>
+      <li><a href="/#features" data-close>Features</a></li>
+      <li><a href="/#categories" data-close>Discover</a></li>
+      <li><a href="/#how-it-works" data-close>How It Works</a></li>
     </ul>
+  </li>
+
+  <li><a href="/store/" data-close>Store</a></li>
+  <li><a href="/latest/" data-close>Latest</a></li>
+  <li><a href="/community/" data-close>Community</a></li>
+  <li><a href="/timeline/" data-close>Timeline</a></li>
+  <li><a href="/contact/" data-close>Contact</a></li>
+</ul>
 
     <a href="#early-access" class="cta-nav mobile-cta" data-close>Get Early Access</a>
   </div>
@@ -1853,13 +1856,15 @@ body.no-scroll{ overflow:hidden; }
                 </div>
 
                 <div class="footer-section">
-                    <h3>Company</h3>
-                    <ul>
-                        <li><a href="/latest/">Latest</a></li>
-                        <li><a href="/timeline/">Timeline</a></li>
-                        <li><a href="/contact/">Contact</a></li>
-                    </ul>
-                </div>
+  <h3>Company</h3>
+  <ul>
+    <li><a href="/store/">Store</a></li>
+    <li><a href="/latest/">Latest</a></li>
+    <li><a href="/community/">Community</a></li>
+    <li><a href="/timeline/">Timeline</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+</div>
 
                 <div class="footer-section">
                     <h3>Legal</h3>

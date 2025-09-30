@@ -264,24 +264,45 @@
         }
 
         /* Major section headers */
-        .section-header {
+.section-header {
     font-size: 2.5rem;
     font-weight: 800;
     color: #f8fafc;
-    margin-top: 80px;
-    margin-bottom: 30px;
-    padding-top: 30px;
-    padding-bottom: 20px;
-    border-top: 3px solid rgba(76, 139, 245, 0.5);
-    border-bottom: 2px solid rgba(76, 139, 245, 0.35);
-    text-shadow: 0 2px 16px rgba(76, 139, 245, 0.3);
+    margin-top: 100px;
+    margin-bottom: 40px;
+    padding-top: 50px;
+    padding-bottom: 25px;
+    border-top: 4px solid rgba(76, 139, 245, 0.6);
+    border-bottom: 3px solid rgba(76, 139, 245, 0.4);
+    text-shadow: 0 2px 16px rgba(76, 139, 245, 0.4);
+    background: linear-gradient(90deg, rgba(76, 139, 245, 0.08) 0%, transparent 100%);
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    position: relative;
 }
 
-        .section-header:first-child {
-            margin-top: 0;
-            padding-top: 0;
-            border-top: none;
-        }
+.section-header::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(76, 139, 245, 0.3) 50%, transparent 100%);
+}
+
+.section-header:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
+
+.section-header:first-child::before {
+    display: none;
+}
 
         /* Add subtle gradient overlay */
 .article-body::before {

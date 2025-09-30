@@ -73,7 +73,7 @@
             padding: 0 20px;
         }
 
-        /* Header styles - copied from main site */
+        /* Header styles */
         header {
             background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
             padding: 16px 0;
@@ -142,9 +142,9 @@
             transform: translateY(-2px);
         }
 
-        /* Article-specific styles */
+        /* Article wrapper */
         .article-wrapper {
-            padding: 130px 0 50px;
+            padding: 110px 0 80px;
         }
         
         .article-content {
@@ -160,70 +160,132 @@
             text-decoration: none;
             font-weight: 600;
             margin-bottom: 40px;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            font-size: 15px;
         }
         
         .back-link:hover {
             transform: translateX(-4px);
+            color: var(--teal-accent);
         }
         
+        /* Article header */
         .article-header {
-            text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(76, 139, 245, 0.15);
         }
         
         .article-title {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 800;
             line-height: 1.2;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--teal-accent) 50%, var(--accent-emerald) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 32px;
+            color: var(--text-primary);
         }
         
         .article-meta {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 20px;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
+            gap: 16px;
             flex-wrap: wrap;
         }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-blue);
+        }
+
+        .author-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .author-name {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .article-date {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .article-category {
+            background: linear-gradient(135deg, var(--primary-blue), var(--teal-accent));
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: auto;
+        }
         
+        /* Article body */
         .article-body {
-    background: var(--dark-bg);
-    border-radius: 24px;
-    padding: 60px 50px;
-    border: 1px solid rgba(76, 139, 245, 0.1);
-}
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 50px 45px;
+            border: 1px solid rgba(76, 139, 245, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
         
         .article-body h2 {
             color: var(--primary-blue);
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 700;
-            margin-top: 50px;
-            margin-bottom: 20px;
+            margin-top: 45px;
+            margin-bottom: 18px;
+            line-height: 1.3;
         }
         
         .article-body h2:first-child {
+            margin-top: 0;
+        }
+
+        /* Major section headers */
+        .section-header {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-top: 70px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(76, 139, 245, 0.3);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--teal-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header:first-child {
             margin-top: 0;
         }
         
         .article-body p {
             color: var(--text-secondary);
             line-height: 1.8;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             font-size: 16px;
         }
         
         .article-body strong {
-            color: var(--primary-blue);
+            color: var(--text-primary);
             font-weight: 600;
         }
 
+        /* Background animation */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -263,6 +325,7 @@
             100% { transform: translate(60px, 40px) scale(1.1); }
         }
         
+        /* Footer */
         footer {
             background: var(--darker-bg);
             padding: 40px 0;
@@ -272,21 +335,38 @@
             color: var(--text-muted);
         }
         
+        /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
             
             .article-title {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
             
             .article-body {
-                padding: 40px 30px;
+                padding: 35px 25px;
             }
 
             .article-body h2 {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
+                margin-top: 35px;
+            }
+
+            .article-category {
+                margin-left: 0;
+                margin-top: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .article-title {
+                font-size: 1.75rem;
+            }
+
+            .article-body {
+                padding: 30px 20px;
             }
         }
     </style>
@@ -325,15 +405,23 @@
                     <i class="fa-solid fa-arrow-left"></i> Back to Latest
                 </a>
                 
-                <div class="article-meta">
-    <img src="/logo1.png" alt="Marc Shave" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;">
-    <span><i class="fa-solid fa-user"></i>Seekive</span>
-    <span><i class="fa-solid fa-calendar"></i> September 30, 2025</span>
-    <span><i class="fa-solid fa-tag"></i> Vision</span>
-</div>
+                <div class="article-header">
+                    <h1 class="article-title">The Problems Seekive Helps to Solve</h1>
+                    
+                    <div class="article-meta">
+                        <div class="author-info">
+                            <img src="/logo1.png" alt="Marc Shave" class="author-avatar">
+                            <div class="author-details">
+                                <div class="author-name">Marc Shave, Seekive</div>
+                                <div class="article-date">September 30, 2025</div>
+                            </div>
+                        </div>
+                        <div class="article-category">Vision</div>
+                    </div>
                 </div>
                 
                 <div class="article-body">
+
                     <p>We live in a time of endless possibilities. Entertainment, events, food, nature, adventures — the world is overflowing with opportunities. Yet many of us feel stuck in routines, disconnected from our communities, or overwhelmed by the sheer number of choices in front of us.</p>
 
                     <p>Seekive was created to solve that problem — and many more. It's not just another app. It's a tool for discovery, connection, and resilience, designed for today and the world that's coming tomorrow.</p>
@@ -406,32 +494,7 @@
                     
                     <p>Seekive helps people live more balanced lives by connecting them with the world around them.</p>
 
-                    <h2>🔮 The Long-Term View</h2>
-                    
-                    <p>Seekive isn't just for today — it's built with the future in mind.</p>
-
-                    <h2>🤖 AI & Free Time</h2>
-                    
-                    <p>As AI automates more of our work, many of us will have more free hours than ever before. But free time isn't automatically meaningful — it can lead to boredom or aimless scrolling if left unstructured.</p>
-                    
-                    <p>Seekive provides direction. It transforms spare time into opportunities for discovery, growth, and joy, helping people use freedom wisely instead of wasting it.</p>
-
-                    <h2>🛡️ Resilience in Crisis</h2>
-                    
-                    <p>History shows us that life can change quickly. Wars, pandemics, and global disruptions can shut down routines, isolate communities, and create uncertainty.</p>
-                    
-                    <p>Seekive offers tools that remain valuable in these times:<br>
-                    🤲 Volunteering opportunities that mobilize support.<br>
-                    🏘️ Local connections that strengthen resilience.<br>
-                    🎗️ A platform for rebuilding community events and initiatives after crisis.</p>
-                    
-                    <p>In the aftermath of disruption, Seekive can help people reconnect, rebuild, and rediscover purpose together.</p>
-
-                    <h2>🌍 Rebuilding & Renewal</h2>
-                    
-                    <p>After conflict or crisis, communities don't just need entertainment — they need connection, creativity, and shared culture to heal. Seekive can be part of that recovery, highlighting local events, cultural gatherings, and service opportunities that bring people together in times of renewal.</p>
-
-                    <h2>✨ Deeper Problems Seekive Addresses</h2>
+                    <h2 class="section-header">✨ Deeper Problems Seekive Addresses</h2>
                     
                     <p>Beyond discovery and connection, Seekive also responds to deeper human and societal needs.</p>
 
@@ -483,7 +546,32 @@
                     
                     <p><strong>How Seekive helps:</strong> By surfacing workshops, lectures, and skill-sharing activities, Seekive keeps curiosity alive.</p>
 
-                    <h2>🚀 Why It Matters</h2>
+                    <h2 class="section-header">🔮 The Long-Term View</h2>
+                    
+                    <p>Seekive isn't just for today — it's built with the future in mind.</p>
+
+                    <h2>🤖 AI & Free Time</h2>
+                    
+                    <p>As AI automates more of our work, many of us will have more free hours than ever before. But free time isn't automatically meaningful — it can lead to boredom or aimless scrolling if left unstructured.</p>
+                    
+                    <p>Seekive provides direction. It transforms spare time into opportunities for discovery, growth, and joy, helping people use freedom wisely instead of wasting it.</p>
+
+                    <h2>🛡️ Resilience in Crisis</h2>
+                    
+                    <p>History shows us that life can change quickly. Wars, pandemics, and global disruptions can shut down routines, isolate communities, and create uncertainty.</p>
+                    
+                    <p>Seekive offers tools that remain valuable in these times:<br>
+                    🤲 Volunteering opportunities that mobilize support.<br>
+                    🏘️ Local connections that strengthen resilience.<br>
+                    🎗️ A platform for rebuilding community events and initiatives after crisis.</p>
+                    
+                    <p>In the aftermath of disruption, Seekive can help people reconnect, rebuild, and rediscover purpose together.</p>
+
+                    <h2>🌍 Rebuilding & Renewal</h2>
+                    
+                    <p>After conflict or crisis, communities don't just need entertainment — they need connection, creativity, and shared culture to heal. Seekive can be part of that recovery, highlighting local events, cultural gatherings, and service opportunities that bring people together in times of renewal.</p>
+
+                    <h2 class="section-header">🚀 Why It Matters</h2>
                     
                     <p>The problems Seekive tackles — boredom, choice paralysis, disconnection, isolation, and fragmentation — are universal. But they also connect to something deeper: sustainability, mental health, community, creativity, purpose, and resilience in uncertain times.</p>
                     

@@ -237,102 +237,81 @@
         
         /* Article body */
         .article-body {
-    background: linear-gradient(135deg, #1a2332 0%, #0d1520 100%);
-    border-radius: 20px;
-    padding: 50px 45px;
-    border: 1px solid rgba(76, 139, 245, 0.25);
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(76, 139, 245, 0.1),
-        0 0 80px rgba(76, 139, 245, 0.05);
-    position: relative;
-    overflow: hidden;
-}
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Section containers for separate boxes */
+        .section-container {
+            background: linear-gradient(135deg, #1a2332 0%, #0d1520 100%);
+            border-radius: 20px;
+            padding: 50px 45px;
+            border: 1px solid rgba(76, 139, 245, 0.25);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(76, 139, 245, 0.1),
+                0 0 80px rgba(76, 139, 245, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(180deg, rgba(76, 139, 245, 0.03) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .section-container > * {
+            position: relative;
+            z-index: 1;
+        }
         
         .article-body h2 {
-    color: #60a5fa;
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-top: 45px;
-    margin-bottom: 18px;
-    line-height: 1.3;
-    text-shadow: 0 2px 12px rgba(76, 139, 245, 0.2);
-}
+            color: #60a5fa;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 45px;
+            margin-bottom: 18px;
+            line-height: 1.3;
+            text-shadow: 0 2px 12px rgba(76, 139, 245, 0.2);
+        }
         
         .article-body h2:first-child {
             margin-top: 0;
         }
 
         /* Major section headers */
-.section-header {
+        .section-header {
     font-size: 2.5rem;
     font-weight: 800;
     color: #f8fafc;
-    margin-top: 100px;
+    margin-top: 0;
     margin-bottom: 40px;
-    padding-top: 50px;
+    padding-top: 0;
     padding-bottom: 25px;
-    border-top: 4px solid rgba(76, 139, 245, 0.6);
+    border-top: none;
     border-bottom: 3px solid rgba(76, 139, 245, 0.4);
     text-shadow: 0 2px 16px rgba(76, 139, 245, 0.4);
-    background: linear-gradient(90deg, rgba(76, 139, 245, 0.08) 0%, transparent 100%);
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-left: -20px;
-    margin-right: -20px;
     position: relative;
-}
-
-.section-header::before {
-    content: '';
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(76, 139, 245, 0.3) 50%, transparent 100%);
-}
-
-.section-header:first-child {
-    margin-top: 0;
-    padding-top: 0;
-    border-top: none;
-}
-
-.section-header:first-child::before {
-    display: none;
-}
-
-        /* Add subtle gradient overlay */
-.article-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 200px;
-    background: linear-gradient(180deg, rgba(76, 139, 245, 0.03) 0%, transparent 100%);
-    pointer-events: none;
-}
-
-/* Ensure content stays above the overlay */
-.article-body > * {
-    position: relative;
-    z-index: 1;
 }
         
         .article-body p {
-    color: #cbd5e1;
-    line-height: 1.8;
-    margin-bottom: 18px;
-    font-size: 16px;
-}
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            font-size: 16px;
+        }
         
         .article-body strong {
-    color: #f1f5f9;
-    font-weight: 600;
-}
+            color: #f1f5f9;
+            font-weight: 600;
+        }
 
         /* Background animation */
         .bg-animation {
@@ -394,7 +373,7 @@
                 font-size: 2rem;
             }
             
-            .article-body {
+            .section-container {
                 padding: 35px 25px;
             }
 
@@ -405,7 +384,10 @@
 
             .section-header {
                 font-size: 2rem;
-                margin-top: 60px;
+                margin-left: 0;
+                margin-right: 0;
+                padding-left: 0;
+                padding-right: 0;
             }
 
             .article-category {
@@ -419,7 +401,7 @@
                 font-size: 1.75rem;
             }
 
-            .article-body {
+            .section-container {
                 padding: 30px 20px;
             }
 
@@ -479,168 +461,179 @@
                 </div>
                 
                 <div class="article-body">
+                    <!-- First Section: Core Problems -->
+                    <div class="section-container">
+                        <p>We live in a time of endless possibilities. Entertainment, events, food, nature, adventures — the world is overflowing with opportunities. Yet many of us feel stuck in routines, disconnected from our communities, or overwhelmed by the sheer number of choices in front of us.</p>
 
-                    <p>We live in a time of endless possibilities. Entertainment, events, food, nature, adventures — the world is overflowing with opportunities. Yet many of us feel stuck in routines, disconnected from our communities, or overwhelmed by the sheer number of choices in front of us.</p>
+                        <p>Seekive was created to solve that problem — and many more. It's not just another app. It's a tool for discovery, connection, and resilience, designed for today and the world that's coming tomorrow.</p>
 
-                    <p>Seekive was created to solve that problem — and many more. It's not just another app. It's a tool for discovery, connection, and resilience, designed for today and the world that's coming tomorrow.</p>
+                        <h2>🌍 The Discovery Problem</h2>
+                        
+                        <p><strong>The challenge:</strong> We're surrounded by options but often ask the same question: "What should I do today?"</p>
+                        
+                        <p>Choice overload leads to decision fatigue. Local events and hidden gems go unnoticed. People fall back on the same routines (Netflix, takeaway, repeat).</p>
+                        
+                        <p><strong>How Seekive helps:</strong><br>
+                        ✨ Categories and subcategories make exploration clear and simple.<br>
+                        🎡 A playful spinwheel adds fun to decision-making.<br>
+                        📅 Curated lists of upcoming events spotlight what's worth your time.</p>
+                        
+                        <p>Seekive makes it easy to turn "I don't know what to do" into "That looks exciting — let's go!"</p>
 
-                    <h2>🌍 The Discovery Problem</h2>
-                    
-                    <p><strong>The challenge:</strong> We're surrounded by options but often ask the same question: "What should I do today?"</p>
-                    
-                    <p>Choice overload leads to decision fatigue. Local events and hidden gems go unnoticed. People fall back on the same routines (Netflix, takeaway, repeat).</p>
-                    
-                    <p><strong>How Seekive helps:</strong><br>
-                    ✨ Categories and subcategories make exploration clear and simple.<br>
-                    🎡 A playful spinwheel adds fun to decision-making.<br>
-                    📅 Curated lists of upcoming events spotlight what's worth your time.</p>
-                    
-                    <p>Seekive makes it easy to turn "I don't know what to do" into "That looks exciting — let's go!"</p>
+                        <h2>👫 The Connection Problem</h2>
+                        
+                        <p><strong>The challenge:</strong> Social media connects us online but doesn't always help us meet people offline. Many feel isolated or crave more meaningful experiences.</p>
+                        
+                        <p><strong>How Seekive helps:</strong><br>
+                        🤝 Groups and shared interests bring like-minded people together.<br>
+                        🎉 Local events create opportunities for real-world connection.<br>
+                        💬 Chat and social features make it easy to build genuine bonds.</p>
+                        
+                        <p>Instead of scrolling endlessly, Seekive encourages participation, conversation, and togetherness.</p>
 
-                    <h2>👫 The Connection Problem</h2>
-                    
-                    <p><strong>The challenge:</strong> Social media connects us online but doesn't always help us meet people offline. Many feel isolated or crave more meaningful experiences.</p>
-                    
-                    <p><strong>How Seekive helps:</strong><br>
-                    🤝 Groups and shared interests bring like-minded people together.<br>
-                    🎉 Local events create opportunities for real-world connection.<br>
-                    💬 Chat and social features make it easy to build genuine bonds.</p>
-                    
-                    <p>Instead of scrolling endlessly, Seekive encourages participation, conversation, and togetherness.</p>
+                        <h2>🕹️ The Motivation Problem</h2>
+                        
+                        <p><strong>The challenge:</strong> Boredom and indecision often hold people back from exploring. Even with free time, many struggle to find the push they need.</p>
+                        
+                        <p><strong>How Seekive helps:</strong><br>
+                        🎡 The spinwheel gamifies discovery, making it feel like play.<br>
+                        ✨ Recommendations provide timely nudges toward new activities.<br>
+                        📍 Nearby suggestions lower the barrier to trying something new.</p>
+                        
+                        <p>Seekive transforms "maybe tomorrow" into "why not today?"</p>
 
-                    <h2>🕹️ The Motivation Problem</h2>
-                    
-                    <p><strong>The challenge:</strong> Boredom and indecision often hold people back from exploring. Even with free time, many struggle to find the push they need.</p>
-                    
-                    <p><strong>How Seekive helps:</strong><br>
-                    🎡 The spinwheel gamifies discovery, making it feel like play.<br>
-                    ✨ Recommendations provide timely nudges toward new activities.<br>
-                    📍 Nearby suggestions lower the barrier to trying something new.</p>
-                    
-                    <p>Seekive transforms "maybe tomorrow" into "why not today?"</p>
+                        <h2>🗂️ The Clarity Problem</h2>
+                        
+                        <p><strong>The challenge:</strong> Most platforms for finding things to do are cluttered with ads, endless scrolling, or vague recommendations. It's hard to filter signal from noise.</p>
+                        
+                        <p><strong>How Seekive helps:</strong><br>
+                        🗂️ Structured categories (Food & Dining, Entertainment, Adventure, Nature, etc.) make browsing effortless.<br>
+                        🔍 Smart organization surfaces what matters most.<br>
+                        🌐 Smaller businesses and local initiatives finally get visibility.</p>
+                        
+                        <p>Seekive replaces the chaos of information overload with clarity and ease.</p>
 
-                    <h2>🗂️ The Clarity Problem</h2>
-                    
-                    <p><strong>The challenge:</strong> Most platforms for finding things to do are cluttered with ads, endless scrolling, or vague recommendations. It's hard to filter signal from noise.</p>
-                    
-                    <p><strong>How Seekive helps:</strong><br>
-                    🗂️ Structured categories (Food & Dining, Entertainment, Adventure, Nature, etc.) make browsing effortless.<br>
-                    🔍 Smart organization surfaces what matters most.<br>
-                    🌐 Smaller businesses and local initiatives finally get visibility.</p>
-                    
-                    <p>Seekive replaces the chaos of information overload with clarity and ease.</p>
+                        <h2>📸 The Expression Problem</h2>
+                        
+                        <p><strong>The challenge:</strong> Social platforms today often prioritize likes, trends, and shallow engagement. Many want a way to share experiences that feels more personal and authentic.</p>
+                        
+                        <p><strong>How Seekive helps:</strong><br>
+                        📝 Entries capture stories and reflections.<br>
+                        📷 Snapshots highlight moments in photos.<br>
+                        🎥 Beacons let users share immersive videos.</p>
+                        
+                        <p>Over time, profiles become more than just a feed — they become a personal journey of discovery and growth.</p>
 
-                    <h2>📸 The Expression Problem</h2>
-                    
-                    <p><strong>The challenge:</strong> Social platforms today often prioritize likes, trends, and shallow engagement. Many want a way to share experiences that feels more personal and authentic.</p>
-                    
-                    <p><strong>How Seekive helps:</strong><br>
-                    📝 Entries capture stories and reflections.<br>
-                    📷 Snapshots highlight moments in photos.<br>
-                    🎥 Beacons let users share immersive videos.</p>
-                    
-                    <p>Over time, profiles become more than just a feed — they become a personal journey of discovery and growth.</p>
+                        <h2>🎯 The Lifestyle Problem</h2>
+                        
+                        <p><strong>The challenge:</strong> Modern life can leave us unbalanced, isolated, or stuck in routines. Finding activities that refresh the mind and body isn't always easy.</p>
+                        
+                        <p><strong>How Seekive helps:</strong><br>
+                        🌳 Encourages nature escapes and outdoor activities.<br>
+                        🎭 Spotlights culture, creativity, and community.<br>
+                        🧘 Supports wellbeing through meaningful exploration.</p>
+                        
+                        <p>Seekive helps people live more balanced lives by connecting them with the world around them.</p>
+                    </div>
 
-                    <h2>🎯 The Lifestyle Problem</h2>
-                    
-                    <p><strong>The challenge:</strong> Modern life can leave us unbalanced, isolated, or stuck in routines. Finding activities that refresh the mind and body isn't always easy.</p>
-                    
-                    <p><strong>How Seekive helps:</strong><br>
-                    🌳 Encourages nature escapes and outdoor activities.<br>
-                    🎭 Spotlights culture, creativity, and community.<br>
-                    🧘 Supports wellbeing through meaningful exploration.</p>
-                    
-                    <p>Seekive helps people live more balanced lives by connecting them with the world around them.</p>
+                    <!-- Second Section: Deeper Problems -->
+                    <div class="section-container">
+                        <h2 class="section-header">✨ Deeper Problems Seekive Addresses</h2>
+                        
+                        <p>Beyond discovery and connection, Seekive also responds to deeper human and societal needs.</p>
 
-                    <h2 class="section-header">✨ Deeper Problems Seekive Addresses</h2>
-                    
-                    <p>Beyond discovery and connection, Seekive also responds to deeper human and societal needs.</p>
+                        <h2>🌱 Sustainability & Environmental Awareness</h2>
+                        
+                        <p><strong>Problem:</strong> Many people want to live more sustainably but don't know where to start.</p>
+                        
+                        <p><strong>How Seekive helps:</strong> It surfaces eco-friendly activities, conservation volunteering, local markets, and nature escapes — framing discovery as responsible exploration.</p>
 
-                    <h2>🌱 Sustainability & Environmental Awareness</h2>
-                    
-                    <p><strong>Problem:</strong> Many people want to live more sustainably but don't know where to start.</p>
-                    
-                    <p><strong>How Seekive helps:</strong> It surfaces eco-friendly activities, conservation volunteering, local markets, and nature escapes — framing discovery as responsible exploration.</p>
+                        <h2>🧠 Mental Health & Wellbeing</h2>
+                        
+                        <p><strong>Problem:</strong> Anxiety, depression, and burnout are rising globally.</p>
+                        
+                        <p><strong>How Seekive helps:</strong> By spotlighting mindful events, nature walks, creative outlets, and community connection, it supports emotional resilience and becomes part of people's wellbeing toolkit.</p>
 
-                    <h2>🧠 Mental Health & Wellbeing</h2>
-                    
-                    <p><strong>Problem:</strong> Anxiety, depression, and burnout are rising globally.</p>
-                    
-                    <p><strong>How Seekive helps:</strong> By spotlighting mindful events, nature walks, creative outlets, and community connection, it supports emotional resilience and becomes part of people's wellbeing toolkit.</p>
+                        <h2>🎨 Creativity & Self-Expression</h2>
+                        
+                        <p><strong>Problem:</strong> Adulthood often sidelines creativity. Social platforms encourage consumption, not creation.</p>
+                        
+                        <p><strong>How Seekive helps:</strong> By surfacing workshops, cultural activities, and self-expression spaces, it helps people rediscover artistry and play.</p>
 
-                    <h2>🎨 Creativity & Self-Expression</h2>
-                    
-                    <p><strong>Problem:</strong> Adulthood often sidelines creativity. Social platforms encourage consumption, not creation.</p>
-                    
-                    <p><strong>How Seekive helps:</strong> By surfacing workshops, cultural activities, and self-expression spaces, it helps people rediscover artistry and play.</p>
+                        <h2>🏘️ Civic Engagement & Local Identity</h2>
+                        
+                        <p><strong>Problem:</strong> Communities feel fragmented, and global trends overshadow local culture.</p>
+                        
+                        <p><strong>How Seekive helps:</strong> It promotes local events, volunteering, and unique traditions — strengthening civic pride and belonging.</p>
 
-                    <h2>🏘️ Civic Engagement & Local Identity</h2>
-                    
-                    <p><strong>Problem:</strong> Communities feel fragmented, and global trends overshadow local culture.</p>
-                    
-                    <p><strong>How Seekive helps:</strong> It promotes local events, volunteering, and unique traditions — strengthening civic pride and belonging.</p>
+                        <h2>🧭 Purpose & Meaning in an Age of Abundance</h2>
+                        
+                        <p><strong>Problem:</strong> In modern, comfortable societies, people often feel lost despite "having it all."</p>
+                        
+                        <p><strong>How Seekive helps:</strong> By connecting people with meaningful experiences, volunteering, and discovery, it provides a sense of direction beyond consumption.</p>
 
-                    <h2>🧭 Purpose & Meaning in an Age of Abundance</h2>
-                    
-                    <p><strong>Problem:</strong> In modern, comfortable societies, people often feel lost despite "having it all."</p>
-                    
-                    <p><strong>How Seekive helps:</strong> By connecting people with meaningful experiences, volunteering, and discovery, it provides a sense of direction beyond consumption.</p>
+                        <h2>🌐 Generational Shift & Changing Values</h2>
+                        
+                        <p><strong>Problem:</strong> Younger generations are rejecting shallow, ad-driven platforms.</p>
+                        
+                        <p><strong>How Seekive helps:</strong> Seekive offers an alternative: authenticity, purpose, and genuine discovery over endless scrolling.</p>
 
-                    <h2>🌐 Generational Shift & Changing Values</h2>
-                    
-                    <p><strong>Problem:</strong> Younger generations are rejecting shallow, ad-driven platforms.</p>
-                    
-                    <p><strong>How Seekive helps:</strong> Seekive offers an alternative: authenticity, purpose, and genuine discovery over endless scrolling.</p>
+                        <h2>🕊️ Healing After Personal Disruption</h2>
+                        
+                        <p><strong>Problem:</strong> Individuals face their own crises — breakups, grief, relocations, job loss.</p>
+                        
+                        <p><strong>How Seekive helps:</strong> It provides gentle re-entry into life, with low-pressure activities and opportunities for reconnection.</p>
 
-                    <h2>🕊️ Healing After Personal Disruption</h2>
-                    
-                    <p><strong>Problem:</strong> Individuals face their own crises — breakups, grief, relocations, job loss.</p>
-                    
-                    <p><strong>How Seekive helps:</strong> It provides gentle re-entry into life, with low-pressure activities and opportunities for reconnection.</p>
+                        <h2>📚 Lifelong Learning & Growth</h2>
+                        
+                        <p><strong>Problem:</strong> Curiosity doesn't end with education, but opportunities for ongoing learning aren't always visible.</p>
+                        
+                        <p><strong>How Seekive helps:</strong> By surfacing workshops, lectures, and skill-sharing activities, Seekive keeps curiosity alive.</p>
+                    </div>
 
-                    <h2>📚 Lifelong Learning & Growth</h2>
-                    
-                    <p><strong>Problem:</strong> Curiosity doesn't end with education, but opportunities for ongoing learning aren't always visible.</p>
-                    
-                    <p><strong>How Seekive helps:</strong> By surfacing workshops, lectures, and skill-sharing activities, Seekive keeps curiosity alive.</p>
+                    <!-- Third Section: Long-Term View -->
+                    <div class="section-container">
+                        <h2 class="section-header">🔮 The Long-Term View</h2>
+                        
+                        <p>Seekive isn't just for today — it's built with the future in mind.</p>
 
-                    <h2 class="section-header">🔮 The Long-Term View</h2>
-                    
-                    <p>Seekive isn't just for today — it's built with the future in mind.</p>
+                        <h2>🤖 AI & Free Time</h2>
+                        
+                        <p>As AI automates more of our work, many of us will have more free hours than ever before. But free time isn't automatically meaningful — it can lead to boredom or aimless scrolling if left unstructured.</p>
+                        
+                        <p>Seekive provides direction. It transforms spare time into opportunities for discovery, growth, and joy, helping people use freedom wisely instead of wasting it.</p>
 
-                    <h2>🤖 AI & Free Time</h2>
-                    
-                    <p>As AI automates more of our work, many of us will have more free hours than ever before. But free time isn't automatically meaningful — it can lead to boredom or aimless scrolling if left unstructured.</p>
-                    
-                    <p>Seekive provides direction. It transforms spare time into opportunities for discovery, growth, and joy, helping people use freedom wisely instead of wasting it.</p>
+                        <h2>🛡️ Resilience in Crisis</h2>
+                        
+                        <p>History shows us that life can change quickly. Wars, pandemics, and global disruptions can shut down routines, isolate communities, and create uncertainty.</p>
+                        
+                        <p>Seekive offers tools that remain valuable in these times:<br>
+                        🤲 Volunteering opportunities that mobilize support.<br>
+                        🏘️ Local connections that strengthen resilience.<br>
+                        🎗️ A platform for rebuilding community events and initiatives after crisis.</p>
+                        
+                        <p>In the aftermath of disruption, Seekive can help people reconnect, rebuild, and rediscover purpose together.</p>
 
-                    <h2>🛡️ Resilience in Crisis</h2>
-                    
-                    <p>History shows us that life can change quickly. Wars, pandemics, and global disruptions can shut down routines, isolate communities, and create uncertainty.</p>
-                    
-                    <p>Seekive offers tools that remain valuable in these times:<br>
-                    🤲 Volunteering opportunities that mobilize support.<br>
-                    🏘️ Local connections that strengthen resilience.<br>
-                    🎗️ A platform for rebuilding community events and initiatives after crisis.</p>
-                    
-                    <p>In the aftermath of disruption, Seekive can help people reconnect, rebuild, and rediscover purpose together.</p>
+                        <h2>🌍 Rebuilding & Renewal</h2>
+                        
+                        <p>After conflict or crisis, communities don't just need entertainment — they need connection, creativity, and shared culture to heal. Seekive can be part of that recovery, highlighting local events, cultural gatherings, and service opportunities that bring people together in times of renewal.</p>
+                    </div>
 
-                    <h2>🌍 Rebuilding & Renewal</h2>
-                    
-                    <p>After conflict or crisis, communities don't just need entertainment — they need connection, creativity, and shared culture to heal. Seekive can be part of that recovery, highlighting local events, cultural gatherings, and service opportunities that bring people together in times of renewal.</p>
+                    <!-- Fourth Section: Why It Matters -->
+                    <div class="section-container">
+                        <h2 class="section-header">🚀 Why It Matters</h2>
 
-                    <h2 class="section-header">🚀 Why It Matters</h2>
+                        <p>The problems Seekive addresses span from the everyday — boredom, indecision, disconnection — to the profound: sustainability, mental health, creativity, community, resilience, and purpose in uncertain times.</p>
 
-                    <p>The problems Seekive addresses span from the everyday — boredom, indecision, disconnection — to the profound: sustainability, mental health, creativity, community, resilience, and purpose in uncertain times.</p>
+                        <p>Seekive is more than an app. It's a movement for living fully:<br>
+                        ✨ discovering the world,<br>
+                        ✨ connecting with others,<br>
+                        ✨ supporting communities,<br>
+                        ✨ and preparing for a future where meaning matters more than ever.</p>
 
-                    <p>Seekive is more than an app. It's a movement for living fully:<br>
-                    ✨ discovering the world,<br>
-                    ✨ connecting with others,<br>
-                    ✨ supporting communities,<br>
-                    ✨ and preparing for a future where meaning matters more than ever.</p>
-
-                    <p>Because life isn't meant to be scrolled past.<br>
-                    ✨ It's meant to be explored.</p>
+                        <p>Because life isn't meant to be scrolled past.<br>
+                        ✨ It's meant to be explored.</p>
+                    </div>
                 </div>
             </div>
         </div>

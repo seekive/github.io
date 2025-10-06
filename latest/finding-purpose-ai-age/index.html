@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon1-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon1-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon1-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon1.png">
+    <link rel="shortcut icon" href="/favicon1.ico">
+
+    <title>Finding Purpose When Machines Take Over - Seekive</title>
+    <meta name="description" content="How Seekive helps us navigate the fear and opportunity of an AI-driven future while staying deeply human." />
+    <link rel="canonical" href="https://www.seekive.com/articles/finding-purpose-ai-age/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Finding Purpose When Machines Take Over" />
+    <meta property="og:description" content="Navigating AI's transformation with humanity intact." />
+    <meta property="og:url" content="https://www.seekive.com/articles/finding-purpose-ai-age/" />
+    <meta property="og:image" content="https://www.seekive.com/seekive-social-preview1.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Finding Purpose When Machines Take Over" />
+    <meta name="twitter:description" content="How Seekive helps humans stay human in the age of AI" />
+    <meta name="twitter:image" content="https://www.seekive.com/seekive-social-preview1.png" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VVZ6LW4N55"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-VVZ6LW4N55');
+    </script>
+    
+    <style>
+        :root {
+            --primary-blue: #4C8BF5;
+            --primary-dark: #2563EB;
+            --secondary-orange: #F59E0B;
+            --accent-emerald: #10B981;
+            --teal-accent: #06B6D4;
+            --dark-bg: #0F172A;
+            --darker-bg: #020617;
+            --surface: #1E293B;
+            --surface-light: #334155;
+            --surface-lighter: #475569;
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --border: #374151;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            padding: 16px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(76, 139, 245, 0.2);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .seekive-logo {
+            width: 42px;
+            height: 42px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links > li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .dropdown-toggle i {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .dropdown > .dropdown-toggle::after {
+            display: none;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 0;
+            min-width: 220px;
+            background: #0F172A;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+            list-style: none;
+            padding: 8px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.98);
+            transform-origin: top;
+            pointer-events: none;
+            transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
+            z-index: 2000;
+        }
+
+        .dropdown-menu li {
+            width: 100%;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 14px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .dropdown-menu a::after {
+            display: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: #1E293B;
+            color: var(--text-primary);
+            border-radius: 8px;
+        }
+
+        .dropdown:hover .dropdown-menu,
+        .dropdown:focus-within .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            pointer-events: auto;
+            transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s;
+        }
+
+        .cta-nav {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(76, 139, 245, 0.3);
+        }
+
+        .cta-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 139, 245, 0.4);
+        }
+
+        .nav-toggle {
+            display: none;
+            width: 42px; 
+            height: 42px; 
+            padding: 0;
+            border: 1px solid var(--border);
+            background: var(--surface-light);
+            border-radius: 12px;
+            cursor: pointer; 
+            position: relative;
+            box-shadow: 0 4px 14px rgba(0,0,0,.25);
+        }
+
+        .nav-toggle:hover { 
+            background: var(--surface); 
+        }
+
+        .nav-toggle .bar {
+            position: absolute; 
+            left: 50%;
+            width: 22px; 
+            height: 2px; 
+            background: var(--text-primary);
+            border-radius: 2px; 
+            transform: translateX(-50%);
+            transition: transform .2s ease, opacity .2s ease, top .2s ease;
+        }
+
+        .nav-toggle .bar:nth-child(1) { top: 12px; }
+        .nav-toggle .bar:nth-child(2) { top: 19px; }
+        .nav-toggle .bar:nth-child(3) { top: 26px; }
+
+        .nav-toggle.active .bar:nth-child(1) { 
+            top: 19px; 
+            transform: translateX(-50%) rotate(45deg); 
+        }
+        .nav-toggle.active .bar:nth-child(2) { 
+            opacity: 0; 
+        }
+        .nav-toggle.active .bar:nth-child(3) { 
+            top: 19px; 
+            transform: translateX(-50%) rotate(-45deg); 
+        }
+
+        .mobile-nav { 
+            position: fixed; 
+            inset: 0; 
+            z-index: 1500; 
+            display: none; 
+        }
+
+        .mobile-nav.open { 
+            display: block; 
+        }
+
+        .mobile-nav__overlay {
+            position: absolute; 
+            inset: 0;
+            background: rgba(2, 6, 23, 0.92);
+        }
+
+        .mobile-nav__panel {
+            position: absolute; 
+            top: 0; 
+            right: 0; 
+            height: 100%;
+            width: min(92vw, 380px);
+            background: #0F172A;
+            border-left: 1px solid var(--border);
+            box-shadow: -20px 0 60px rgba(0,0,0,.5);
+            transform: translateX(100%);
+            transition: transform .25s ease;
+            padding: max(18px, calc(env(safe-area-inset-top) + 12px)) 20px 20px 20px;
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px;
+        }
+
+        .mobile-nav.open .mobile-nav__panel { 
+            transform: translateX(0); 
+        }
+
+        .mobile-close {
+            align-self: flex-end;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid var(--border); 
+            background: var(--surface-light);
+            color: var(--text-primary); 
+            font-size: 22px; 
+            line-height: 1; 
+            cursor: pointer;
+        }
+
+        .mobile-brand {
+            color: var(--text-primary); 
+            text-decoration: none; 
+            font-weight: 700;
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px;
+            margin-top: -6px;
+        }
+
+        .mobile-list { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+        }
+
+        .mobile-list a {
+            display: block; 
+            padding: 12px 12px; 
+            border-radius: 10px;
+            color: var(--text-secondary); 
+            text-decoration: none; 
+            font-weight: 500;
+        }
+
+        .mobile-list a:hover { 
+            background: var(--surface-light); 
+            color: var(--text-primary); 
+        }
+
+        #mobileNav .mobile-list > li > a:hover{
+          background: transparent;
+          color: var(--primary-blue);
+        }
+
+        #mobileNav .mobile-list a.is-active{
+          color: var(--primary-blue) !important;
+          background: transparent !important;
+          font-weight: 600;
+        }
+
+        .mobile-item{
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0;
+          border-radius: 0;
+          background: transparent !important;
+        }
+        .mobile-item:hover{
+          background: transparent !important;
+        }
+
+        .mobile-root-link{
+          flex: 1;
+          display: block;
+          padding: 12px 44px 12px 12px;
+          color: var(--text-secondary);
+          text-decoration: none;
+          font-weight: 500;
+        }
+
+        .sub-toggle,
+        .mobile-list a { -webkit-tap-highlight-color: transparent; }
+
+        .sub-toggle{
+          position: absolute;
+          right: 6px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 32px;
+          height: 32px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border: 0;
+          border-radius: 8px;
+          background: transparent;
+          color: var(--text-primary);
+          cursor: pointer;
+        }
+        .chev{ transition: transform .2s ease; }
+        .mobile-collapsible.open .chev{ transform: rotate(180deg); }
+
+        .sublist{
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          height: 0;
+          transition: height .22s ease;
+        }
+
+        #mobileNav .sublist[hidden]{
+          height: 0 !important;
+          overflow: hidden !important;
+        }
+
+        .sublist li a{
+          display: block;
+          padding: 10px 12px 10px 24px;
+          border-radius: 8px;
+          text-decoration: none;
+          color: var(--text-secondary);
+          font-weight: 500;
+        }
+        .sublist li a:hover{
+          background: var(--surface-light);
+          color: var(--text-primary);
+        }
+
+        .mobile-cta { 
+            display: inline-block; 
+            text-align: center; 
+        }
+
+        body.no-scroll { 
+            overflow: hidden; 
+        }
+
+        .article-wrapper {
+            padding: 110px 0 80px;
+        }
+        
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+        
+        .back-link:hover {
+            transform: translateX(-4px);
+            color: var(--teal-accent);
+        }
+        
+        .article-header {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(76, 139, 245, 0.15);
+        }
+        
+        .article-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 32px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--teal-accent) 50%, var(--accent-emerald) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-blue);
+        }
+
+        .author-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .author-name {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .article-date {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .article-category {
+            background: linear-gradient(135deg, var(--primary-blue), var(--teal-accent));
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: auto;
+        }
+        
+        .article-body {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .section-container {
+            background: linear-gradient(135deg, #1a2332 0%, #0d1520 100%);
+            border-radius: 20px;
+            padding: 50px 45px;
+            border: 1px solid rgba(76, 139, 245, 0.25);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(76, 139, 245, 0.1),
+                0 0 80px rgba(76, 139, 245, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(180deg, rgba(76, 139, 245, 0.03) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .section-container > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .article-body h2 {
+            color: #60a5fa;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 45px;
+            margin-bottom: 18px;
+            line-height: 1.3;
+            text-shadow: 0 2px 12px rgba(76, 139, 245, 0.2);
+        }
+        
+        .article-body h2:first-child {
+            margin-top: 0;
+        }
+
+        .section-header {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #f8fafc;
+            margin-top: 0;
+            margin-bottom: 40px;
+            padding-top: 0;
+            padding-bottom: 25px;
+            border-top: none;
+            border-bottom: 3px solid rgba(76, 139, 245, 0.4);
+            text-shadow: 0 2px 16px rgba(76, 139, 245, 0.4);
+            position: relative;
+        }
+        
+        .article-body p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            font-size: 16px;
+        }
+        
+        .article-body strong {
+            color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        .article-body ul {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            margin-left: 24px;
+        }
+
+        .article-body li {
+            margin-bottom: 8px;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--teal-accent));
+            opacity: 0.03;
+            filter: blur(80px);
+        }
+
+        .bg-circle:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 350px;
+            height: 350px;
+            animation: float-bg 25s infinite alternate ease-in-out;
+        }
+
+        .bg-circle:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            width: 450px;
+            height: 450px;
+            animation: float-bg 20s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes float-bg {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(60px, 40px) scale(1.1); }
+        }
+        
+        footer {
+            background: var(--darker-bg);
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--border);
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 24px;
+            font-size: 18px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 15px;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-blue);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-orange);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-4px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 8px 24px rgba(76, 139, 245, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-toggle { display: inline-flex; }
+            .nav-links { display: none; }
+            .desktop-only { display: none; }
+            
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .section-container {
+                padding: 35px 25px;
+            }
+
+            .article-body h2 {
+                font-size: 1.5rem;
+                margin-top: 35px;
+            }
+
+            .section-header {
+                font-size: 2rem;
+                margin-left: 0;
+                margin-right: 0;
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .article-category {
+                margin-left: 0;
+                margin-top: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .article-title {
+                font-size: 1.75rem;
+            }
+
+            .section-container {
+                padding: 30px 20px;
+            }
+
+            .section-header {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <div class="seekive-logo">
+                        <img src="/logo1.png" alt="Seekive Logo" style="width: 42px; height: 42px; object-fit: contain;">
+                    </div>
+                    <div class="logo-text">Seekive</div>
+                </div>
+
+                <button class="nav-toggle" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+
+                <ul class="nav-links">
+                    <li class="dropdown">
+                        <a href="/" class="dropdown-toggle">
+                            Home <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-label="Home">
+                            <li><a href="/#features">Features</a></li>
+                            <li><a href="/#categories">Discover</a></li>
+                            <li><a href="/#how-it-works">How It Works</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/store/">Store</a></li>
+                    <li><a href="/latest/">Latest</a></li>
+                    <li><a href="/community/">Community</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+
+                <a href="/#early-access" class="cta-nav desktop-only">Get Early Access</a>
+            </nav>
+
+            <div id="mobileNav" class="mobile-nav" aria-hidden="true">
+                <div class="mobile-nav__overlay" data-close></div>
+                <div class="mobile-nav__panel">
+                    <button class="mobile-close" aria-label="Close menu">&times;</button>
+
+                    <a class="mobile-brand" href="/">
+                        <img src="/logo1.png" alt="Seekive" width="28" height="28" style="vertical-align:middle;margin-right:8px;"> Seekive
+                    </a>
+
+                    <ul class="mobile-list">
+                        <li class="mobile-collapsible" id="homeCollapsible">
+                            <div class="mobile-item">
+                                <a href="/" class="mobile-root-link" data-close>Home</a>
+                                <button type="button"
+                                        class="sub-toggle"
+                                        aria-expanded="false"
+                                        aria-controls="homeSublist"
+                                        aria-label="Show Home sections">
+                                    <i class="fa-solid fa-chevron-down chev" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <ul id="homeSublist" class="sublist" hidden>
+                                <li><a href="/#features" data-close>Features</a></li>
+                                <li><a href="/#categories" data-close>Discover</a></li>
+                                <li><a href="/#how-it-works" data-close>How It Works</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="/store/" data-close>Store</a></li>
+                        <li><a href="/latest/" data-close>Latest</a></li>
+                        <li><a href="/community/" data-close>Community</a></li>
+                        <li><a href="/contact/" data-close>Contact</a></li>
+                    </ul>
+
+                    <a href="/#early-access" class="cta-nav mobile-cta" data-close>Get Early Access</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="article-wrapper">
+        <div class="container">
+            <div class="article-content">
+                <a href="/latest/" class="back-link">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Latest
+                </a>
+                
+                <div class="article-header">
+                    <h1 class="article-title">The Human Side of the AI Age: How Seekive Helps Us Find Purpose When Machines Take Over the Work</h1>
+                    
+                    <div class="article-meta">
+                        <div class="author-info">
+                            <img src="/logo1.png" alt="Seekive" class="author-avatar">
+                            <div class="author-details">
+                                <div class="author-name">Seekive</div>
+                                <div class="article-date">October 6, 2025</div>
+                            </div>
+                        </div>
+                        <div class="article-category">Future</div>
+                    </div>
+                </div>
+                
+                <div class="article-body">
+                    <div class="section-container">
+                        <p>Artificial Intelligence is reshaping everything — how we work, learn, create, and even think. For the first time in history, many people are facing a future where machines can do nearly everything they once did.</p>
+
+                        <p>It's exciting — and unsettling.</p>
+
+                        <p>AI promises freedom, but it also stirs an ancient fear: <strong>If machines take over the doing, what happens to the meaning?</strong></p>
+
+                        <p>Seekive was created to help answer that — by giving purpose, direction, and discovery back to people in a world where the boundaries between human and machine are shifting fast.</p>
+
+                        <h2>The Fear Behind the Progress</h2>
+                        
+                        <p>AI will automate countless jobs, streamline tasks, and make life more efficient — but efficiency isn't the same as fulfillment. As daily responsibilities shrink, many quietly fear the void that might replace them.</p>
+                        
+                        <p>People worry about:</p>
+                        <ul>
+                            <li>Losing their sense of purpose when work no longer defines them.</li>
+                            <li>Feeling disconnected as algorithms replace human interaction.</li>
+                            <li>Becoming passive consumers in a world that rewards convenience over curiosity.</li>
+                            <li>Living in a reality so optimized that there's no room left for wonder.</li>
+                        </ul>
+                        
+                        <p>These fears are real — not because technology is evil, but because purpose is deeply human. And purpose can't be automated.</p>
+
+                        <h2>The Purpose Problem in the Age of AI</h2>
+                        
+                        <p>For centuries, our identities have been built around productivity. Work gave structure. Routine gave rhythm. Effort gave meaning.</p>
+                        
+                        <p>But as AI takes over routine and repetition, we risk drifting into a strange new kind of emptiness — one filled with time but lacking direction.</p>
+                        
+                        <p>Without something to aim that freedom toward, people can become detached, isolated, and uninspired.</p>
+                        
+                        <p>Seekive exists to change that. It helps people use their freedom not as escape, but as opportunity — a chance to rediscover curiosity, community, and creativity.</p>
+                    </div>
+
+                    <div class="section-container">
+                        <h2 class="section-header">The Human Compass</h2>
+                        
+                        <p>Seekive isn't a tech product fighting against AI. It's the human counterbalance — a guide that helps us stay connected to what makes us human.</p>
+
+                        <p><strong>How Seekive helps:</strong></p>
+                        <ul>
+                            <li>Turns free time into meaningful discovery instead of idle distraction.</li>
+                            <li>Connects people with real-world experiences — nature, culture, and community.</li>
+                            <li>Encourages creativity, learning, and self-expression.</li>
+                            <li>Builds genuine human connection in a world of digital noise.</li>
+                        </ul>
+                        
+                        <p>Seekive is a reminder that progress doesn't have to mean losing ourselves — it can mean rediscovering who we really are.</p>
+
+                        <h2>Becoming More Human, Not Less</h2>
+                        
+                        <p>AI will continue to evolve — faster than we can imagine. But as machines take on our labor, humans have the chance to reclaim something even more important: being human.</p>
+                        
+                        <p>To laugh, explore, feel, connect, and create — not because we must, but because we can.</p>
+                        
+                        <p>Seekive offers a structure for that new kind of living. It helps people re-engage with life's richness — through discovery, community, and experience — turning the fear of redundancy into a pathway to renewal.</p>
+                    </div>
+
+                    <div class="section-container">
+                        <h2 class="section-header">A Future Worth Living</h2>
+
+                        <p>The future won't just be about smarter machines — it will be about wiser humans. Seekive envisions a world where automation gives us time, and we use that time to grow, connect, and live more deeply.</p>
+
+                        <p>Because when AI handles the tasks, Seekive helps us handle the time. When technology becomes mechanical, Seekive reminds us to stay meaningful.</p>
+
+                        <h2>Why It Matters</h2>
+                        
+                        <p>The rise of AI brings both progress and pressure. It can either free us — or hollow us out.</p>
+
+                        <p>Seekive stands at that crossroads, helping people use their freedom with intention. It's not about resisting the future — it's about humanizing it.</p>
+
+                        <p>Because life's purpose isn't found in algorithms or automation. It's found in exploration, connection, and the small, beautiful moments of being alive.</p>
+
+                        <p>Seekive helps ensure that in the age of machines, <strong>humans stay human.</strong></p>
+
+                        <p>Because life isn't meant to be automated. It's meant to be explored.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <img src="/logo1.png" alt="Seekive Logo" style="width: 32px; height: 32px; object-fit: contain;">
+                            <span>Seekive</span>
+                        </div>
+                    </h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-top: 16px;">
+                        Your compass to new experiences. Discover adventures perfectly matched to your mood, time, and curiosity.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="/store/">Store</a></li>
+                        <li><a href="/latest/">Latest</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/privacy-policy/">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service/">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px;">
+                        <a href="https://www.instagram.com/seekiveapp/" target="_blank" class="social-btn" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://x.com/seekiveapp" target="_blank" class="social-btn" aria-label="X (Twitter)">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61575759483549" target="_blank" class="social-btn" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@seekiveapp" target="_blank" class="social-btn" aria-label="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@seekiveapp" target="_blank" class="social-btn" aria-label="YouTube">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                        <a href="https://www.pinterest.com/seekiveapp/" target="_blank" rel="noopener" class="social-btn" aria-label="Pinterest">
+                            <i class="fa-brands fa-pinterest-p"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Seekive. All rights reserved. • Seek It. Find It. Live It.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const panel = mobileNav?.querySelector('.mobile-nav__panel');
+        const overlay = mobileNav?.querySelector('.mobile-nav__overlay');
+        const closeBtn = mobileNav?.querySelector('.mobile-close');
+
+        function openMenu(){
+            mobileNav.classList.add('open');
+            document.body.classList.add('no-scroll');
+            navToggle.classList.add('active');
+            navToggle.setAttribute('aria-expanded','true');
+            mobileNav.setAttribute('aria-hidden','false');
+            const firstLink = mobileNav.querySelector('a,button');
+            firstLink && firstLink.focus();
+        }
+
+        function closeMenu(){
+            mobileNav.classList.remove('open');
+            document.body.classList.remove('no-scroll');
+            navToggle.classList.remove('active');
+            navToggle.setAttribute('aria-expanded','false');
+            mobileNav.setAttribute('aria-hidden','true');
+            navToggle.focus();
+        }
+
+        if (navToggle && mobileNav){
+            navToggle.addEventListener('click', ()=>{
+                if (mobileNav.classList.contains('open')) { closeMenu(); }
+                else { openMenu(); }
+            });
+            overlay.addEventListener('click', closeMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
+            mobileNav.querySelectorAll('[data-close]').forEach(el=> el.addEventListener('click', closeMenu));
+            panel.addEventListener('wheel', (e)=> e.stopPropagation(), { passive:true });
+            panel.addEventListener('touchmove', (e)=> e.stopPropagation(), { passive:true });
+        }
+
+        (function(){
+          const coll = document.getElementById('homeCollapsible');
+          if(!coll) return;
+          const btn = coll.querySelector('.sub-toggle');
+          const sub = coll.querySelector('.sublist');
+
+          function expand(){
+            coll.classList.add('open');
+            btn.setAttribute('aria-expanded','true');
+            sub.hidden = false;
+            sub.style.height = 'auto';
+            const h = sub.scrollHeight + 'px';
+            sub.style.height = '0px';
+            sub.getBoundingClientRect();
+            sub.style.height = h;
+            sub.addEventListener('transitionend', function done(e){
+              if(e.propertyName === 'height'){
+                sub.style.height = 'auto';
+                sub.removeEventListener('transitionend', done);
+              }
+            });
+          }
+
+          function collapse(){
+            coll.classList.remove('open');
+            btn.setAttribute('aria-expanded','false');
+            sub.style.height = sub.scrollHeight + 'px';
+            sub.getBoundingClientRect();
+            sub.style.height = '0px';
+            sub.addEventListener('transitionend', function done(e){
+              if(e.propertyName === 'height'){
+                sub.hidden = true;
+                sub.removeEventListener('transitionend', done);
+              }
+            });
+          }
+
+          btn.addEventListener('click', (e)=>{
+            e.preventDefault();
+            e.stopPropagation();
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            expanded ? collapse() : expand();
+          });
+        })();
+
+        (function(){
+          const here = new URL(window.location.href);
+          const herePath = here.pathname.replace(/\/+$/,'/') || '/';
+
+          document.querySelectorAll('#mobileNav .mobile-list a').forEach(a=>{
+            try{
+              const u = new URL(a.getAttribute('href'), window.location.origin);
+              const path = u.pathname.replace(/\/+$/,'/') || '/';
+
+              if (path === herePath && (u.hash === '' || herePath !== '/')) {
+                a.classList.add('is-active');
+              }
+              if (herePath === '/' && path === '/' && u.hash && u.hash === here.hash && here.hash !== '') {
+                a.classList.add('is-active');
+              }
+            } catch(e){}
+          });
+        })();
+
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

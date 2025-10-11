@@ -1111,8 +1111,11 @@
                 <div class="contact-form">
                     <h2>Send us a Message</h2>
                     <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Name *</label>
+    <!-- Honeypot anti-bot field -->
+    <input type="text" name="website" style="display:none !important; position: absolute; left: -9999px;" tabindex="-1" autocomplete="off" aria-hidden="true">
+    
+    <div class="form-group">
+        <label for="name">Name *</label>
                             <input type="text" id="name" name="name" required placeholder="Your full name">
                         </div>
                         
@@ -1340,9 +1343,16 @@ window.addEventListener('scroll', function() {
     }
 });
 
-        // CRITICAL: Contact form functionality - PRESERVED EXACTLY
+        // CRITICAL: Contact form functionality with bot protection
         document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent normal form submission
+            e.preventDefault();
+            
+            // HONEYPOT CHECK - Block bots silently
+            const honeypot = document.querySelector('[name="website"]').value;
+            if (honeypot !== '') {
+                console.log('Bot detected - honeypot filled');
+                return false;
+            }
             
             // Get form data
             const name = document.getElementById('name').value;
@@ -1356,6 +1366,17 @@ window.addEventListener('scroll', function() {
                 return;
             }
             
+            // GIBBERISH DETECTION - Block random character strings
+            const isGibberish = (str) => {
+                const vowels = str.match(/[aeiouAEIOU]/g);
+                return !vowels || vowels.length < str.length * 0.15;
+            };
+            
+            if (isGibberish(name) || isGibberish(message)) {
+                console.log('Suspicious content detected');
+                return false;
+            }
+            
             // Map subject values to match Google Form exactly
             let googleSubject = subject;
             if (subject === 'general') googleSubject = 'General Inquiry';
@@ -1365,7 +1386,7 @@ window.addEventListener('scroll', function() {
             if (subject === 'feedback') googleSubject = 'Feedback/Suggestions';
             if (subject === 'other') googleSubject = 'Other';
             
-            // Create a hidden iframe to submit to Google Forms (same method as early access)
+            // Create a hidden iframe to submit to Google Forms
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
             document.body.appendChild(iframe);
@@ -1384,7 +1405,7 @@ window.addEventListener('scroll', function() {
             // Submit the hidden form
             iframe.contentWindow.document.getElementById('hiddenContactForm').submit();
             
-            // Redirect to contact thank you page after a short delay (same as early access)
+            // Redirect to contact thank you page after a short delay
             setTimeout(function() {
                 window.location.href = '/contact-thank-you/';
             }, 500);

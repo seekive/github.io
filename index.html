@@ -2006,6 +2006,7 @@ window.addEventListener('scroll', function() {
   function openMenu(){
     mobileNav.classList.add('open');
     document.body.classList.add('no-scroll');
+    navToggle.classList.add('active');
     navToggle.setAttribute('aria-expanded','true');
     mobileNav.setAttribute('aria-hidden','false');
     // focus first link
@@ -2015,6 +2016,7 @@ window.addEventListener('scroll', function() {
   function closeMenu(){
     mobileNav.classList.remove('open');
     document.body.classList.remove('no-scroll');
+    navToggle.classList.remove('active');
     navToggle.setAttribute('aria-expanded','false');
     mobileNav.setAttribute('aria-hidden','true');
     navToggle.focus();

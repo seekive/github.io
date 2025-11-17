@@ -842,213 +842,75 @@
         }
 
         // Form Submission
-        document.getElementById('signupForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+document.getElementById('signupForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-            if (!validateStep(3)) return;
+    if (!validateStep(3)) return;
 
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<div class="spinner"></div> Creating Account...';
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<div class="spinner"></div> Creating Account...';
 
-            try {
-                // Create Firebase Authentication user
-                const userCredential = await auth.createUserWithEmailAndPassword(
-                    formData.email,
-                    formData.password
-                );
+    try {
+        // Create Firebase Authentication user
+        const userCredential = await auth.createUserWithEmailAndPassword(
+            formData.email,
+            formData.password
+        );
 
-                const user = userCredential.user;
+        const user = userCredential.user;
 
-                // Send email verification
-                await user.sendEmailVerification();
+        // STEP 1: Send Firebase Email Verification
+        const actionCodeSettings = {
+            url: 'https://www.seekive.com/verify-email/?email=' + formData.email,
+            handleCodeInApp: true
+        };
+        
+        await user.sendEmailVerification(actionCodeSettings);
 
-                // Store additional user data in Firestore
-                // Store additional user data in Firestore
-await db.collection('earlyAccessUsers').doc(user.uid).set({
-    // User data
-    email: formData.email,
-    firstName: formData.firstName,
-    lastName: formData.lastName,
-    location: formData.location || '',
-    agreeMarketing: formData.agreeMarketing,
-    signupDate: firebase.firestore.FieldValue.serverTimestamp(),
-    emailVerified: false,
-    status: 'pending',
-    
-    // Email trigger fields (required by extension)
-    to: formData.email,
-    message: {
-        subject: '🎉 Welcome to Seekive Early Access!',
-        html: `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <style>
-                    body {
-                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                        background-color: #0F172A;
-                        margin: 0;
-                        padding: 0;
-                    }
-                    .container {
-                        max-width: 600px;
-                        margin: 0 auto;
-                        background-color: #1E293B;
-                        border-radius: 16px;
-                        overflow: hidden;
-                    }
-                    .header {
-                        background: linear-gradient(135deg, #4C8BF5 0%, #06B6D4 100%);
-                        padding: 40px 20px;
-                        text-align: center;
-                    }
-                    .logo {
-                        width: 80px;
-                        height: 80px;
-                        background: white;
-                        border-radius: 50%;
-                        margin: 0 auto 20px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-size: 40px;
-                    }
-                    .header h1 {
-                        color: white;
-                        margin: 0;
-                        font-size: 28px;
-                    }
-                    .content {
-                        padding: 40px 30px;
-                        color: #F8FAFC;
-                    }
-                    .content h2 {
-                        color: #4C8BF5;
-                        font-size: 24px;
-                        margin-top: 0;
-                    }
-                    .content p {
-                        line-height: 1.6;
-                        color: #94A3B8;
-                        font-size: 16px;
-                    }
-                    .cta-button {
-                        display: inline-block;
-                        background: linear-gradient(135deg, #4C8BF5, #2563EB);
-                        color: white;
-                        padding: 16px 32px;
-                        text-decoration: none;
-                        border-radius: 50px;
-                        font-weight: 600;
-                        margin: 20px 0;
-                    }
-                    .features {
-                        background: #0F172A;
-                        padding: 20px;
-                        border-radius: 12px;
-                        margin: 20px 0;
-                    }
-                    .feature-item {
-                        display: flex;
-                        align-items: flex-start;
-                        margin: 15px 0;
-                        gap: 12px;
-                    }
-                    .feature-icon {
-                        color: #10B981;
-                        font-size: 20px;
-                    }
-                    .feature-text {
-                        color: #94A3B8;
-                        flex: 1;
-                    }
-                    .footer {
-                        text-align: center;
-                        padding: 30px;
-                        color: #64748B;
-                        font-size: 14px;
-                        border-top: 1px solid #334155;
-                    }
-                    .social-links {
-                        margin: 20px 0;
-                    }
-                    .social-links a {
-                        display: inline-block;
-                        margin: 0 8px;
-                        color: #4C8BF5;
-                        text-decoration: none;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <div class="header">
-                        <div class="logo">🧭</div>
-                        <h1>Welcome to Seekive!</h1>
-                    </div>
-                    
-                    <div class="content">
-                        <h2>Hi ${formData.firstName},</h2>
-                        
-                        <p>Thank you for joining Seekive's early access program! We're thrilled to have you on board as we prepare to launch the most exciting way to discover local activities and experiences.</p>
-                        
-                        <p>You're now part of an exclusive group who will be among the first to experience:</p>
-                        
-                        <div class="features">
-                            <div class="feature-item">
-                                <span class="feature-icon">✨</span>
-                                <span class="feature-text">AI-powered personalized activity recommendations</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-icon">🗺️</span>
-                                <span class="feature-text">Discovery of hidden local gems you never knew existed</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-icon">🎯</span>
-                                <span class="feature-text">Smart filters matching your mood, time, and budget</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-icon">👥</span>
-                                <span class="feature-text">Community features to share and explore together</span>
-                            </div>
-                        </div>
-                        
-                        <p><strong>What happens next?</strong></p>
-                        <p>We'll keep you updated on our progress and notify you as soon as early access opens. In the meantime:</p>
-                        
-                        <ul style="color: #94A3B8; line-height: 1.8;">
-                            <li>Follow us on social media for behind-the-scenes updates</li>
-                            <li>Reply to this email with any questions or feedback</li>
-                            <li>Tell your friends about Seekive!</li>
-                        </ul>
-                        
-                        <div style="text-align: center;">
-                            <a href="https://www.seekive.com" class="cta-button">Visit Seekive.com</a>
-                        </div>
-                        
-                        <p style="margin-top: 30px;">Thanks for believing in our vision!</p>
-                        <p><strong>The Seekive Team</strong><br>
-                        <em>Seek It. Find It. Live It.</em></p>
-                    </div>
-                    
-                    <div class="footer">
-                        <div class="social-links">
-                            <a href="https://www.instagram.com/seekiveapp/">Instagram</a> •
-                            <a href="https://x.com/seekiveapp">X</a> •
-                            <a href="https://www.facebook.com/profile.php?id=61575759483549">Facebook</a> •
-                            <a href="https://www.tiktok.com/@seekiveapp">TikTok</a>
-                        </div>
-                        <p>© 2025 Seekive. All rights reserved.</p>
-                        <p style="font-size: 12px; margin-top: 10px;">
-                            You're receiving this email because you signed up for Seekive early access.<br>
-                            Castle Cary, England, GB
-                        </p>
-                    </div>
-                </div>
-            </body>
-            </html>
-        `
+        // STEP 2: Store user data in Firestore (WITHOUT welcome email trigger yet)
+        await db.collection('earlyAccessUsers').doc(user.uid).set({
+            // User data
+            email: formData.email,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            location: formData.location || '',
+            agreeMarketing: formData.agreeMarketing,
+            signupDate: firebase.firestore.FieldValue.serverTimestamp(),
+            emailVerified: false,
+            status: 'pending_verification',
+            
+            // DO NOT include 'to' and 'message' fields yet
+            // These will be added after email verification
+        });
+
+        // Show success message
+        document.getElementById('signupForm').style.display = 'none';
+        document.querySelector('.progress-steps').style.display = 'none';
+        document.getElementById('successContainer').classList.add('show');
+
+        // Track signup in Google Analytics
+        gtag('event', 'early_access_signup', {
+            'event_category': 'engagement',
+            'event_label': 'Early Access Signup Complete'
+        });
+
+    } catch (error) {
+        console.error('Signup error:', error);
+        
+        let errorMessage = 'An error occurred during signup. Please try again.';
+        
+        if (error.code === 'auth/email-already-in-use') {
+            errorMessage = 'This email is already registered. Please sign in instead.';
+        } else if (error.code === 'auth/weak-password') {
+            errorMessage = 'Password is too weak. Please use a stronger password.';
+        } else if (error.code === 'auth/invalid-email') {
+            errorMessage = 'Invalid email address format.';
+        }
+        
+        showError(errorMessage);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Create Account <i class="fa-solid fa-check"></i>';
     }
 });
 

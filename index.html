@@ -1492,15 +1492,21 @@ body.no-scroll{ overflow:hidden; }
     <h3 style="color: var(--primary-blue); margin-bottom: 15px; font-size: 1.3rem;">Be First to Discover</h3>
     <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95rem;">Join our early access list and be among the first to be notified and experience Seekive when early access launches.</p>
         
-                    <div style="background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark)); border-radius: 20px; padding: 28px 32px; box-shadow: 0 8px 24px rgba(76, 139, 245, 0.3);">
-    <p style="color: white; font-weight: 600; margin-bottom: 8px; font-size: 1.1rem;">
-        <i class="fa-solid fa-tools" style="color: white; margin-right: 8px;"></i>
-        Temporarily Unavailable
-    </p>
-    <p style="color: rgba(255, 255, 255, 0.9); font-size: 0.95rem; line-height: 1.6;">
-        Our early access signup is currently undergoing improvements. Check back soon or follow us on social media for updates!
-    </p>
-</div>
+                    <a href="/early-access-signup/" style="display: block; text-decoration: none;">
+    <div style="background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark)); border-radius: 20px; padding: 28px 32px; box-shadow: 0 8px 24px rgba(76, 139, 245, 0.3); transition: all 0.3s ease; cursor: pointer;">
+        <p style="color: white; font-weight: 600; margin-bottom: 8px; font-size: 1.1rem;">
+            <i class="fa-solid fa-rocket" style="color: white; margin-right: 8px;"></i>
+            Join Early Access
+        </p>
+        <p style="color: rgba(255, 255, 255, 0.9); font-size: 0.95rem; line-height: 1.6; margin-bottom: 12px;">
+            Create your account and be first in line when we launch
+        </p>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: white; font-weight: 600;">
+            <span>Get Started</span>
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
+    </div>
+</a>
                 </div>
             </div>
         </div>
@@ -1844,15 +1850,21 @@ body.no-scroll{ overflow:hidden; }
             </p>
             
             <div class="early-access-form">
-                <div style="background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark)); border-radius: 50px; padding: 32px 40px; max-width: 550px; margin: 0 auto; text-align: center; box-shadow: 0 8px 24px rgba(76, 139, 245, 0.3);">
-    <p style="color: white; font-weight: 600; margin-bottom: 12px; font-size: 1.15rem;">
-        <i class="fa-solid fa-tools" style="color: white; margin-right: 10px;"></i>
-        Temporarily Unavailable
-    </p>
-    <p style="color: rgba(255, 255, 255, 0.9); font-size: 1rem; line-height: 1.6;">
-        Our early access signup is currently undergoing improvements. Check back soon or follow us on social media for updates!
-    </p>
-</div>
+                <a href="/early-access-signup/" style="display: block; text-decoration: none;">
+    <div style="background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark)); border-radius: 20px; padding: 28px 32px; box-shadow: 0 8px 24px rgba(76, 139, 245, 0.3); transition: all 0.3s ease; cursor: pointer;">
+        <p style="color: white; font-weight: 600; margin-bottom: 8px; font-size: 1.1rem;">
+            <i class="fa-solid fa-rocket" style="color: white; margin-right: 8px;"></i>
+            Join Early Access
+        </p>
+        <p style="color: rgba(255, 255, 255, 0.9); font-size: 0.95rem; line-height: 1.6; margin-bottom: 12px;">
+            Create your account and be first in line when we launch
+        </p>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: white; font-weight: 600;">
+            <span>Get Started</span>
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
+    </div>
+</a>
             </div>
         </div>
     </section>
@@ -2101,6 +2113,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     })();
 
+// Add hover effect to early access buttons
+document.querySelectorAll('a[href="/early-access-signup/"] > div').forEach(btn => {
+    btn.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-4px)';
+        this.style.boxShadow = '0 12px 32px rgba(76, 139, 245, 0.4)';
+    });
+    btn.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = '0 8px 24px rgba(76, 139, 245, 0.3)';
+    });
+});
+    
 }); // End DOMContentLoaded
 </script>
 

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon1-32.png">
+    <link rel="shortcut icon" href="/favicon1.ico">
+
+    <title>Verify Email - Seekive</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <style>
+        :root {
+            --primary-blue: #4C8BF5;
+            --primary-dark: #2563EB;
+            --accent-emerald: #10B981;
+            --teal-accent: #06B6D4;
+            --dark-bg: #0F172A;
+            --surface: #1E293B;
+            --surface-light: #334155;
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: linear-gradient(135deg, var(--surface) 0%, var(--surface-light) 100%);
+            border-radius: 32px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--teal-accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .icon.success {
+            background: linear-gradient(135deg, var(--accent-emerald), var(--teal-accent));
+        }
+
+        .icon.error {
+            background: linear-gradient(135deg, #EF4444, #DC2626);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            color: var(--primary-blue);
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .spinner {
+            border: 4px solid rgba(76, 139, 245, 0.3);
+            border-top: 4px solid var(--primary-blue);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(76, 139, 245, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(76, 139, 245, 0.4);
+        }
+
+        .message-container {
+            display: none;
+        }
+
+        .message-container.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Loading State -->
+        <div id="loading" class="message-container show">
+            <div class="icon">
+                <div class="spinner"></div>
+            </div>
+            <h1>Verifying Your Email...</h1>
+            <p>Please wait while we confirm your email address.</p>
+        </div>
+
+        <!-- Success State -->
+        <div id="success" class="message-container">
+            <div class="icon success">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h1>Email Verified!</h1>
+            <p>Your email has been successfully verified. Check your inbox for a welcome message from us!</p>
+            <a href="/" class="btn">
+                <i class="fa-solid fa-home"></i>
+                Back to Home
+            </a>
+        </div>
+
+        <!-- Error State -->
+        <div id="error" class="message-container">
+            <div class="icon error">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <h1>Verification Failed</h1>
+            <p id="errorMessage">The verification link is invalid or has expired. Please try signing up again.</p>
+            <a href="/early-access-signup/" class="btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Signup
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Firebase Configuration - USE YOUR ACTUAL CONFIG
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Handle email verification
+        async function handleEmailVerification() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode');
+            const oobCode = urlParams.get('oobCode');
+
+            if (mode === 'verifyEmail' && oobCode) {
+                try {
+                    // Apply the verification code
+                    await auth.applyActionCode(oobCode);
+
+                    // Get current user
+                    const user = auth.currentUser;
+                    
+                    if (user) {
+                        // Update Firestore to mark email as verified
+                        await db.collection('earlyAccessUsers').doc(user.uid).update({
+                            emailVerified: true,
+                            status: 'verified',
+                            verifiedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+
+                        // NOW TRIGGER THE WELCOME EMAIL
+                        // Get user data to personalize email
+                        const userDoc = await db.collection('earlyAccessUsers').doc(user.uid).get();
+                        const userData = userDoc.data();
+
+                        // Add email trigger fields to Firestore
+                        await db.collection('earlyAccessUsers').doc(user.uid).update({
+                            to: userData.email,
+                            message: {
+                                subject: '🎉 Welcome to Seekive Early Access!',
+                                html: generateWelcomeEmail(userData.firstName)
+                            }
+                        });
+
+                        // Show success
+                        document.getElementById('loading').classList.remove('show');
+                        document.getElementById('success').classList.add('show');
+
+                    } else {
+                        throw new Error('No user found');
+                    }
+
+                } catch (error) {
+                    console.error('Verification error:', error);
+                    document.getElementById('loading').classList.remove('show');
+                    document.getElementById('error').classList.add('show');
+                    
+                    if (error.code === 'auth/invalid-action-code') {
+                        document.getElementById('errorMessage').textContent = 
+                            'This verification link has expired or has already been used.';
+                    }
+                }
+            } else {
+                // No verification code in URL
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('error').classList.add('show');
+                document.getElementById('errorMessage').textContent = 
+                    'Invalid verification link. Please check your email for the correct link.';
+            }
+        }
+
+        // Generate HTML email (using your beautiful template)
+        function generateWelcomeEmail(firstName) {
+            return `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>
+                        body {
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            background-color: #0F172A;
+                            margin: 0;
+                            padding: 0;
+                        }
+                        .container {
+                            max-width: 600px;
+                            margin: 0 auto;
+                            background-color: #1E293B;
+                            border-radius: 16px;
+                            overflow: hidden;
+                        }
+                        .header {
+                            background: linear-gradient(135deg, #4C8BF5 0%, #06B6D4 100%);
+                            padding: 40px 20px;
+                            text-align: center;
+                        }
+                        .logo {
+                            width: 80px;
+                            height: 80px;
+                            background: white;
+                            border-radius: 50%;
+                            margin: 0 auto 20px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 40px;
+                        }
+                        .header h1 {
+                            color: white;
+                            margin: 0;
+                            font-size: 28px;
+                        }
+                        .content {
+                            padding: 40px 30px;
+                            color: #F8FAFC;
+                        }
+                        .content h2 {
+                            color: #4C8BF5;
+                            font-size: 24px;
+                            margin-top: 0;
+                        }
+                        .content p {
+                            line-height: 1.6;
+                            color: #94A3B8;
+                            font-size: 16px;
+                        }
+                        .cta-button {
+                            display: inline-block;
+                            background: linear-gradient(135deg, #4C8BF5, #2563EB);
+                            color: white;
+                            padding: 16px 32px;
+                            text-decoration: none;
+                            border-radius: 50px;
+                            font-weight: 600;
+                            margin: 20px 0;
+                        }
+                        .features {
+                            background: #0F172A;
+                            padding: 20px;
+                            border-radius: 12px;
+                            margin: 20px 0;
+                        }
+                        .feature-item {
+                            display: flex;
+                            align-items: flex-start;
+                            margin: 15px 0;
+                            gap: 12px;
+                        }
+                        .feature-icon {
+                            color: #10B981;
+                            font-size: 20px;
+                        }
+                        .feature-text {
+                            color: #94A3B8;
+                            flex: 1;
+                        }
+                        .footer {
+                            text-align: center;
+                            padding: 30px;
+                            color: #64748B;
+                            font-size: 14px;
+                            border-top: 1px solid #334155;
+                        }
+                        .social-links {
+                            margin: 20px 0;
+                        }
+                        .social-links a {
+                            display: inline-block;
+                            margin: 0 8px;
+                            color: #4C8BF5;
+                            text-decoration: none;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <div class="header">
+                            <div class="logo">🧭</div>
+                            <h1>Welcome to Seekive!</h1>
+                        </div>
+                        
+                        <div class="content">
+                            <h2>Hi ${firstName},</h2>
+                            
+                            <p>Thank you for verifying your email and joining Seekive's early access program! We're thrilled to have you on board as we prepare to launch the most exciting way to discover local activities and experiences.</p>
+                            
+                            <p>You're now part of an exclusive group who will be among the first to experience:</p>
+                            
+                            <div class="features">
+                                <div class="feature-item">
+                                    <span class="feature-icon">✨</span>
+                                    <span class="feature-text">AI-powered personalized activity recommendations</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="feature-icon">🗺️</span>
+                                    <span class="feature-text">Discovery of hidden local gems you never knew existed</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="feature-icon">🎯</span>
+                                    <span class="feature-text">Smart filters matching your mood, time, and budget</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="feature-icon">👥</span>
+                                    <span class="feature-text">Community features to share and explore together</span>
+                                </div>
+                            </div>
+                            
+                            <p><strong>What happens next?</strong></p>
+                            <p>We'll keep you updated on our progress and notify you as soon as early access opens. In the meantime:</p>
+                            
+                            <ul style="color: #94A3B8; line-height: 1.8;">
+                                <li>Follow us on social media for behind-the-scenes updates</li>
+                                <li>Reply to this email with any questions or feedback</li>
+                                <li>Tell your friends about Seekive!</li>
+                            </ul>
+                            
+                            <div style="text-align: center;">
+                                <a href="https://www.seekive.com" class="cta-button">Visit Seekive.com</a>
+                            </div>
+                            
+                            <p style="margin-top: 30px;">Thanks for believing in our vision!</p>
+                            <p><strong>Marc & The Seekive Team</strong><br>
+                            <em>Seek It. Find It. Live It.</em></p>
+                        </div>
+                        
+                        <div class="footer">
+                            <div class="social-links">
+                                <a href="https://www.instagram.com/seekiveapp/">Instagram</a> •
+                                <a href="https://x.com/seekiveapp">X</a> •
+                                <a href="https://www.facebook.com/profile.php?id=61575759483549">Facebook</a> •
+                                <a href="https://www.tiktok.com/@seekiveapp">TikTok</a>
+                            </div>
+                            <p>© 2025 Seekive. All rights reserved.</p>
+                            <p style="font-size: 12px; margin-top: 10px;">
+                                Castle Cary, England, GB
+                            </p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `;
+        }
+
+        // Run when page loads
+        window.addEventListener('load', handleEmailVerification);
+    </script>
+</body>
+</html>

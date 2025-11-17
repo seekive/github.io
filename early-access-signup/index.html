@@ -864,15 +864,10 @@
 
                 const user = userCredential.user;
 
-                // STEP 1: Send Firebase Email Verification
-                const actionCodeSettings = {
-                    url: 'https://www.seekive.com/verify-email/?email=' + formData.email,
-                    handleCodeInApp: true
-                };
-                
-                await user.sendEmailVerification(actionCodeSettings);
+                // Generate verification token
+                const verificationToken = Math.random().toString(36).substring(2) + Date.now().toString(36);
 
-                // STEP 2: Store user data in Firestore (WITHOUT welcome email trigger yet)
+                // Store user data in Firestore WITH verification email
                 await db.collection('earlyAccessUsers').doc(user.uid).set({
                     // User data
                     email: formData.email,
@@ -882,7 +877,15 @@
                     agreeMarketing: formData.agreeMarketing,
                     signupDate: firebase.firestore.FieldValue.serverTimestamp(),
                     emailVerified: false,
-                    status: 'pending_verification'
+                    status: 'pending_verification',
+                    verificationToken: verificationToken,
+                    
+                    // EMAIL TRIGGER - Send verification email immediately
+                    to: formData.email,
+                    message: {
+                        subject: '✉️ Verify Your Email - Seekive',
+                        html: generateVerificationEmail(formData.firstName, user.uid, verificationToken)
+                    }
                 });
 
                 // Show success message
@@ -914,6 +917,161 @@
                 submitBtn.innerHTML = 'Create Account <i class="fa-solid fa-check"></i>';
             }
         });
-    </script>
+
+        // Generate verification email HTML
+        function generateVerificationEmail(firstName, userId, token) {
+            const verificationUrl = `https://www.seekive.com/verify-email/?uid=${userId}&token=${token}`;
+            
+            return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0F172A;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+            border-radius: 24px;
+            overflow: hidden;
+        }
+        .email-header {
+            background: linear-gradient(135deg, #4C8BF5 0%, #06B6D4 100%);
+            padding: 40px 40px 60px 40px;
+            text-align: center;
+            position: relative;
+        }
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .logo-circle {
+            width: 64px;
+            height: 64px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        .logo-text {
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .header-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .email-content {
+            padding: 50px 40px;
+            background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+        }
+        .welcome-message {
+            font-size: 18px;
+            color: #F8FAFC;
+            margin-bottom: 24px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .content-text {
+            font-size: 16px;
+            color: #94A3B8;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .cta-section {
+            text-align: center;
+            margin: 40px 0 32px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #4C8BF5, #2563EB);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            padding: 18px 48px;
+            border-radius: 50px;
+            box-shadow: 0 8px 24px rgba(76, 139, 245, 0.4);
+        }
+        .email-footer {
+            background: #0F172A;
+            padding: 32px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(76, 139, 245, 0.2);
+        }
+        .footer-text {
+            font-size: 14px;
+            color: #64748B;
+            margin-bottom: 16px;
+        }
+        .tagline {
+            font-size: 12px;
+            color: #475569;
+            margin-top: 16px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <div class="logo-section">
+                <div class="logo-circle">🧭</div>
+                <div class="logo-text">Seekive</div>
+            </div>
+            <h1 class="header-title">Verify Your Email</h1>
+        </div>
+        
+        <div class="email-content">
+            <p class="welcome-message">Hi ${firstName}!</p>
+            
+            <p class="content-text">
+                Thanks for signing up for Seekive early access! We're excited to have you join our community of explorers.
+            </p>
+            
+            <p class="content-text">
+                To complete your registration and receive your welcome package, please verify your email address by clicking the button below:
+            </p>
+            
+            <div class="cta-section">
+                <a href="${verificationUrl}" class="cta-button">Verify Email Address</a>
+            </div>
+            
+            <p class="content-text" style="text-align: center; font-size: 14px; color: #64748B;">
+                This link will expire in 24 hours.
+            </p>
+            
+            <p class="content-text" style="margin-top: 30px; font-size: 14px;">
+                If you didn't create an account with Seekive, you can safely ignore this email.
+            </p>
+        </div>
+        
+        <div class="email-footer">
+            <p class="footer-text">
+                © 2025 Seekive. All rights reserved.
+            </p>
+            <p class="tagline">SEEK IT. FIND IT. LIVE IT.</p>
+        </div>
+    </div>
 </body>
 </html>
+            `;
+        }

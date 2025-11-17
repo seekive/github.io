@@ -1006,6 +1006,7 @@
                 const user = userCredential.user;
                 const verificationToken = Math.random().toString(36).substring(2) + Date.now().toString(36);
 
+                // STEP 1: Create user document WITHOUT email trigger
                 await db.collection('earlyAccessUsers').doc(user.uid).set({
                     email: formData.email,
                     firstName: formData.firstName,
@@ -1015,8 +1016,13 @@
                     signupDate: firebase.firestore.FieldValue.serverTimestamp(),
                     emailVerified: false,
                     status: 'pending_verification',
-                    verificationToken: verificationToken,
-                    
+                    verificationToken: verificationToken
+                });
+
+                // STEP 2: Wait a moment, then UPDATE with email trigger (this triggers the extension)
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                await db.collection('earlyAccessUsers').doc(user.uid).update({
                     to: formData.email,
                     message: {
                         subject: '✉️ Verify Your Email - Seekive',

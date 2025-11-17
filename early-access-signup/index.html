@@ -431,7 +431,7 @@
         .success-container p {
             color: var(--text-secondary);
             font-size: 1.1rem;
-            margin-bottom: 32px;
+            margin-bottom: 20px;
         }
 
         /* Loading Spinner */
@@ -671,16 +671,16 @@
 
                 <!-- Success State -->
                 <div class="success-container" id="successContainer">
-    <div class="success-icon">
-        <i class="fa-solid fa-envelope-circle-check"></i>
-    </div>
-    <h2>Almost There!</h2>
-    <p><strong>Please verify your email to complete signup.</strong></p>
-    <p>We've sent a verification link to your email address. Click the link to verify your account and receive your welcome email.</p>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 20px;">
-        <i class="fa-solid fa-info-circle"></i> Didn't receive it? Check your spam folder.
-    </p>
-                    <a href="/" class="btn btn-primary">
+                    <div class="success-icon">
+                        <i class="fa-solid fa-envelope-circle-check"></i>
+                    </div>
+                    <h2>Almost There!</h2>
+                    <p><strong>Please verify your email to complete signup.</strong></p>
+                    <p>We've sent a verification link to your email address. Click the link to verify your account and receive your welcome email.</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 20px;">
+                        <i class="fa-solid fa-info-circle"></i> Didn't receive it? Check your spam folder.
+                    </p>
+                    <a href="/" class="btn btn-primary" style="margin-top: 20px;">
                         <i class="fa-solid fa-home"></i>
                         Back to Home
                     </a>
@@ -690,16 +690,16 @@
     </section>
 
     <script>
-        // Firebase Configuration - REPLACE WITH YOUR ACTUAL CONFIG
+        // Firebase Configuration
         const firebaseConfig = {
-  apiKey: "AIzaSyDLxbwUIRujt487DXEsKujb-6DC3yIoHAI",
-  authDomain: "seekiveprofile.firebaseapp.com",
-  projectId: "seekiveprofile",
-  storageBucket: "seekiveprofile.firebasestorage.app",
-  messagingSenderId: "284191726552",
-  appId: "1:284191726552:web:72d26bdc3b2a2056e4b0ad",
-  measurementId: "G-G373XT0EGB"
-};
+            apiKey: "AIzaSyDLxbwUIRujt487DXEsKujb-6DC3yIoHAI",
+            authDomain: "seekiveprofile.firebaseapp.com",
+            projectId: "seekiveprofile",
+            storageBucket: "seekiveprofile.firebasestorage.app",
+            messagingSenderId: "284191726552",
+            appId: "1:284191726552:web:72d26bdc3b2a2056e4b0ad",
+            measurementId: "G-G373XT0EGB"
+        };
 
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
@@ -806,7 +806,6 @@
             const percentage = ((currentStep - 1) / 2) * 100;
             progressFill.style.width = percentage + '%';
 
-            // Update step indicators
             document.querySelectorAll('.step').forEach((step, index) => {
                 const stepNum = index + 1;
                 step.classList.remove('active', 'completed');
@@ -845,85 +844,11 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Form Submission
-        document.getElementById('signupForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            if (!validateStep(3)) return;
-
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<div class="spinner"></div> Creating Account...';
-
-            try {
-                // Create Firebase Authentication user
-                const userCredential = await auth.createUserWithEmailAndPassword(
-                    formData.email,
-                    formData.password
-                );
-
-                const user = userCredential.user;
-
-                // Generate verification token
-                const verificationToken = Math.random().toString(36).substring(2) + Date.now().toString(36);
-
-                // Store user data in Firestore WITH verification email
-                await db.collection('earlyAccessUsers').doc(user.uid).set({
-                    // User data
-                    email: formData.email,
-                    firstName: formData.firstName,
-                    lastName: formData.lastName,
-                    location: formData.location || '',
-                    agreeMarketing: formData.agreeMarketing,
-                    signupDate: firebase.firestore.FieldValue.serverTimestamp(),
-                    emailVerified: false,
-                    status: 'pending_verification',
-                    verificationToken: verificationToken,
-                    
-                    // EMAIL TRIGGER - Send verification email immediately
-                    to: formData.email,
-                    message: {
-                        subject: '✉️ Verify Your Email - Seekive',
-                        html: generateVerificationEmail(formData.firstName, user.uid, verificationToken)
-                    }
-                });
-
-                // Show success message
-                document.getElementById('signupForm').style.display = 'none';
-                document.querySelector('.progress-steps').style.display = 'none';
-                document.getElementById('successContainer').classList.add('show');
-
-                // Track signup in Google Analytics
-                gtag('event', 'early_access_signup', {
-                    'event_category': 'engagement',
-                    'event_label': 'Early Access Signup Complete'
-                });
-
-            } catch (error) {
-                console.error('Signup error:', error);
-                
-                let errorMessage = 'An error occurred during signup. Please try again.';
-                
-                if (error.code === 'auth/email-already-in-use') {
-                    errorMessage = 'This email is already registered. Please sign in instead.';
-                } else if (error.code === 'auth/weak-password') {
-                    errorMessage = 'Password is too weak. Please use a stronger password.';
-                } else if (error.code === 'auth/invalid-email') {
-                    errorMessage = 'Invalid email address format.';
-                }
-                
-                showError(errorMessage);
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Create Account <i class="fa-solid fa-check"></i>';
-            }
-        });
-
         // Generate verification email HTML
         function generateVerificationEmail(firstName, userId, token) {
             const verificationUrl = `https://www.seekive.com/verify-email/?uid=${userId}&token=${token}`;
             
-            return `
-<!DOCTYPE html>
+            return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -946,7 +871,6 @@
             background: linear-gradient(135deg, #4C8BF5 0%, #06B6D4 100%);
             padding: 40px 40px 60px 40px;
             text-align: center;
-            position: relative;
         }
         .logo-section {
             display: flex;
@@ -975,19 +899,11 @@
             font-size: 28px;
             font-weight: 700;
             color: white;
-            margin-bottom: 12px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
         .email-content {
             padding: 50px 40px;
             background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
-        }
-        .welcome-message {
-            font-size: 18px;
-            color: #F8FAFC;
-            margin-bottom: 24px;
-            font-weight: 600;
-            text-align: center;
         }
         .content-text {
             font-size: 16px;
@@ -1019,14 +935,12 @@
         .footer-text {
             font-size: 14px;
             color: #64748B;
-            margin-bottom: 16px;
         }
         .tagline {
             font-size: 12px;
             color: #475569;
             margin-top: 16px;
             font-weight: 500;
-            letter-spacing: 0.5px;
         }
     </style>
 </head>
@@ -1041,7 +955,7 @@
         </div>
         
         <div class="email-content">
-            <p class="welcome-message">Hi ${firstName}!</p>
+            <p class="content-text" style="font-size: 18px; font-weight: 600; color: #F8FAFC; text-align: center;">Hi ${firstName}!</p>
             
             <p class="content-text">
                 Thanks for signing up for Seekive early access! We're excited to have you join our community of explorers.
@@ -1065,13 +979,78 @@
         </div>
         
         <div class="email-footer">
-            <p class="footer-text">
-                © 2025 Seekive. All rights reserved.
-            </p>
+            <p class="footer-text">© 2025 Seekive. All rights reserved.</p>
             <p class="tagline">SEEK IT. FIND IT. LIVE IT.</p>
         </div>
     </div>
 </body>
-</html>
-            `;
+</html>`;
         }
+
+        // Form Submission
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            if (!validateStep(3)) return;
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="spinner"></div> Creating Account...';
+
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(
+                    formData.email,
+                    formData.password
+                );
+
+                const user = userCredential.user;
+                const verificationToken = Math.random().toString(36).substring(2) + Date.now().toString(36);
+
+                await db.collection('earlyAccessUsers').doc(user.uid).set({
+                    email: formData.email,
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    location: formData.location || '',
+                    agreeMarketing: formData.agreeMarketing,
+                    signupDate: firebase.firestore.FieldValue.serverTimestamp(),
+                    emailVerified: false,
+                    status: 'pending_verification',
+                    verificationToken: verificationToken,
+                    
+                    to: formData.email,
+                    message: {
+                        subject: '✉️ Verify Your Email - Seekive',
+                        html: generateVerificationEmail(formData.firstName, user.uid, verificationToken)
+                    }
+                });
+
+                document.getElementById('signupForm').style.display = 'none';
+                document.querySelector('.progress-steps').style.display = 'none';
+                document.getElementById('successContainer').classList.add('show');
+
+                gtag('event', 'early_access_signup', {
+                    'event_category': 'engagement',
+                    'event_label': 'Early Access Signup Complete'
+                });
+
+            } catch (error) {
+                console.error('Signup error:', error);
+                
+                let errorMessage = 'An error occurred during signup. Please try again.';
+                
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessage = 'This email is already registered.';
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessage = 'Password is too weak.';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'Invalid email address format.';
+                }
+                
+                showError(errorMessage);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Create Account <i class="fa-solid fa-check"></i>';
+            }
+        });
+    </script>
+</body>
+</html>

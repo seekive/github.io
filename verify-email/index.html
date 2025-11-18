@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Favicons -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon1-32.png">
     <link rel="shortcut icon" href="/favicon1.ico">
 
     <title>Verify Email - Seekive</title>
     
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -70,10 +73,23 @@
 
         .icon.success {
             background: linear-gradient(135deg, var(--accent-emerald), var(--teal-accent));
+            animation: scaleIn 0.5s ease;
         }
 
         .icon.error {
             background: linear-gradient(135deg, #EF4444, #DC2626);
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
 
         h1 {
@@ -82,11 +98,19 @@
             color: var(--primary-blue);
         }
 
+        h1.success {
+            color: var(--accent-emerald);
+        }
+
+        h1.error {
+            color: #EF4444;
+        }
+
         p {
             color: var(--text-secondary);
             font-size: 1.1rem;
             line-height: 1.6;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .spinner {
@@ -114,6 +138,7 @@
             font-weight: 600;
             transition: all 0.3s ease;
             box-shadow: 0 8px 24px rgba(76, 139, 245, 0.3);
+            margin-top: 8px;
         }
 
         .btn:hover {
@@ -127,11 +152,32 @@
 
         .message-container.show {
             display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 24px;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Loading State -->
         <div id="loading" class="message-container show">
             <div class="icon">
                 <div class="spinner"></div>
@@ -140,11 +186,12 @@
             <p>Please wait while we confirm your email address.</p>
         </div>
 
+        <!-- Success State -->
         <div id="success" class="message-container">
             <div class="icon success">
                 <i class="fa-solid fa-check"></i>
             </div>
-            <h1>Email Verified!</h1>
+            <h1 class="success">Email Verified!</h1>
             <p>Your email has been successfully verified. Check your inbox for a welcome message from Seekive!</p>
             <a href="/" class="btn">
                 <i class="fa-solid fa-home"></i>
@@ -152,11 +199,12 @@
             </a>
         </div>
 
+        <!-- Error State -->
         <div id="error" class="message-container">
             <div class="icon error">
                 <i class="fa-solid fa-xmark"></i>
             </div>
-            <h1>Verification Failed</h1>
+            <h1 class="error">Verification Failed</h1>
             <p id="errorMessage">The verification link is invalid or has expired. Please try signing up again.</p>
             <a href="/early-access-signup/" class="btn">
                 <i class="fa-solid fa-arrow-left"></i>
@@ -166,6 +214,7 @@
     </div>
 
     <script>
+        // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDLxbwUIRujt487DXEsKujb-6DC3yIoHAI",
             authDomain: "seekiveprofile.firebaseapp.com",
@@ -176,80 +225,18 @@
             measurementId: "G-G373XT0EGB"
         };
 
+        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        async function handleEmailVerification() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const uid = urlParams.get('uid');
-            const token = urlParams.get('token');
-
-            if (!uid || !token) {
-                document.getElementById('loading').classList.remove('show');
-                document.getElementById('error').classList.add('show');
-                document.getElementById('errorMessage').textContent = 
-                    'Invalid verification link. Please check your email for the correct link.';
-                return;
-            }
-
-            try {
-                // Get user document
-                const userDoc = await db.collection('earlyAccessUsers').doc(uid).get();
-
-                if (!userDoc.exists) {
-                    throw new Error('User not found');
-                }
-
-                const userData = userDoc.data();
-
-                // Check if token matches
-                if (userData.verificationToken !== token) {
-                    throw new Error('Invalid token');
-                }
-
-                // Check if already verified
-                if (userData.emailVerified) {
-                    document.getElementById('loading').classList.remove('show');
-                    document.getElementById('success').classList.add('show');
-                    return;
-                }
-
-                // Update user as verified
-                await db.collection('earlyAccessUsers').doc(uid).update({
-                    emailVerified: true,
-                    status: 'verified',
-                    verifiedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                    verificationToken: firebase.firestore.FieldValue.delete()
-                });
-
-                // Send welcome email by adding to a separate trigger collection
-                await db.collection('earlyAccessUsers').doc(uid).update({
-                    to: userData.email,
-                    message: {
-                        subject: '🎉 Welcome to Seekive Early Access!',
-                        html: generateWelcomeEmail(userData.firstName)
-                    }
-                });
-
-                // Show success
-                document.getElementById('loading').classList.remove('show');
-                document.getElementById('success').classList.add('show');
-
-            } catch (error) {
-                console.error('Verification error:', error);
-                document.getElementById('loading').classList.remove('show');
-                document.getElementById('error').classList.add('show');
-                document.getElementById('errorMessage').textContent = 
-                    'Verification failed. This link may have expired or already been used.';
-            }
-        }
-
+        // Generate welcome email HTML
         function generateWelcomeEmail(firstName) {
-            return `
-<!DOCTYPE html>
+            return `<!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -268,6 +255,7 @@
             background: linear-gradient(135deg, #4C8BF5 0%, #06B6D4 100%);
             padding: 40px 40px 60px 40px;
             text-align: center;
+            position: relative;
         }
         .logo-section {
             display: flex;
@@ -290,15 +278,25 @@
             font-size: 32px;
             font-weight: 800;
             color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
         .header-title {
             font-size: 28px;
             font-weight: 700;
             color: white;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
         .email-content {
             padding: 50px 40px;
             background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+        }
+        .welcome-message {
+            font-size: 18px;
+            color: #F8FAFC;
+            margin-bottom: 24px;
+            font-weight: 600;
+            text-align: center;
         }
         .content-text {
             font-size: 16px;
@@ -314,31 +312,56 @@
         }
         .feature-item {
             display: flex;
+            align-items: flex-start;
             margin: 15px 0;
             gap: 12px;
         }
         .feature-icon {
             color: #10B981;
+            font-size: 20px;
+        }
+        .feature-text {
+            color: #94A3B8;
+            flex: 1;
+        }
+        .cta-section {
+            text-align: center;
+            margin: 40px 0 32px 0;
         }
         .cta-button {
             display: inline-block;
             background: linear-gradient(135deg, #4C8BF5, #2563EB);
             color: white;
-            padding: 16px 32px;
             text-decoration: none;
-            border-radius: 50px;
             font-weight: 600;
+            font-size: 18px;
+            padding: 18px 48px;
+            border-radius: 50px;
+            box-shadow: 0 8px 24px rgba(76, 139, 245, 0.4);
         }
         .email-footer {
+            background: #0F172A;
             text-align: center;
-            padding: 30px;
+            padding: 32px 40px;
             color: #64748B;
-            border-top: 1px solid #334155;
+            font-size: 14px;
+            border-top: 1px solid rgba(76, 139, 245, 0.2);
+        }
+        .social-links {
+            margin: 20px 0;
         }
         .social-links a {
+            display: inline-block;
+            margin: 0 8px;
             color: #4C8BF5;
             text-decoration: none;
-            margin: 0 8px;
+        }
+        .tagline {
+            font-size: 12px;
+            color: #475569;
+            margin-top: 16px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
@@ -353,64 +376,157 @@
         </div>
         
         <div class="email-content">
-            <p class="content-text" style="font-size: 18px; font-weight: 600; color: #F8FAFC;">Hi ${firstName},</p>
+            <p class="welcome-message">Hi ${firstName},</p>
             
             <p class="content-text">
-                Thank you for verifying your email! You're now officially part of Seekive's early access program.
+                Thank you for verifying your email and joining Seekive's early access program! We're thrilled to have you on board as we prepare to launch the most exciting way to discover local activities and experiences.
             </p>
             
             <p class="content-text">
-                You're among the first to experience:
+                You're now part of an exclusive group who will be among the first to experience:
             </p>
             
             <div class="features">
                 <div class="feature-item">
                     <span class="feature-icon">✨</span>
-                    <span style="color: #94A3B8;">AI-powered personalized activity recommendations</span>
+                    <span class="feature-text">AI-powered personalized activity recommendations</span>
                 </div>
                 <div class="feature-item">
                     <span class="feature-icon">🗺️</span>
-                    <span style="color: #94A3B8;">Discovery of hidden local gems</span>
+                    <span class="feature-text">Discovery of hidden local gems you never knew existed</span>
                 </div>
                 <div class="feature-item">
                     <span class="feature-icon">🎯</span>
-                    <span style="color: #94A3B8;">Smart filters for mood, time, and budget</span>
+                    <span class="feature-text">Smart filters matching your mood, time, and budget</span>
                 </div>
                 <div class="feature-item">
                     <span class="feature-icon">👥</span>
-                    <span style="color: #94A3B8;">Community features to share discoveries</span>
+                    <span class="feature-text">Community features to share and explore together</span>
                 </div>
             </div>
             
             <p class="content-text">
-                We'll notify you as soon as early access opens. Follow us on social media for updates!
+                <strong>What happens next?</strong>
+            </p>
+            <p class="content-text">
+                We'll keep you updated on our progress and notify you as soon as early access opens. In the meantime:
             </p>
             
-            <div style="text-align: center; margin: 30px 0;">
+            <ul style="color: #94A3B8; line-height: 1.8; padding-left: 20px;">
+                <li>Follow us on social media for behind-the-scenes updates</li>
+                <li>Reply to this email with any questions or feedback</li>
+                <li>Tell your friends about Seekive!</li>
+            </ul>
+            
+            <div class="cta-section">
                 <a href="https://www.seekive.com" class="cta-button">Visit Seekive.com</a>
             </div>
             
             <p class="content-text" style="margin-top: 30px;">
+                Thanks for believing in our vision!
+            </p>
+            <p class="content-text" style="margin-bottom: 0;">
                 <strong style="color: #4C8BF5;">Marc & The Seekive Team</strong><br>
                 <em style="color: #64748B;">Seek It. Find It. Live It.</em>
             </p>
         </div>
         
         <div class="email-footer">
-            <div class="social-links" style="margin: 20px 0;">
+            <div class="social-links">
                 <a href="https://www.instagram.com/seekiveapp/">Instagram</a> •
                 <a href="https://x.com/seekiveapp">X</a> •
                 <a href="https://www.facebook.com/profile.php?id=61575759483549">Facebook</a> •
-                <a href="https://www.tiktok.com/@seekiveapp">TikTok</a>
+                <a href="https://www.tiktok.com/@seekiveapp">TikTok</a> •
+                <a href="https://www.youtube.com/@seekiveapp">YouTube</a>
             </div>
-            <p style="font-size: 14px;">© 2025 Seekive. All rights reserved.</p>
+            <p>Follow our journey as we build the future of discovery</p>
+            <p style="margin-top: 16px;">© 2025 Seekive. All rights reserved.</p>
+            <p class="tagline">SEEK IT. FIND IT. LIVE IT.</p>
         </div>
     </div>
 </body>
-</html>
-            `;
+</html>`;
         }
 
+        // Handle email verification
+        async function handleEmailVerification() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const uid = urlParams.get('uid');
+            const token = urlParams.get('token');
+
+            if (!uid || !token) {
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('error').classList.add('show');
+                document.getElementById('errorMessage').textContent = 
+                    'Invalid verification link. Please check your email for the correct link.';
+                return;
+            }
+
+            try {
+                // Get user document from Firestore
+                const userDoc = await db.collection('earlyAccessUsers').doc(uid).get();
+
+                if (!userDoc.exists) {
+                    throw new Error('User not found');
+                }
+
+                const userData = userDoc.data();
+
+                // Check if token matches
+                if (userData.verificationToken !== token) {
+                    throw new Error('Invalid token');
+                }
+
+                // Check if already verified
+                if (userData.emailVerified) {
+                    document.getElementById('loading').classList.remove('show');
+                    document.getElementById('success').classList.add('show');
+                    return;
+                }
+
+                // STEP 1: Mark user as verified and REMOVE email trigger fields
+                await db.collection('earlyAccessUsers').doc(uid).update({
+                    emailVerified: true,
+                    status: 'verified',
+                    verifiedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    verificationToken: firebase.firestore.FieldValue.delete(),
+                    to: firebase.firestore.FieldValue.delete(),
+                    message: firebase.firestore.FieldValue.delete()
+                });
+
+                // STEP 2: Wait a moment, then ADD email trigger fields (this triggers extension)
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                await db.collection('earlyAccessUsers').doc(uid).update({
+                    to: userData.email,
+                    message: {
+                        subject: '🎉 Welcome to Seekive Early Access!',
+                        html: generateWelcomeEmail(userData.firstName)
+                    }
+                });
+
+                // Show success message
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('success').classList.add('show');
+
+            } catch (error) {
+                console.error('Verification error:', error);
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('error').classList.add('show');
+                
+                let errorMsg = 'Verification failed. This link may have expired or already been used.';
+                
+                if (error.message === 'User not found') {
+                    errorMsg = 'User account not found. Please try signing up again.';
+                } else if (error.message === 'Invalid token') {
+                    errorMsg = 'This verification link is invalid or has expired.';
+                }
+                
+                document.getElementById('errorMessage').textContent = errorMsg;
+            }
+        }
+
+        // Run verification when page loads
         window.addEventListener('load', handleEmailVerification);
     </script>
 </body>

@@ -1106,13 +1106,8 @@
                     <!-- Step 2: Profile Info -->
                     <div class="form-step" data-step="2">
                         <div class="form-group">
-                            <label for="firstName">First Name *</label>
-                            <input type="text" id="firstName" name="firstName" required placeholder="Your first name" autocomplete="given-name">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="lastName">Last Name *</label>
-                            <input type="text" id="lastName" name="lastName" required placeholder="Your last name" autocomplete="family-name">
+                            <label for="displayName">Name / Username *</label>
+                            <input type="text" id="displayName" name="displayName" required placeholder="How should we address you?" autocomplete="name">
                         </div>
 
                         <div class="form-group">
@@ -1330,16 +1325,14 @@
             }
 
             if (step === 2) {
-                const firstName = document.getElementById('firstName').value;
-                const lastName = document.getElementById('lastName').value;
+                const displayName = document.getElementById('displayName').value;
 
-                if (!firstName || !lastName) {
-                    showError('Please enter your first and last name');
+                if (!displayName || displayName.trim().length < 2) {
+                    showError('Please enter a name or username (at least 2 characters)');
                     return false;
                 }
 
-                formData.firstName = firstName;
-                formData.lastName = lastName;
+                formData.displayName = displayName.trim();
                 formData.location = document.getElementById('location').value;
                 return true;
             }
@@ -1403,7 +1396,7 @@
         }
 
         // Generate verification email HTML
-        function generateVerificationEmail(firstName, userId, token) {
+        function generateVerificationEmail(displayName, userId, token) {
             const verificationUrl = `https://www.seekive.com/verify-email/?uid=${userId}&token=${token}`;
             
             return `<!DOCTYPE html>
@@ -1634,7 +1627,7 @@
         
         <!-- Main Content -->
         <div class="email-content">
-            <p class="content-text" style="font-size: 18px; font-weight: 600; color: #F8FAFC; text-align: center;">Hi ${firstName}!</p>
+            <p class="content-text" style="font-size: 18px; font-weight: 600; color: #F8FAFC; text-align: center;">Hi ${displayName}!</p>
             
             <p class="content-text">
                 Thanks for signing up for Seekive early access! We're excited to have you join our community.
@@ -1698,8 +1691,7 @@
                 // Create user document WITH email trigger fields included
                 await db.collection('earlyAccessUsers').doc(user.uid).set({
                     email: formData.email,
-                    firstName: formData.firstName,
-                    lastName: formData.lastName,
+                    displayName: formData.displayName,
                     location: formData.location || '',
                     agreeMarketing: formData.agreeMarketing,
                     signupDate: firebase.firestore.FieldValue.serverTimestamp(),
@@ -1709,7 +1701,7 @@
                     to: [formData.email],
                     message: {
                         subject: '✉️ Verify Your Email - Seekive',
-                        html: generateVerificationEmail(formData.firstName, user.uid, verificationToken)
+                        html: generateVerificationEmail(formData.displayName, user.uid, verificationToken)
                     }
                 });
 

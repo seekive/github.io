@@ -854,12 +854,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        /* Reset styles for email client compatibility */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #0F172A;
             margin: 0;
             padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+        
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        
+        img {
+            border: 0;
+            outline: none;
+            text-decoration: none;
+            display: block;
+        }
+        
         .email-container {
             max-width: 650px;
             margin: 0 auto;
@@ -867,98 +883,217 @@
             border-radius: 24px;
             overflow: hidden;
         }
+        
         .email-header {
             background: linear-gradient(135deg, #4C8BF5 0%, #06B6D4 100%);
             padding: 40px 40px 60px 40px;
             text-align: center;
+            position: relative;
         }
+        
+        .email-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
         .logo-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 24px;
+            display: table;
+            margin: 0 auto 24px auto;
         }
+        
+        .logo-section-inner {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        
         .logo-circle {
+            display: inline-block;
             width: 64px;
             height: 64px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
+            vertical-align: middle;
+            margin-right: 16px;
         }
+        
+        .logo-circle img {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+        }
+        
         .logo-text {
+            display: inline-block;
+            vertical-align: middle;
             font-size: 32px;
             font-weight: 800;
             color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
+        
         .header-title {
             font-size: 28px;
             font-weight: 700;
             color: white;
+            margin: 12px 0;
+            position: relative;
+            z-index: 2;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
+        
+        .header-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
+            margin: 0;
+        }
+        
         .email-content {
             padding: 50px 40px;
             background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
         }
+        
         .content-text {
             font-size: 16px;
             color: #94A3B8;
             line-height: 1.7;
-            margin-bottom: 20px;
+            margin: 0 0 20px 0;
         }
+        
         .cta-section {
             text-align: center;
             margin: 40px 0 32px 0;
         }
+        
         .cta-button {
             display: inline-block;
             background: linear-gradient(135deg, #4C8BF5, #2563EB);
-            color: white;
+            color: #FFFFFF !important;
             text-decoration: none;
             font-weight: 600;
             font-size: 18px;
             padding: 18px 48px;
             border-radius: 50px;
             box-shadow: 0 8px 24px rgba(76, 139, 245, 0.4);
+            mso-line-height-rule: exactly;
         }
+        
+        .cta-button span {
+            color: #FDE047 !important;
+            text-decoration: none;
+        }
+        
         .email-footer {
             background: #0F172A;
-            padding: 32px 40px;
             text-align: center;
+            padding: 32px 40px;
+            color: #64748B;
+            font-size: 14px;
             border-top: 1px solid rgba(76, 139, 245, 0.2);
         }
-        .footer-text {
+        
+        .social-links {
+            margin: 20px 0;
             font-size: 14px;
             color: #64748B;
         }
+        
+        .social-links a {
+            color: #4C8BF5;
+            text-decoration: none;
+            margin: 0 4px;
+        }
+        
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer-text {
+            font-size: 14px;
+            color: #64748B;
+            margin: 16px 0;
+        }
+        
+        .footer-links {
+            font-size: 13px;
+            color: #475569;
+            margin: 12px 0;
+        }
+        
+        .footer-links a {
+            color: #4C8BF5;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
         .tagline {
             font-size: 12px;
             color: #475569;
             margin-top: 16px;
             font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Mobile responsiveness */
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                border-radius: 0;
+                margin: 0;
+            }
+            
+            .email-header,
+            .email-content,
+            .email-footer {
+                padding: 32px 24px !important;
+            }
+            
+            .logo-text {
+                font-size: 28px;
+            }
+            
+            .header-title {
+                font-size: 24px;
+            }
+            
+            .cta-button {
+                padding: 16px 32px;
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="email-container">
+        <!-- Header Section -->
         <div class="email-header">
             <div class="logo-section">
-                <div class="logo-circle">🧭</div>
-                <div class="logo-text">Seekive</div>
+                <div class="logo-section-inner">
+                    <div class="logo-circle">
+                        <img src="https://www.seekive.com/logo1.png" alt="Seekive Logo">
+                    </div>
+                    <div class="logo-text">Seekive</div>
+                </div>
             </div>
             <h1 class="header-title">Verify Your Email</h1>
+            <p class="header-subtitle">One quick step to complete your registration</p>
         </div>
         
+        <!-- Main Content -->
         <div class="email-content">
             <p class="content-text" style="font-size: 18px; font-weight: 600; color: #F8FAFC; text-align: center;">Hi ${firstName}!</p>
             
             <p class="content-text">
-                Thanks for signing up for Seekive early access! We're excited to have you join our community.
+                Thanks for signing up for Seekive early access! We're excited to have you join our community of explorers and adventure seekers.
             </p>
             
             <p class="content-text">
@@ -966,7 +1101,7 @@
             </p>
             
             <div class="cta-section">
-                <a href="${verificationUrl}" class="cta-button">Verify Email Address</a>
+                <a href="${verificationUrl}" class="cta-button"><span>Verify Email Address</span></a>
             </div>
             
             <p class="content-text" style="text-align: center; font-size: 14px; color: #64748B;">
@@ -976,9 +1111,31 @@
             <p class="content-text" style="margin-top: 30px; font-size: 14px;">
                 If you didn't create an account with Seekive, you can safely ignore this email.
             </p>
+            
+            <p class="content-text" style="margin-top: 30px; margin-bottom: 0;">
+                Best regards,<br>
+                <strong style="color: #4C8BF5;">Marc & The Seekive Team</strong><br>
+                <em style="color: #64748B;">Seek It. Find It. Live It.</em>
+            </p>
         </div>
         
+        <!-- Footer -->
         <div class="email-footer">
+            <div class="social-links">
+                <a href="https://www.instagram.com/seekiveapp/">Instagram</a> •
+                <a href="https://x.com/seekiveapp">X</a> •
+                <a href="https://www.facebook.com/profile.php?id=61575759483549">Facebook</a> •
+                <a href="https://www.tiktok.com/@seekiveapp">TikTok</a> •
+                <a href="https://www.youtube.com/@seekiveapp">YouTube</a>
+            </div>
+            <p class="footer-text">Follow our journey as we build the future of discovery</p>
+            
+            <div class="footer-links">
+                <a href="https://www.seekive.com/privacy-policy/">Privacy Policy</a> •
+                <a href="https://www.seekive.com/terms-of-service/">Terms of Service</a> •
+                <a href="https://www.seekive.com/contact/">Contact</a>
+            </div>
+            
             <p class="footer-text">© 2025 Seekive. All rights reserved.</p>
             <p class="tagline">SEEK IT. FIND IT. LIVE IT.</p>
         </div>

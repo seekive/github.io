@@ -1017,7 +1017,7 @@
                     emailVerified: false,
                     status: 'pending_verification',
                     verificationToken: verificationToken,
-                    to: formData.email,
+                    to: [formData.email],
                     message: {
                         subject: '✉️ Verify Your Email - Seekive',
                         html: generateVerificationEmail(formData.firstName, user.uid, verificationToken)

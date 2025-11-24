@@ -484,20 +484,12 @@
                     return;
                 }
 
-                // STEP 1: Mark user as verified and REMOVE email trigger fields
+                // Mark user as verified and trigger welcome email
                 await db.collection('earlyAccessUsers').doc(uid).update({
                     emailVerified: true,
                     status: 'verified',
                     verifiedAt: firebase.firestore.FieldValue.serverTimestamp(),
                     verificationToken: firebase.firestore.FieldValue.delete(),
-                    to: firebase.firestore.FieldValue.delete(),
-                    message: firebase.firestore.FieldValue.delete()
-                });
-
-                // STEP 2: Wait a moment, then ADD email trigger fields (this triggers extension)
-                await new Promise(resolve => setTimeout(resolve, 1000));
-
-                await db.collection('earlyAccessUsers').doc(uid).update({
                     to: userData.email,
                     message: {
                         subject: '🎉 Welcome to Seekive Early Access!',

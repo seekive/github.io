@@ -532,15 +532,81 @@
     <header>
         <div class="container">
             <nav>
-                <a href="/" class="logo-container">
-                    <div class="seekive-logo">
-                        <img src="/logo1.png" alt="Seekive Logo" style="width: 42px; height: 42px; object-fit: contain;">
-                    </div>
-                    <div class="logo-text">Seekive</div>
-                </a>
-            </nav>
+  <a href="/" class="logo-container" style="text-decoration: none;">
+    <div class="seekive-logo">
+      <img src="/logo1.png" alt="Seekive Logo" style="width: 42px; height: 42px; object-fit: contain;">
+    </div>
+    <div class="logo-text">Seekive</div>
+  </a>
+
+  <!-- Mobile hamburger -->
+  <button class="nav-toggle" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
+    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+  </button>
+
+  <!-- Desktop links -->
+  <ul class="nav-links">
+    <li class="dropdown">
+      <a href="/" class="dropdown-toggle">
+        Home <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+      </a>
+      <ul class="dropdown-menu" role="menu" aria-label="Home">
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#categories">Discover</a></li>
+        <li><a href="/#how-it-works">How It Works</a></li>
+      </ul>
+    </li>
+    <li><a href="/store/">Store</a></li>
+    <li><a href="/latest/">Latest</a></li>
+    <li><a href="/community/">Community</a></li>
+    <li><a href="/timeline/">Timeline</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+
+  <a href="/#early-access" class="cta-nav desktop-only">Get Early Access</a>
+</nav>
         </div>
     </header>
+
+<!-- Off-canvas mobile menu -->
+<div id="mobileNav" class="mobile-nav" aria-hidden="true">
+  <div class="mobile-nav__overlay" data-close></div>
+  <div class="mobile-nav__panel">
+    <button class="mobile-close" aria-label="Close menu">&times;</button>
+
+    <a class="mobile-brand" href="/">
+      <img src="/logo1.png" alt="Seekive" width="28" height="28" style="vertical-align:middle;margin-right:8px;"> Seekive
+    </a>
+
+    <ul class="mobile-list">
+      <li class="mobile-collapsible" id="homeCollapsible">
+        <div class="mobile-item">
+          <a href="/" class="mobile-root-link" data-close>Home</a>
+          <button type="button"
+                  class="sub-toggle"
+                  aria-expanded="false"
+                  aria-controls="homeSublist"
+                  aria-label="Show Home sections">
+            <i class="fa-solid fa-chevron-down chev" aria-hidden="true"></i>
+          </button>
+        </div>
+        <ul id="homeSublist" class="sublist" hidden>
+          <li><a href="/#features" data-close>Features</a></li>
+          <li><a href="/#categories" data-close>Discover</a></li>
+          <li><a href="/#how-it-works" data-close>How It Works</a></li>
+        </ul>
+      </li>
+
+      <li><a href="/store/" data-close>Store</a></li>
+      <li><a href="/latest/" data-close>Latest</a></li>
+      <li><a href="/community/" data-close>Community</a></li>
+      <li><a href="/timeline/" data-close>Timeline</a></li>
+      <li><a href="/contact/" data-close>Contact</a></li>
+    </ul>
+
+    <a href="/#early-access" class="cta-nav mobile-cta" data-close>Get Early Access</a>
+  </div>
+</div>
 
     <!-- Main Signup Section -->
     <section class="signup-section">
@@ -688,6 +754,72 @@
             </div>
         </div>
     </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <img src="/logo1.png" alt="Seekive Logo" style="width: 32px; height: 32px; object-fit: contain;">
+                            <span>Seekive</span>
+                        </div>
+                    </h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-top: 16px;">
+                        Your compass to new experiences. Discover adventures perfectly matched to your mood, time, and curiosity.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="/store/">Store</a></li>
+                        <li><a href="/latest/">Latest</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="/timeline/">Timeline</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/privacy-policy/">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service/">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px;">
+                        <a href="https://www.instagram.com/seekiveapp/" target="_blank" class="social-btn" style="width: 45px; height: 45px; font-size: 1.2rem;" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://x.com/seekiveapp" target="_blank" class="social-btn" style="width: 45px; height: 45px; font-size: 1.2rem;" aria-label="X (Twitter)">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61575759483549" target="_blank" class="social-btn" style="width: 45px; height: 45px; font-size: 1.2rem;" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@seekiveapp" target="_blank" class="social-btn" style="width: 45px; height: 45px; font-size: 1.2rem;" aria-label="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@seekiveapp" target="_blank" class="social-btn" style="width: 45px; height: 45px; font-size: 1.2rem;" aria-label="YouTube">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                        <a href="https://www.pinterest.com/seekiveapp/" target="_blank" rel="noopener" class="social-btn" style="width: 45px; height: 45px; font-size: 1.2rem;" aria-label="Pinterest">
+                            <i class="fa-brands fa-pinterest-p"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Seekive. All rights reserved. • Seek It. Find It. Live It.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // Firebase Configuration
@@ -1054,6 +1186,426 @@
                 font-size: 16px;
             }
         }
+
+        /* Desktop Navigation Links */
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links > li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .dropdown-toggle i {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .dropdown > .dropdown-toggle::after {
+            display: none;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 0;
+            min-width: 220px;
+            background: #0F172A;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+            list-style: none;
+            padding: 8px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.98);
+            transform-origin: top;
+            pointer-events: none;
+            transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
+            z-index: 2000;
+        }
+
+        .dropdown-menu li {
+            width: 100%;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 14px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .dropdown-menu a::after {
+            display: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: #1E293B;
+            color: var(--text-primary);
+            border-radius: 8px;
+        }
+
+        .dropdown:hover .dropdown-menu,
+        .dropdown:focus-within .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            pointer-events: auto;
+            transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s;
+        }
+
+        .cta-nav {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(76, 139, 245, 0.3);
+        }
+
+        .cta-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 139, 245, 0.4);
+        }
+
+        /* Mobile Navigation */
+        .nav-toggle {
+            display: none;
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            border: 1px solid var(--border);
+            background: var(--surface-light);
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 14px rgba(0,0,0,.25);
+        }
+
+        .nav-toggle:hover {
+            background: var(--surface);
+        }
+
+        .nav-toggle:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        .nav-toggle .bar {
+            position: absolute;
+            left: 50%;
+            width: 22px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transform: translateX(-50%);
+            transition: transform .2s ease, opacity .2s ease, top .2s ease;
+        }
+
+        .nav-toggle .bar:nth-child(1) { top: 12px; }
+        .nav-toggle .bar:nth-child(2) { top: 19px; }
+        .nav-toggle .bar:nth-child(3) { top: 26px; }
+
+        .nav-toggle.active .bar:nth-child(1) {
+            top: 19px;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .nav-toggle.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active .bar:nth-child(3) {
+            top: 19px;
+            transform: translateX(-50%) rotate(-45deg);
+        }
+
+        .mobile-nav {
+            position: fixed;
+            inset: 0;
+            z-index: 1500;
+            display: none;
+        }
+
+        .mobile-nav.open {
+            display: block;
+        }
+
+        .mobile-nav__overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.92);
+        }
+
+        .mobile-nav__panel {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: min(92vw, 380px);
+            background: #0F172A;
+            border-left: 1px solid var(--border);
+            box-shadow: -20px 0 60px rgba(0,0,0,.5);
+            transform: translateX(100%);
+            transition: transform .25s ease;
+            padding: max(18px, calc(env(safe-area-inset-top) + 12px)) 20px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mobile-nav.open .mobile-nav__panel {
+            transform: translateX(0);
+        }
+
+        .mobile-close {
+            align-self: flex-end;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--surface-light);
+            color: var(--text-primary);
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .mobile-brand {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: -6px;
+        }
+
+        .mobile-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .mobile-list a {
+            display: block;
+            padding: 12px 12px;
+            border-radius: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .mobile-list a:hover {
+            background: var(--surface-light);
+            color: var(--text-primary);
+        }
+
+        .mobile-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0;
+            border-radius: 0;
+            background: transparent !important;
+        }
+
+        .mobile-item:hover {
+            background: transparent !important;
+        }
+
+        .mobile-root-link {
+            flex: 1;
+            display: block;
+            padding: 12px 44px 12px 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .sub-toggle {
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .chev {
+            transition: transform .2s ease;
+        }
+
+        .mobile-collapsible.open .chev {
+            transform: rotate(180deg);
+        }
+
+        .sublist {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 0;
+            transition: height .22s ease;
+        }
+
+        .sublist[hidden] {
+            height: 0 !important;
+            overflow: hidden !important;
+        }
+
+        .sublist li a {
+            display: block;
+            padding: 10px 12px 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .sublist li a:hover {
+            background: var(--surface-light);
+            color: var(--text-primary);
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker-bg);
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 24px;
+            font-size: 18px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 15px;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-blue);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        .social-btn {
+            width: 70px;
+            height: 70px;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-orange);
+            font-size: 1.6rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-8px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 8px 24px rgba(76, 139, 245, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: inline-flex;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .desktop-only {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1180,6 +1732,92 @@
                 submitBtn.innerHTML = 'Create Account <i class="fa-solid fa-check"></i>';
             }
         });
+
+/* ===== Mobile nav (open/close) ===== */
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const panel = mobileNav?.querySelector('.mobile-nav__panel');
+        const overlay = mobileNav?.querySelector('.mobile-nav__overlay');
+        const closeBtn = mobileNav?.querySelector('.mobile-close');
+
+        function openMenu(){
+            mobileNav.classList.add('open');
+            document.body.classList.add('no-scroll');
+            navToggle.classList.add('active');
+            navToggle.setAttribute('aria-expanded','true');
+            mobileNav.setAttribute('aria-hidden','false');
+            const firstLink = mobileNav.querySelector('a,button');
+            firstLink && firstLink.focus();
+        }
+
+        function closeMenu(){
+            mobileNav.classList.remove('open');
+            document.body.classList.remove('no-scroll');
+            navToggle.classList.remove('active');
+            navToggle.setAttribute('aria-expanded','false');
+            mobileNav.setAttribute('aria-hidden','true');
+            navToggle.focus();
+        }
+
+        if (navToggle && mobileNav){
+            navToggle.addEventListener('click', ()=>{
+                if (mobileNav.classList.contains('open')) { closeMenu(); }
+                else { openMenu(); }
+            });
+            overlay.addEventListener('click', closeMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
+            mobileNav.querySelectorAll('[data-close]').forEach(el=> el.addEventListener('click', closeMenu));
+            panel.addEventListener('wheel', (e)=> e.stopPropagation(), { passive:true });
+            panel.addEventListener('touchmove', (e)=> e.stopPropagation(), { passive:true });
+        }
+
+        // --- Collapsible "Home" sublist ---
+        (function(){
+            const coll = document.getElementById('homeCollapsible');
+            if(!coll) return;
+            const btn = coll.querySelector('.sub-toggle');
+            const sub = coll.querySelector('.sublist');
+
+            function expand(){
+                coll.classList.add('open');
+                btn.setAttribute('aria-expanded','true');
+                sub.hidden = false;
+                sub.style.height = 'auto';
+                const h = sub.scrollHeight + 'px';
+                sub.style.height = '0px';
+                sub.getBoundingClientRect();
+                sub.style.height = h;
+                sub.addEventListener('transitionend', function done(e){
+                    if(e.propertyName === 'height'){
+                        sub.style.height = 'auto';
+                        sub.removeEventListener('transitionend', done);
+                    }
+                });
+            }
+
+            function collapse(){
+                coll.classList.remove('open');
+                btn.setAttribute('aria-expanded','false');
+                sub.style.height = sub.scrollHeight + 'px';
+                sub.getBoundingClientRect();
+                sub.style.height = '0px';
+                sub.addEventListener('transitionend', function done(e){
+                    if(e.propertyName === 'height'){
+                        sub.hidden = true;
+                        sub.removeEventListener('transitionend', done);
+                    }
+                });
+            }
+
+            btn.addEventListener('click', (e)=>{
+                e.preventDefault();
+                e.stopPropagation();
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                expanded ? collapse() : expand();
+            });
+        })();
+        
     </script>
 </body>
 </html>

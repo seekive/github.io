@@ -454,6 +454,8 @@
             const uid = urlParams.get('uid');
             const token = urlParams.get('token');
 
+            console.log('Verification attempt:', { uid, token }); // Debug log
+
             if (!uid || !token) {
                 document.getElementById('loading').classList.remove('show');
                 document.getElementById('error').classList.add('show');
@@ -463,26 +465,39 @@
             }
 
             try {
-                // Get user document from Firestore
+                // Get user document from Firestore (no auth required)
                 const userDoc = await db.collection('earlyAccessUsers').doc(uid).get();
+
+                console.log('User doc exists:', userDoc.exists); // Debug log
 
                 if (!userDoc.exists) {
                     throw new Error('User not found');
                 }
 
                 const userData = userDoc.data();
+                console.log('User data:', { 
+                    hasToken: !!userData.verificationToken, 
+                    isVerified: userData.emailVerified 
+                }); // Debug log
 
                 // Check if token matches
                 if (userData.verificationToken !== token) {
+                    console.error('Token mismatch:', { 
+                        expected: userData.verificationToken, 
+                        received: token 
+                    }); // Debug log
                     throw new Error('Invalid token');
                 }
 
                 // Check if already verified
                 if (userData.emailVerified) {
+                    console.log('Already verified'); // Debug log
                     document.getElementById('loading').classList.remove('show');
                     document.getElementById('success').classList.add('show');
                     return;
                 }
+
+                console.log('Starting verification update...'); // Debug log
 
                 // STEP 1: Mark as verified and DELETE old email fields completely
                 await db.collection('earlyAccessUsers').doc(uid).update({
@@ -495,8 +510,12 @@
                     delivery: firebase.firestore.FieldValue.delete()
                 });
 
+                console.log('Verification marked, waiting...'); // Debug log
+
                 // STEP 2: Wait for deletion to complete
                 await new Promise(resolve => setTimeout(resolve, 2000));
+
+                console.log('Sending welcome email...'); // Debug log
 
                 // STEP 3: Create FRESH email trigger for welcome email
                 await db.collection('earlyAccessUsers').doc(uid).update({
@@ -507,12 +526,17 @@
                     }
                 });
 
+                console.log('Success!'); // Debug log
+
                 // Show success message
                 document.getElementById('loading').classList.remove('show');
                 document.getElementById('success').classList.add('show');
 
             } catch (error) {
-                console.error('Verification error:', error);
+                console.error('Verification error details:', error); // Debug log
+                console.error('Error code:', error.code); // Debug log
+                console.error('Error message:', error.message); // Debug log
+                
                 document.getElementById('loading').classList.remove('show');
                 document.getElementById('error').classList.add('show');
                 
@@ -522,6 +546,10 @@
                     errorMsg = 'User account not found. Please try signing up again.';
                 } else if (error.message === 'Invalid token') {
                     errorMsg = 'This verification link is invalid or has expired.';
+                } else if (error.code === 'permission-denied') {
+                    errorMsg = 'Permission denied. Please check Firebase rules and try again.';
+                } else if (error.code) {
+                    errorMsg = `Error (${error.code}): ${error.message}`;
                 }
                 
                 document.getElementById('errorMessage').textContent = errorMsg;

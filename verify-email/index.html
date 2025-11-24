@@ -231,7 +231,7 @@
         const db = firebase.firestore();
 
         // Generate welcome email HTML
-        function generateWelcomeEmail(firstName) {
+        function generateWelcomeEmail(displayName) {
             return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -637,7 +637,7 @@
                     to: [userData.email],
                     message: {
                         subject: '🎉 Welcome to Seekive Early Access!',
-                        html: generateWelcomeEmail(userData.firstName)
+                        html: generateWelcomeEmail(userData.displayName)
                     }
                 });
 

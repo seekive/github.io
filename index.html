@@ -1380,9 +1380,17 @@ body.no-scroll{ overflow:hidden; }
     /* ===== Category Dropdown Cards ===== */
 .categories-grid-v2 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   margin-top: 50px;
+}
+
+@media (max-width: 960px) {
+  .categories-grid-v2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .categories-grid-v2 { grid-template-columns: 1fr; }
 }
 
 .cat-card {
@@ -1420,6 +1428,7 @@ body.no-scroll{ overflow:hidden; }
 .cat-card__icon {
   width: 54px;
   height: 54px;
+  min-width: 54px;
   background: linear-gradient(135deg, var(--primary-blue), var(--teal-accent));
   border-radius: 14px;
   display: flex;
@@ -1444,17 +1453,14 @@ body.no-scroll{ overflow:hidden; }
   font-weight: 600;
   font-size: 15px;
   color: var(--text-primary);
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 
-.cat-card__hint {
-  font-size: 12px;
+.cat-card__desc {
+  display: block;
+  font-size: 12.5px;
   color: var(--text-muted);
-  transition: color 0.3s;
-}
-
-.cat-card.is-open .cat-card__hint {
-  color: var(--primary-blue);
+  line-height: 1.45;
 }
 
 .cat-card__chev {
@@ -1498,7 +1504,6 @@ body.no-scroll{ overflow:hidden; }
   padding: 7px 10px;
   border-radius: 8px;
   transition: background 0.2s, color 0.2s;
-  cursor: default;
 }
 
 .cat-sub-list li:hover {
@@ -1518,7 +1523,6 @@ body.no-scroll{ overflow:hidden; }
   color: var(--primary-blue) !important;
   font-size: 13px !important;
   margin-top: 4px;
-  cursor: default !important;
 }
 
 .cat-sub-more i {
@@ -1537,7 +1541,6 @@ body.no-scroll{ overflow:hidden; }
   gap: 10px;
   padding: 28px 24px;
   text-align: center;
-  min-height: 98px;
 }
 
 .cat-more-card > i {
@@ -1556,7 +1559,6 @@ body.no-scroll{ overflow:hidden; }
   color: var(--text-muted);
   font-size: 12.5px;
   line-height: 1.5;
-  max-width: 280px;
 }
 
 @media (max-width: 480px) {
@@ -1799,7 +1801,7 @@ body.no-scroll{ overflow:hidden; }
                     <div class="cat-card__icon"><i class="fas fa-shuffle"></i></div>
                     <div class="cat-card__meta">
                         <span class="cat-card__name">Surprise Me</span>
-                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                        <span class="cat-card__desc">Random discoveries and mystery experiences</span>
                     </div>
                     <i class="fa-solid fa-chevron-down cat-card__chev"></i>
                 </button>
@@ -1812,7 +1814,7 @@ body.no-scroll{ overflow:hidden; }
                             <li><i class="fa-solid fa-circle"></i>Local Secrets</li>
                             <li><i class="fa-solid fa-circle"></i>Outside Your Comfort Zone</li>
                             <li><i class="fa-solid fa-circle"></i>Seasonal Surprise</li>
-                            <li class="cat-sub-more"><i class="fa-solid fa-plus"></i> & more</li>
+                            <li class="cat-sub-more"><i class="fa-solid fa-plus"></i> & 4 more</li>
                         </ul>
                     </div>
                 </div>
@@ -1824,7 +1826,7 @@ body.no-scroll{ overflow:hidden; }
                     <div class="cat-card__icon"><i class="fa-solid fa-utensils"></i></div>
                     <div class="cat-card__meta">
                         <span class="cat-card__name">Food & Dining</span>
-                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                        <span class="cat-card__desc">Restaurants, cafés, dessert spots, and food events</span>
                     </div>
                     <i class="fa-solid fa-chevron-down cat-card__chev"></i>
                 </button>
@@ -1849,7 +1851,7 @@ body.no-scroll{ overflow:hidden; }
                     <div class="cat-card__icon"><i class="fa-solid fa-mountain"></i></div>
                     <div class="cat-card__meta">
                         <span class="cat-card__name">Adventure & Exploration</span>
-                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                        <span class="cat-card__desc">Hiking, scenic drives, caves, and outdoor thrills</span>
                     </div>
                     <i class="fa-solid fa-chevron-down cat-card__chev"></i>
                 </button>
@@ -1874,7 +1876,7 @@ body.no-scroll{ overflow:hidden; }
                     <div class="cat-card__icon"><i class="fa-solid fa-film"></i></div>
                     <div class="cat-card__meta">
                         <span class="cat-card__name">Entertainment & Recreation</span>
-                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                        <span class="cat-card__desc">Movies, shows, games, comedy, and live events</span>
                     </div>
                     <i class="fa-solid fa-chevron-down cat-card__chev"></i>
                 </button>
@@ -1899,7 +1901,7 @@ body.no-scroll{ overflow:hidden; }
                     <div class="cat-card__icon"><i class="fa-solid fa-leaf"></i></div>
                     <div class="cat-card__meta">
                         <span class="cat-card__name">Nature & Wildlife</span>
-                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                        <span class="cat-card__desc">Parks, gardens, wildlife, and natural wonders</span>
                     </div>
                     <i class="fa-solid fa-chevron-down cat-card__chev"></i>
                 </button>
@@ -1924,7 +1926,7 @@ body.no-scroll{ overflow:hidden; }
                     <div class="cat-card__icon"><i class="fa-solid fa-heart-pulse"></i></div>
                     <div class="cat-card__meta">
                         <span class="cat-card__name">Wellness & Health</span>
-                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                        <span class="cat-card__desc">Fitness, yoga, spa, retreats, and mental wellness</span>
                     </div>
                     <i class="fa-solid fa-chevron-down cat-card__chev"></i>
                 </button>
@@ -1949,7 +1951,7 @@ body.no-scroll{ overflow:hidden; }
                     <div class="cat-card__icon"><i class="fa-solid fa-palette"></i></div>
                     <div class="cat-card__meta">
                         <span class="cat-card__name">Creativity & Arts</span>
-                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                        <span class="cat-card__desc">Art classes, DIY crafting, galleries, and pottery</span>
                     </div>
                     <i class="fa-solid fa-chevron-down cat-card__chev"></i>
                 </button>
@@ -1974,7 +1976,7 @@ body.no-scroll{ overflow:hidden; }
                     <div class="cat-card__icon"><i class="fa-solid fa-building"></i></div>
                     <div class="cat-card__meta">
                         <span class="cat-card__name">Urban Discovery</span>
-                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                        <span class="cat-card__desc">City exploration, walking tours, and hidden gems</span>
                     </div>
                     <i class="fa-solid fa-chevron-down cat-card__chev"></i>
                 </button>
@@ -1993,7 +1995,7 @@ body.no-scroll{ overflow:hidden; }
                 </div>
             </div>
 
-            <!-- 30+ More -->
+            <!-- 30+ More — sits as the 9th cell, completing the 3×3 grid -->
             <div class="cat-more-card">
                 <i class="fa-solid fa-layer-group"></i>
                 <span>30+ More Categories</span>

@@ -370,21 +370,21 @@
 
 
         .cta-nav {
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
-            color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(76, 139, 245, 0.3);
-        }
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s;
+    box-shadow: none;
+}
 
-        .cta-nav:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(76, 139, 245, 0.4);
-        }
+.cta-nav:hover {
+    transform: translateY(-2px);
+    box-shadow: none;
+}
 
         /* Hero Section */
         .hero {
@@ -760,18 +760,18 @@
         }
 
         .feature-icon {
-            width: 85px;
-            height: 85px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--teal-accent));
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 28px;
-            font-size: 2.2rem;
-            box-shadow: 0 8px 24px rgba(76, 139, 245, 0.3);
-            transition: transform 0.3s ease;
-        }
+    width: 85px;
+    height: 85px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--teal-accent));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    font-size: 2.2rem;
+    box-shadow: none;
+    transition: transform 0.3s ease;
+}
 
         .feature-card:hover .feature-icon {
             transform: scale(1.1);
@@ -2085,7 +2085,7 @@ body.no-scroll{ overflow:hidden; }
             
             <div class="early-access-form">
                 <a href="/early-access-signup/" style="display: block; text-decoration: none;">
-    <div style="background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark)); border-radius: 20px; padding: 28px 32px; box-shadow: 0 8px 24px rgba(76, 139, 245, 0.3); transition: all 0.3s ease; cursor: pointer;">
+    <div style="background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark)); border-radius: 20px; padding: 28px 32px; box-shadow: none; transition: all 0.3s ease; cursor: pointer;">
         <p style="color: white; font-weight: 600; margin-bottom: 8px; font-size: 1.1rem;">
             <i class="fa-solid fa-rocket" style="color: white; margin-right: 8px;"></i>
             Join Early Access
@@ -2348,17 +2348,6 @@ document.addEventListener('DOMContentLoaded', function() {
     })();
 
 }); // End DOMContentLoaded
-// Add hover effect to early access buttons
-document.querySelectorAll('a[href="/early-access-signup/"] > div').forEach(btn => {
-    btn.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-4px)';
-        this.style.boxShadow = '0 12px 32px rgba(76, 139, 245, 0.4)';
-    });
-    btn.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-        this.style.boxShadow = '0 8px 24px rgba(76, 139, 245, 0.3)';
-    });
-});
 
 // Category dropdown cards
 document.querySelectorAll('.cat-card__header').forEach(function(btn) {

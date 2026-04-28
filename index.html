@@ -1376,6 +1376,193 @@ body.no-scroll{ overflow:hidden; }
                 font-size: 1.4rem;
             }
         }
+
+    /* ===== Category Dropdown Cards ===== */
+.categories-grid-v2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+  margin-top: 50px;
+}
+
+.cat-card {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface-light) 100%);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cat-card.is-open {
+  border-color: var(--primary-blue);
+  box-shadow: 0 12px 32px rgba(76, 139, 245, 0.15);
+}
+
+.cat-card__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text-primary);
+  transition: background 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cat-card__header:hover {
+  background: rgba(76, 139, 245, 0.05);
+}
+
+.cat-card__icon {
+  width: 54px;
+  height: 54px;
+  background: linear-gradient(135deg, var(--primary-blue), var(--teal-accent));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.cat-card.is-open .cat-card__icon {
+  transform: scale(1.08);
+}
+
+.cat-card__meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.cat-card__name {
+  display: block;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+
+.cat-card__hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  transition: color 0.3s;
+}
+
+.cat-card.is-open .cat-card__hint {
+  color: var(--primary-blue);
+}
+
+.cat-card__chev {
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: transform 0.3s ease, color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.cat-card.is-open .cat-card__chev {
+  transform: rotate(180deg);
+  color: var(--primary-blue);
+}
+
+.cat-card__body {
+  overflow: hidden;
+  height: 0;
+  transition: height 0.3s ease;
+}
+
+.cat-card__body-inner {
+  padding: 16px 24px 20px 24px;
+  border-top: 1px solid var(--border);
+}
+
+.cat-sub-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cat-sub-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  padding: 7px 10px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+  cursor: default;
+}
+
+.cat-sub-list li:hover {
+  background: rgba(76, 139, 245, 0.08);
+  color: var(--text-primary);
+}
+
+.cat-sub-list li i {
+  font-size: 7px;
+  color: var(--primary-blue);
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.cat-sub-more {
+  font-weight: 600;
+  color: var(--primary-blue) !important;
+  font-size: 13px !important;
+  margin-top: 4px;
+  cursor: default !important;
+}
+
+.cat-sub-more i {
+  font-size: 11px !important;
+  opacity: 1 !important;
+}
+
+.cat-more-card {
+  background: linear-gradient(135deg, rgba(76, 139, 245, 0.06), rgba(6, 182, 212, 0.06));
+  border-radius: 20px;
+  border: 1px dashed rgba(76, 139, 245, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px 24px;
+  text-align: center;
+  min-height: 98px;
+}
+
+.cat-more-card > i {
+  font-size: 1.7rem;
+  color: var(--primary-blue);
+  opacity: 0.65;
+}
+
+.cat-more-card > span {
+  font-weight: 700;
+  color: var(--primary-blue);
+  font-size: 16px;
+}
+
+.cat-more-card > small {
+  color: var(--text-muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+  max-width: 280px;
+}
+
+@media (max-width: 480px) {
+  .categories-grid-v2 { grid-template-columns: 1fr; }
+}
+    
     </style>
 </head>
 <body>
@@ -1595,205 +1782,227 @@ body.no-scroll{ overflow:hidden; }
     </section>
 
     <!-- Categories Preview -->
-    <section id="categories" class="categories">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Endless Categories to Explore</h2>
-                <p class="section-subtitle">
-                    From food adventures and outdoor exploration to creative experiences and hidden gems, discover activities across dozens of carefully curated categories
-                </p>
-            </div>
-
-            
-    <div class="categories-grid">
-      <!-- Row 1: broad-appeal magnets -->
-      <div class="category-card">
-        <div class="category-icon"><i class="fas fa-shuffle"></i></div>
-        <div class="category-name">Surprise Me</div>
-        <div class="category-desc">Random discoveries and mystery experiences</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-utensils"></i></div>
-        <div class="category-name">Food & Dining</div>
-        <div class="category-desc">Restaurants, cafés, dessert spots, and food events</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-film"></i></div>
-        <div class="category-name">Entertainment</div>
-        <div class="category-desc">Movies, shows, games, comedy, and live events</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-music"></i></div>
-        <div class="category-name">Music & Live Entertainment</div>
-        <div class="category-desc">Music discovery, playlists, and live performances</div>
-      </div>
-
-      <!-- Row 2: balanced place-based discovery -->
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-building"></i></div>
-        <div class="category-name">Urban Discovery</div>
-        <div class="category-desc">City exploration and architectural gems</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-leaf"></i></div>
-        <div class="category-name">Nature & Wildlife</div>
-        <div class="category-desc">Parks, gardens, and natural wonders</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-mountain"></i></div>
-        <div class="category-name">Adventure & Exploration</div>
-        <div class="category-desc">Hiking, scenic drives, and outdoor thrills</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-calendar-days"></i></div>
-        <div class="category-name">Seasonal & Festive</div>
-        <div class="category-desc">Timely picks for holidays and the season</div>
-      </div>
-
-      <!-- Row 3: create, learn, improve -->
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-palette"></i></div>
-        <div class="category-name">Creativity & Arts</div>
-        <div class="category-desc">Art classes, DIY crafting, galleries, and pottery</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-landmark"></i></div>
-        <div class="category-name">Culture & Heritage</div>
-        <div class="category-desc">Museums, heritage sites, and local traditions</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-list-check"></i></div>
-        <div class="category-name">Practical & Productive</div>
-        <div class="category-desc">Home improvements, organization, and useful how-tos</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-seedling"></i></div>
-        <div class="category-name">Personal Development</div>
-        <div class="category-desc">Challenges, mindfulness, and self-improvement courses</div>
-      </div>
-
-      <!-- Row 4: wellness, learning, visual, online -->
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-        <div class="category-name">Wellness & Health</div>
-        <div class="category-desc">Fitness, yoga & meditation, spa, and retreats</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-        <div class="category-name">Learning & Education</div>
-        <div class="category-desc">Workshops, classes, talks, and book picks</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-camera"></i></div>
-        <div class="category-name">Photography & Visual Spots</div>
-        <div class="category-desc">Scenic views, stargazing, and photo-worthy places</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-globe"></i></div>
-        <div class="category-name">Digital & Online Discovery</div>
-        <div class="category-desc">Streaming, podcasts, audiobooks, and online classes</div>
-      </div>
-
-      <!-- Row 5: family, shopping, water, hidden -->
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-children"></i></div>
-        <div class="category-name">Family & Kids</div>
-        <div class="category-desc">Kid-friendly activities and family days out</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-        <div class="category-name">Shopping & Retail</div>
-        <div class="category-desc">Local boutiques, markets, and unique shops</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-water"></i></div>
-        <div class="category-name">Water Adventures</div>
-        <div class="category-desc">Lakes, beaches, and aquatic activities</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-        <div class="category-name">Unique Places & Hidden Experiences</div>
-        <div class="category-desc">Secret locations, local treasures, and offbeat finds</div>
-      </div>
-
-      <!-- Row 6: travel styles + CTA to full list -->
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-road"></i></div>
-        <div class="category-name">Road & Automotive Travel</div>
-        <div class="category-desc">Scenic drives, routes, and road trips</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-map"></i></div>
-        <div class="category-name">Guided & Structured Adventures</div>
-        <div class="category-desc">Guided tours, day trips, and micro-adventures</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-bolt"></i></div>
-        <div class="category-name">Thrill & Action Adventures</div>
-        <div class="category-desc">High-energy, off-road, and adrenaline picks</div>
-      </div>
-
-      <div class="category-card">
-        <div class="category-icon"><i class="fa-solid fa-ellipsis"></i></div>
-        <div class="category-name">And More</div>
-      </div>
-    </div>
-  </div>
-</section>
-    <!-- How It Works -->
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">How Seekive Works</h2>
-                <p class="section-subtitle">
-                    Three simple steps to unlock a world of personalized discoveries
-                </p>
-            </div>
-
-            <div class="steps-container">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3 class="step-title">Set Your Vibe</h3>
-                    <p class="step-desc">
-                        Choose your category or let us surprise you. Set filters for time, budget, distance, and mood. Tell us what kind of adventure you're seeking today.
-                    </p>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3 class="step-title">Spin the Compass</h3>
-                    <p class="step-desc">
-                        Watch as our intelligent compass spins and analyzes thousands of possibilities, considering weather, time of day, and your personal preferences to find the perfect match.
-                    </p>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3 class="step-title">Discover & Experience</h3>
-                    <p class="step-desc">
-                        Get detailed information about your discovery, save it to your journal, share with friends, or spin again for another adventure. Every experience is a story waiting to be lived.
-                    </p>
-                </div>
-            </div>
+<section id="categories" class="categories">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Endless Categories to Explore</h2>
+            <p class="section-subtitle">
+                From food adventures and outdoor exploration to creative experiences and hidden gems — discover activities across 40+ carefully curated categories
+            </p>
         </div>
-    </section>
+
+        <div class="categories-grid-v2">
+
+            <!-- Surprise Me -->
+            <div class="cat-card">
+                <button class="cat-card__header" aria-expanded="false">
+                    <div class="cat-card__icon"><i class="fas fa-shuffle"></i></div>
+                    <div class="cat-card__meta">
+                        <span class="cat-card__name">Surprise Me</span>
+                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down cat-card__chev"></i>
+                </button>
+                <div class="cat-card__body" hidden>
+                    <div class="cat-card__body-inner">
+                        <ul class="cat-sub-list">
+                            <li><i class="fa-solid fa-circle"></i>Random Discovery</li>
+                            <li><i class="fa-solid fa-circle"></i>Daily Recommendations</li>
+                            <li><i class="fa-solid fa-circle"></i>Mystery Experience</li>
+                            <li><i class="fa-solid fa-circle"></i>Local Secrets</li>
+                            <li><i class="fa-solid fa-circle"></i>Outside Your Comfort Zone</li>
+                            <li><i class="fa-solid fa-circle"></i>Seasonal Surprise</li>
+                            <li class="cat-sub-more"><i class="fa-solid fa-plus"></i> & more</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Food & Dining -->
+            <div class="cat-card">
+                <button class="cat-card__header" aria-expanded="false">
+                    <div class="cat-card__icon"><i class="fa-solid fa-utensils"></i></div>
+                    <div class="cat-card__meta">
+                        <span class="cat-card__name">Food & Dining</span>
+                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down cat-card__chev"></i>
+                </button>
+                <div class="cat-card__body" hidden>
+                    <div class="cat-card__body-inner">
+                        <ul class="cat-sub-list">
+                            <li><i class="fa-solid fa-circle"></i>Cafés & Chill Spots</li>
+                            <li><i class="fa-solid fa-circle"></i>Bars & Nightlife</li>
+                            <li><i class="fa-solid fa-circle"></i>Street Food & Food Trucks</li>
+                            <li><i class="fa-solid fa-circle"></i>Hidden Gems</li>
+                            <li><i class="fa-solid fa-circle"></i>Food Festivals</li>
+                            <li><i class="fa-solid fa-circle"></i>Farmers Markets</li>
+                            <li class="cat-sub-more"><i class="fa-solid fa-plus"></i> & 18 more</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adventure & Exploration -->
+            <div class="cat-card">
+                <button class="cat-card__header" aria-expanded="false">
+                    <div class="cat-card__icon"><i class="fa-solid fa-mountain"></i></div>
+                    <div class="cat-card__meta">
+                        <span class="cat-card__name">Adventure & Exploration</span>
+                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down cat-card__chev"></i>
+                </button>
+                <div class="cat-card__body" hidden>
+                    <div class="cat-card__body-inner">
+                        <ul class="cat-sub-list">
+                            <li><i class="fa-solid fa-circle"></i>Hiking Trails</li>
+                            <li><i class="fa-solid fa-circle"></i>Waterfall Hikes</li>
+                            <li><i class="fa-solid fa-circle"></i>Scenic Drives & Routes</li>
+                            <li><i class="fa-solid fa-circle"></i>Cave & Underground</li>
+                            <li><i class="fa-solid fa-circle"></i>Night Adventures</li>
+                            <li><i class="fa-solid fa-circle"></i>Mountains & Elevation</li>
+                            <li class="cat-sub-more"><i class="fa-solid fa-plus"></i> & 10 more</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entertainment & Recreation -->
+            <div class="cat-card">
+                <button class="cat-card__header" aria-expanded="false">
+                    <div class="cat-card__icon"><i class="fa-solid fa-film"></i></div>
+                    <div class="cat-card__meta">
+                        <span class="cat-card__name">Entertainment & Recreation</span>
+                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down cat-card__chev"></i>
+                </button>
+                <div class="cat-card__body" hidden>
+                    <div class="cat-card__body-inner">
+                        <ul class="cat-sub-list">
+                            <li><i class="fa-solid fa-circle"></i>Escape Rooms & Puzzle Adventures</li>
+                            <li><i class="fa-solid fa-circle"></i>Comedy Shows</li>
+                            <li><i class="fa-solid fa-circle"></i>Trivia & Game Nights</li>
+                            <li><i class="fa-solid fa-circle"></i>Theater & Performing Arts</li>
+                            <li><i class="fa-solid fa-circle"></i>Arcade & Games (In-Person)</li>
+                            <li><i class="fa-solid fa-circle"></i>Amusement Parks & Attractions</li>
+                            <li class="cat-sub-more"><i class="fa-solid fa-plus"></i> & 25 more</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nature & Wildlife -->
+            <div class="cat-card">
+                <button class="cat-card__header" aria-expanded="false">
+                    <div class="cat-card__icon"><i class="fa-solid fa-leaf"></i></div>
+                    <div class="cat-card__meta">
+                        <span class="cat-card__name">Nature & Wildlife</span>
+                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down cat-card__chev"></i>
+                </button>
+                <div class="cat-card__body" hidden>
+                    <div class="cat-card__body-inner">
+                        <ul class="cat-sub-list">
+                            <li><i class="fa-solid fa-circle"></i>Wildlife Watching</li>
+                            <li><i class="fa-solid fa-circle"></i>Parks & Gardens</li>
+                            <li><i class="fa-solid fa-circle"></i>Botanical Gardens</li>
+                            <li><i class="fa-solid fa-circle"></i>Bird Watching Hotspots</li>
+                            <li><i class="fa-solid fa-circle"></i>Foraging Adventures</li>
+                            <li><i class="fa-solid fa-circle"></i>Camping & Overnight Outdoors</li>
+                            <li class="cat-sub-more"><i class="fa-solid fa-plus"></i> & 10 more</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wellness & Health -->
+            <div class="cat-card">
+                <button class="cat-card__header" aria-expanded="false">
+                    <div class="cat-card__icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <div class="cat-card__meta">
+                        <span class="cat-card__name">Wellness & Health</span>
+                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down cat-card__chev"></i>
+                </button>
+                <div class="cat-card__body" hidden>
+                    <div class="cat-card__body-inner">
+                        <ul class="cat-sub-list">
+                            <li><i class="fa-solid fa-circle"></i>Yoga & Meditation</li>
+                            <li><i class="fa-solid fa-circle"></i>Spa & Relaxation</li>
+                            <li><i class="fa-solid fa-circle"></i>Fitness Classes</li>
+                            <li><i class="fa-solid fa-circle"></i>Outdoor Fitness</li>
+                            <li><i class="fa-solid fa-circle"></i>Retreats & Immersions</li>
+                            <li><i class="fa-solid fa-circle"></i>Mental Wellness</li>
+                            <li class="cat-sub-more"><i class="fa-solid fa-plus"></i> & 25 more</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Creativity & Arts -->
+            <div class="cat-card">
+                <button class="cat-card__header" aria-expanded="false">
+                    <div class="cat-card__icon"><i class="fa-solid fa-palette"></i></div>
+                    <div class="cat-card__meta">
+                        <span class="cat-card__name">Creativity & Arts</span>
+                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down cat-card__chev"></i>
+                </button>
+                <div class="cat-card__body" hidden>
+                    <div class="cat-card__body-inner">
+                        <ul class="cat-sub-list">
+                            <li><i class="fa-solid fa-circle"></i>Art Classes & Workshops</li>
+                            <li><i class="fa-solid fa-circle"></i>Pottery & Ceramics</li>
+                            <li><i class="fa-solid fa-circle"></i>DIY Crafting & Making</li>
+                            <li><i class="fa-solid fa-circle"></i>Creative Writing</li>
+                            <li><i class="fa-solid fa-circle"></i>Art Galleries & Studios</li>
+                            <li><i class="fa-solid fa-circle"></i>Public Art</li>
+                            <li class="cat-sub-more"><i class="fa-solid fa-plus"></i> & 28 more</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Urban Discovery -->
+            <div class="cat-card">
+                <button class="cat-card__header" aria-expanded="false">
+                    <div class="cat-card__icon"><i class="fa-solid fa-building"></i></div>
+                    <div class="cat-card__meta">
+                        <span class="cat-card__name">Urban Discovery</span>
+                        <span class="cat-card__hint">Tap to explore subcategories</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down cat-card__chev"></i>
+                </button>
+                <div class="cat-card__body" hidden>
+                    <div class="cat-card__body-inner">
+                        <ul class="cat-sub-list">
+                            <li><i class="fa-solid fa-circle"></i>Urban Exploration</li>
+                            <li><i class="fa-solid fa-circle"></i>Walking Tours & Explorations</li>
+                            <li><i class="fa-solid fa-circle"></i>Public Spaces</li>
+                            <li><i class="fa-solid fa-circle"></i>Urban Nature Retreats</li>
+                            <li><i class="fa-solid fa-circle"></i>Hidden Gems & Secret Locations</li>
+                            <li><i class="fa-solid fa-circle"></i>Local Treasures</li>
+                            <li class="cat-sub-more"><i class="fa-solid fa-plus"></i> & more</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 40+ More -->
+            <div class="cat-more-card">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>40+ More Categories</span>
+                <small>Water Adventures · Photography · Shopping · Music · Thrill & Action · Road Trips · and many more</small>
+            </div>
+
+        </div>
+    </div>
+</section>
 
     <!-- Social Media Showcase -->
     <section class="social-showcase">
@@ -2125,7 +2334,41 @@ document.querySelectorAll('a[href="/early-access-signup/"] > div').forEach(btn =
         this.style.boxShadow = '0 8px 24px rgba(76, 139, 245, 0.3)';
     });
 });
-        
+
+// Category dropdown cards
+document.querySelectorAll('.cat-card__header').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var card = this.closest('.cat-card');
+        var body = card.querySelector('.cat-card__body');
+        var isOpen = card.classList.contains('is-open');
+
+        if (isOpen) {
+            card.classList.remove('is-open');
+            this.setAttribute('aria-expanded', 'false');
+            body.style.height = body.scrollHeight + 'px';
+            body.getBoundingClientRect();
+            body.style.height = '0px';
+            body.addEventListener('transitionend', function done(e) {
+                if (e.propertyName !== 'height') return;
+                body.hidden = true;
+                body.style.height = '';
+                body.removeEventListener('transitionend', done);
+            });
+        } else {
+            card.classList.add('is-open');
+            this.setAttribute('aria-expanded', 'true');
+            body.hidden = false;
+            body.style.height = '0px';
+            body.getBoundingClientRect();
+            body.style.height = body.scrollHeight + 'px';
+            body.addEventListener('transitionend', function done(e) {
+                if (e.propertyName !== 'height') return;
+                body.style.height = 'auto';
+                body.removeEventListener('transitionend', done);
+            });
+        }
+    });
+});
 </script>
 
 </body>

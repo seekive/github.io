@@ -418,6 +418,7 @@
     position: relative;
     z-index: 2;
     width: 100%;
+    padding-bottom: 40px;
 }
 
 @media (max-width: 768px) {
@@ -425,6 +426,9 @@
         flex-direction: column;
         align-items: center;
         text-align: center;
+    }
+    .hero-content .coming-soon {
+        align-self: center !important;
     }
 }
 
@@ -1672,8 +1676,8 @@ body.no-scroll{ overflow:hidden; }
     <div class="container">
         <div class="hero-content">
 
-            <!-- Left: text + CTA -->
-            <div style="display:flex;flex-direction:column;gap:32px;flex:1;min-width:0;">
+            <!-- Left: text + coming soon badge -->
+            <div style="display:flex;flex-direction:column;gap:24px;flex:1;min-width:0;">
                 <div class="hero-text" style="max-width:100%;">
                     <h1>Seek It. Find It. Live It.</h1>
                     <p class="hero-tagline">Your personal discovery compass for real-world adventures, activities, experiences & more</p>
@@ -1681,31 +1685,7 @@ body.no-scroll{ overflow:hidden; }
                         Let curiosity guide your journey. Seekive uses smart AI to uncover experiences perfectly matched to your mood, time, and budget. From hidden local gems to spontaneous adventures, discover what awaits just around the corner.
                     </p>
                 </div>
-
-                <div class="hero-cta" style="max-width:100%;">
-                    <div class="coming-soon">Coming Soon to App Stores</div>
-
-                    <div class="early-access-compact" style="text-align:center;">
-                        <h3 style="color:var(--primary-blue);margin-bottom:15px;font-size:1.3rem;">Be First to Discover</h3>
-                        <p style="color:var(--text-secondary);margin-bottom:20px;font-size:0.95rem;">Join our early access list and be among the first to be notified and experience Seekive when early access launches.</p>
-
-                        <a href="/early-access-signup/" style="display:block;text-decoration:none;">
-                            <div style="background:linear-gradient(135deg,var(--primary-blue),var(--primary-dark));border-radius:20px;padding:28px 32px;box-shadow:0 8px 24px rgba(76,139,245,0.3);transition:all 0.3s ease;cursor:pointer;">
-                                <p style="color:white;font-weight:600;margin-bottom:8px;font-size:1.1rem;">
-                                    <i class="fa-solid fa-rocket" style="color:white;margin-right:8px;"></i>
-                                    Join Early Access
-                                </p>
-                                <p style="color:rgba(255,255,255,0.9);font-size:0.95rem;line-height:1.6;margin-bottom:12px;">
-                                    Create your account and be first in line when we launch
-                                </p>
-                                <div style="display:flex;align-items:center;justify-content:center;gap:8px;color:white;font-weight:600;">
-                                    <span>Get Started</span>
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                <div class="coming-soon" style="align-self:flex-start;">Coming Soon to App Stores</div>
             </div>
 
             <!-- Right: compass -->
@@ -1718,6 +1698,34 @@ body.no-scroll{ overflow:hidden; }
         </div>
     </div>
 </section>
+
+<!-- Early Access CTA — below hero -->
+<div style="background:var(--dark-bg);padding:60px 0;">
+    <div class="container" style="display:flex;justify-content:center;">
+        <div class="hero-cta" style="max-width:480px;width:100%;">
+            <div class="early-access-compact" style="text-align:center;">
+                <h3 style="color:var(--primary-blue);margin-bottom:15px;font-size:1.3rem;">Be First to Discover</h3>
+                <p style="color:var(--text-secondary);margin-bottom:20px;font-size:0.95rem;">Join our early access list and be among the first to be notified and experience Seekive when early access launches.</p>
+
+                <a href="/early-access-signup/" style="display:block;text-decoration:none;">
+                    <div style="background:linear-gradient(135deg,var(--primary-blue),var(--primary-dark));border-radius:20px;padding:28px 32px;box-shadow:0 8px 24px rgba(76,139,245,0.3);transition:all 0.3s ease;cursor:pointer;">
+                        <p style="color:white;font-weight:600;margin-bottom:8px;font-size:1.1rem;">
+                            <i class="fa-solid fa-rocket" style="color:white;margin-right:8px;"></i>
+                            Join Early Access
+                        </p>
+                        <p style="color:rgba(255,255,255,0.9);font-size:0.95rem;line-height:1.6;margin-bottom:12px;">
+                            Create your account and be first in line when we launch
+                        </p>
+                        <div style="display:flex;align-items:center;justify-content:center;gap:8px;color:white;font-weight:600;">
+                            <span>Get Started</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- Features Section -->
     <section id="features" class="features">

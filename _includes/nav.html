@@ -15,16 +15,9 @@
 
             <!-- Desktop links -->
             <ul class="nav-links">
-                <li class="dropdown">
-                    <a href="/" class="dropdown-toggle" {% if page.active_page == "home" %}style="color: var(--primary-blue);"{% endif %}>
-                        Home <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-label="Home">
-                        <li><a href="/#features">Features</a></li>
-                        <li><a href="/#categories">Discover</a></li>
-                        <li><a href="/#how-it-works">How It Works</a></li>
-                    </ul>
-                </li>
+                <li>
+    <a href="/" {% if page.active_page == "home" %}style="color: var(--primary-blue);"{% endif %}>Home</a>
+</li>
                 <li><a href="/store/" {% if page.active_page == "store" %}style="color: var(--primary-blue);"{% endif %}>Store</a></li>
                 <li><a href="/latest/" {% if page.active_page == "latest" %}style="color: var(--primary-blue);"{% endif %}>Latest</a></li>
                 <li><a href="/community/" {% if page.active_page == "community" %}style="color: var(--primary-blue);"{% endif %}>Community</a></li>
@@ -46,23 +39,7 @@
                 </a>
 
                 <ul class="mobile-list">
-                    <li class="mobile-collapsible" id="homeCollapsible">
-                        <div class="mobile-item">
-                            <a href="/" class="mobile-root-link {% if page.active_page == "home" %}is-active{% endif %}" data-close>Home</a>
-                            <button type="button"
-                                    class="sub-toggle"
-                                    aria-expanded="false"
-                                    aria-controls="homeSublist"
-                                    aria-label="Show Home sections">
-                                <i class="fa-solid fa-chevron-down chev" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                        <ul id="homeSublist" class="sublist" hidden>
-                            <li><a href="/#features" data-close>Features</a></li>
-                            <li><a href="/#categories" data-close>Discover</a></li>
-                            <li><a href="/#how-it-works" data-close>How It Works</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="/" class="{% if page.active_page == "home" %}is-active{% endif %}" data-close>Home</a></li>
                     <li><a href="/store/" class="{% if page.active_page == "store" %}is-active{% endif %}" data-close>Store</a></li>
                     <li><a href="/latest/" class="{% if page.active_page == "latest" %}is-active{% endif %}" data-close>Latest</a></li>
                     <li><a href="/community/" class="{% if page.active_page == "community" %}is-active{% endif %}" data-close>Community</a></li>

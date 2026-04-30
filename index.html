@@ -1610,15 +1610,16 @@ body.no-scroll{ overflow:hidden; }
 
 .feature-card__header {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 16px;
 }
 
 .feature-icon {
-    width: 48px !important;
-    height: 48px !important;
-    border-radius: 12px !important;
-    font-size: 1.2rem !important;
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 14px !important;
+    font-size: 1.4rem !important;
     margin: 0 !important;
     flex-shrink: 0;
 }
@@ -1627,12 +1628,12 @@ body.no-scroll{ overflow:hidden; }
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex: 1;
+    width: 100%;
     gap: 8px;
 }
 
 .feature-title {
-    font-size: 1rem !important;
+    font-size: 1.05rem !important;
     margin-bottom: 0 !important;
 }
 
@@ -1754,7 +1755,7 @@ body.no-scroll{ overflow:hidden; }
                 <i class="fa-solid fa-chevron-down feature-card__chev"></i>
             </div>
         </div>
-        <div class="feature-card__body">
+        <div class="feature-card__body" hidden>
             <div class="feature-card__body-inner">
                 <p class="feature-desc">Our AI-powered compass analyzes your preferences, current mood, available time, and budget to suggest perfectly matched experiences. Never wonder "what should I do?" again.</p>
             </div>
@@ -1769,7 +1770,7 @@ body.no-scroll{ overflow:hidden; }
                 <i class="fa-solid fa-chevron-down feature-card__chev"></i>
             </div>
         </div>
-        <div class="feature-card__body">
+        <div class="feature-card__body" hidden>
             <div class="feature-card__body-inner">
                 <p class="feature-desc">Set your adventure parameters with intuitive filters for time, budget, distance, indoor/outdoor preferences, and even your current mood. Get recommendations that fit your exact situation.</p>
             </div>
@@ -1784,7 +1785,7 @@ body.no-scroll{ overflow:hidden; }
                 <i class="fa-solid fa-chevron-down feature-card__chev"></i>
             </div>
         </div>
-        <div class="feature-card__body">
+        <div class="feature-card__body" hidden>
             <div class="feature-card__body-inner">
                 <p class="feature-desc">Uncover secret spots, local favorites, and unique experiences that typical apps miss. From hole-in-the-wall cafes to scenic viewpoints, discover your area's best-kept secrets.</p>
             </div>
@@ -1799,7 +1800,7 @@ body.no-scroll{ overflow:hidden; }
                 <i class="fa-solid fa-chevron-down feature-card__chev"></i>
             </div>
         </div>
-        <div class="feature-card__body">
+        <div class="feature-card__body" hidden>
             <div class="feature-card__body-inner">
                 <p class="feature-desc">Recommendations that adapt to weather, time of day, and seasonal opportunities. Whether it's a sunny afternoon or a cozy rainy evening, find activities that match the moment.</p>
             </div>
@@ -1814,7 +1815,7 @@ body.no-scroll{ overflow:hidden; }
                 <i class="fa-solid fa-chevron-down feature-card__chev"></i>
             </div>
         </div>
-        <div class="feature-card__body">
+        <div class="feature-card__body" hidden>
             <div class="feature-card__body-inner">
                 <p class="feature-desc">Save discoveries for later, track completed experiences, and build your personal collection of memorable moments. Your journey becomes a story worth sharing.</p>
             </div>
@@ -1829,7 +1830,7 @@ body.no-scroll{ overflow:hidden; }
                 <i class="fa-solid fa-chevron-down feature-card__chev"></i>
             </div>
         </div>
-        <div class="feature-card__body">
+        <div class="feature-card__body" hidden>
             <div class="feature-card__body-inner">
                 <p class="feature-desc">Share your discoveries, find adventure companions, and connect with a community of fellow finders. Make memories together and inspire others to discover & seek new experiences.</p>
             </div>
@@ -2285,6 +2286,24 @@ document.querySelectorAll('.feature-card').forEach(function(card) {
         var body = card.querySelector('.feature-card__body');
         var isOpen = card.classList.contains('is-open');
 
+        // Close all other feature cards first
+        document.querySelectorAll('.feature-card').forEach(function(other) {
+            if (other === card) return;
+            var otherBody = other.querySelector('.feature-card__body');
+            if (other.classList.contains('is-open')) {
+                other.classList.remove('is-open');
+                otherBody.style.height = otherBody.scrollHeight + 'px';
+                otherBody.getBoundingClientRect();
+                otherBody.style.height = '0px';
+                otherBody.addEventListener('transitionend', function done(e) {
+                    if (e.propertyName !== 'height') return;
+                    otherBody.hidden = true;
+                    otherBody.style.height = '';
+                    otherBody.removeEventListener('transitionend', done);
+                });
+            }
+        });
+
         if (isOpen) {
             card.classList.remove('is-open');
             body.style.height = body.scrollHeight + 'px';
@@ -2292,11 +2311,13 @@ document.querySelectorAll('.feature-card').forEach(function(card) {
             body.style.height = '0px';
             body.addEventListener('transitionend', function done(e) {
                 if (e.propertyName !== 'height') return;
+                body.hidden = true;
                 body.style.height = '';
                 body.removeEventListener('transitionend', done);
             });
         } else {
             card.classList.add('is-open');
+            body.hidden = false;
             body.style.height = '0px';
             body.getBoundingClientRect();
             body.style.height = body.scrollHeight + 'px';

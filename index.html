@@ -725,8 +725,15 @@ active_page: home
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 960px) {
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 560px) {
+            .features-grid { grid-template-columns: 1fr; }
         }
 
         .feature-card {
@@ -1580,6 +1587,83 @@ body.no-scroll{ overflow:hidden; }
 @media (max-width: 480px) {
   .categories-grid-v2 { grid-template-columns: 1fr; }
 }
+
+/* ===== Collapsible Feature Cards ===== */
+.feature-card {
+    cursor: pointer;
+    padding: 24px;
+    text-align: left;
+    transition: border-color 0.3s ease;
+}
+
+.feature-card.is-open {
+    background: transparent;
+    border-color: var(--primary-blue);
+    box-shadow: none;
+    transform: none;
+}
+
+.feature-card:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.feature-card__header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.feature-icon {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 12px !important;
+    font-size: 1.2rem !important;
+    margin: 0 !important;
+    flex-shrink: 0;
+}
+
+.feature-card__title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    gap: 8px;
+}
+
+.feature-title {
+    font-size: 1rem !important;
+    margin-bottom: 0 !important;
+}
+
+.feature-card__chev {
+    font-size: 13px;
+    color: var(--text-muted);
+    transition: transform 0.3s ease, color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.feature-card.is-open .feature-card__chev {
+    transform: rotate(180deg);
+    color: var(--primary-blue);
+}
+
+.feature-card__body {
+    overflow: hidden;
+    height: 0;
+    transition: height 0.3s ease;
+}
+
+.feature-card__body-inner {
+    padding-top: 16px;
+    margin-top: 16px;
+    border-top: 1px solid rgba(76, 139, 245, 0.15);
+}
+
+.feature-desc {
+    font-size: 14px !important;
+    margin: 0;
+}
     
     </style>
 </head>
@@ -1661,67 +1745,98 @@ body.no-scroll{ overflow:hidden; }
             </div>
 
             <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fa-solid fa-compass"></i>
-                    </div>
-                    <h3 class="feature-title">Smart Discovery Engine</h3>
-                    <p class="feature-desc">
-                        Our AI-powered compass analyzes your preferences, current mood, available time, and budget to suggest perfectly matched experiences. Never wonder "what should I do?" again.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fa-solid fa-sliders"></i>
-                    </div>
-                    <h3 class="feature-title">Personalized Filters</h3>
-                    <p class="feature-desc">
-                        Set your adventure parameters with intuitive filters for time, budget, distance, indoor/outdoor preferences, and even your current mood. Get recommendations that fit your exact situation.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fa-solid fa-map-location"></i>
-                    </div>
-                    <h3 class="feature-title">Local & Hidden Gems</h3>
-                    <p class="feature-desc">
-                        Uncover secret spots, local favorites, and unique experiences that typical apps miss. From hole-in-the-wall cafes to scenic viewpoints, discover your area's best-kept secrets.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fa-solid fa-clock"></i>
-                    </div>
-                    <h3 class="feature-title">Real-Time Adaptation</h3>
-                    <p class="feature-desc">
-                        Recommendations that adapt to weather, time of day, and seasonal opportunities. Whether it's a sunny afternoon or a cozy rainy evening, find activities that match the moment.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fa-solid fa-bookmark"></i>
-                    </div>
-                    <h3 class="feature-title">Personal Journey Journal</h3>
-                    <p class="feature-desc">
-                        Save discoveries for later, track completed experiences, and build your personal collection of memorable moments. Your journey becomes a story worth sharing.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fa-solid fa-users"></i>
-                    </div>
-                    <h3 class="feature-title">Community Moments</h3>
-                    <p class="feature-desc">
-                        Share your discoveries, find adventure companions, and connect with a community of fellow finders. Make memories together and inspire others to discover & seek new experiences.
-                    </p>
-                </div>
+
+    <div class="feature-card">
+        <div class="feature-card__header">
+            <div class="feature-icon"><i class="fa-solid fa-compass"></i></div>
+            <div class="feature-card__title-row">
+                <h3 class="feature-title">Smart Discovery Engine</h3>
+                <i class="fa-solid fa-chevron-down feature-card__chev"></i>
             </div>
         </div>
+        <div class="feature-card__body">
+            <div class="feature-card__body-inner">
+                <p class="feature-desc">Our AI-powered compass analyzes your preferences, current mood, available time, and budget to suggest perfectly matched experiences. Never wonder "what should I do?" again.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-card__header">
+            <div class="feature-icon"><i class="fa-solid fa-sliders"></i></div>
+            <div class="feature-card__title-row">
+                <h3 class="feature-title">Personalized Filters</h3>
+                <i class="fa-solid fa-chevron-down feature-card__chev"></i>
+            </div>
+        </div>
+        <div class="feature-card__body">
+            <div class="feature-card__body-inner">
+                <p class="feature-desc">Set your adventure parameters with intuitive filters for time, budget, distance, indoor/outdoor preferences, and even your current mood. Get recommendations that fit your exact situation.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-card__header">
+            <div class="feature-icon"><i class="fa-solid fa-map-location"></i></div>
+            <div class="feature-card__title-row">
+                <h3 class="feature-title">Local & Hidden Gems</h3>
+                <i class="fa-solid fa-chevron-down feature-card__chev"></i>
+            </div>
+        </div>
+        <div class="feature-card__body">
+            <div class="feature-card__body-inner">
+                <p class="feature-desc">Uncover secret spots, local favorites, and unique experiences that typical apps miss. From hole-in-the-wall cafes to scenic viewpoints, discover your area's best-kept secrets.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-card__header">
+            <div class="feature-icon"><i class="fa-solid fa-clock"></i></div>
+            <div class="feature-card__title-row">
+                <h3 class="feature-title">Real-Time Adaptation</h3>
+                <i class="fa-solid fa-chevron-down feature-card__chev"></i>
+            </div>
+        </div>
+        <div class="feature-card__body">
+            <div class="feature-card__body-inner">
+                <p class="feature-desc">Recommendations that adapt to weather, time of day, and seasonal opportunities. Whether it's a sunny afternoon or a cozy rainy evening, find activities that match the moment.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-card__header">
+            <div class="feature-icon"><i class="fa-solid fa-bookmark"></i></div>
+            <div class="feature-card__title-row">
+                <h3 class="feature-title">Personal Journey Journal</h3>
+                <i class="fa-solid fa-chevron-down feature-card__chev"></i>
+            </div>
+        </div>
+        <div class="feature-card__body">
+            <div class="feature-card__body-inner">
+                <p class="feature-desc">Save discoveries for later, track completed experiences, and build your personal collection of memorable moments. Your journey becomes a story worth sharing.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-card__header">
+            <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
+            <div class="feature-card__title-row">
+                <h3 class="feature-title">Community Moments</h3>
+                <i class="fa-solid fa-chevron-down feature-card__chev"></i>
+            </div>
+        </div>
+        <div class="feature-card__body">
+            <div class="feature-card__body-inner">
+                <p class="feature-desc">Share your discoveries, find adventure companions, and connect with a community of fellow finders. Make memories together and inspire others to discover & seek new experiences.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
     </section>
 
     <!-- Categories Preview -->
@@ -2163,6 +2278,37 @@ document.querySelectorAll('.cat-card__header').forEach(function(btn) {
         }
     });
 });
+
+// Feature card dropdowns
+document.querySelectorAll('.feature-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+        var body = card.querySelector('.feature-card__body');
+        var isOpen = card.classList.contains('is-open');
+
+        if (isOpen) {
+            card.classList.remove('is-open');
+            body.style.height = body.scrollHeight + 'px';
+            body.getBoundingClientRect();
+            body.style.height = '0px';
+            body.addEventListener('transitionend', function done(e) {
+                if (e.propertyName !== 'height') return;
+                body.style.height = '';
+                body.removeEventListener('transitionend', done);
+            });
+        } else {
+            card.classList.add('is-open');
+            body.style.height = '0px';
+            body.getBoundingClientRect();
+            body.style.height = body.scrollHeight + 'px';
+            body.addEventListener('transitionend', function done(e) {
+                if (e.propertyName !== 'height') return;
+                body.style.height = 'auto';
+                body.removeEventListener('transitionend', done);
+            });
+        }
+    });
+});
+    
     }); // End DOMContentLoaded
 </script>
 

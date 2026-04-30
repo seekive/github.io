@@ -2287,24 +2287,6 @@ document.querySelectorAll('.feature-card').forEach(function(card) {
         var body = card.querySelector('.feature-card__body');
         var isOpen = card.classList.contains('is-open');
 
-        // Close all other feature cards first
-        document.querySelectorAll('.feature-card').forEach(function(other) {
-            if (other === card) return;
-            var otherBody = other.querySelector('.feature-card__body');
-            if (other.classList.contains('is-open')) {
-                other.classList.remove('is-open');
-                otherBody.style.height = otherBody.scrollHeight + 'px';
-                otherBody.getBoundingClientRect();
-                otherBody.style.height = '0px';
-                otherBody.addEventListener('transitionend', function done(e) {
-                    if (e.propertyName !== 'height') return;
-                    otherBody.hidden = true;
-                    otherBody.style.height = '';
-                    otherBody.removeEventListener('transitionend', done);
-                });
-            }
-        });
-
         if (isOpen) {
             card.classList.remove('is-open');
             body.style.height = body.scrollHeight + 'px';

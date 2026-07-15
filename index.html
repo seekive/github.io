@@ -988,99 +988,143 @@ active_page: home
             box-shadow: 0 8px 24px rgba(76, 139, 245, 0.3);
         }
 
-/* ===== Award Recognition ===== */
+/* ===== Award Winner ===== */
 .award-section {
-    padding: 70px 0 90px;
-    background: var(--dark-bg);
+    padding: 100px 0 110px;
+    background: var(--darker-bg);
+    position: relative;
+    overflow: hidden;
 }
 
-.award-card {
-    display: block;
-    text-decoration: none;
-    max-width: 720px;
+.award-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.award-wrap {
+    max-width: 780px;
     margin: 0 auto;
-    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-light) 100%);
-    border: 1px solid rgba(16, 185, 129, 0.25);
-    border-radius: 24px;
-    padding: 32px 36px;
-    display: flex;
+    text-align: center;
+    position: relative;
+}
+
+.award-eyebrow {
+    display: inline-flex;
     align-items: center;
-    gap: 24px;
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #D4AF37;
+    margin-bottom: 28px;
 }
 
-.award-card:hover {
-    transform: translateY(-6px);
-    border-color: var(--accent-emerald);
-    box-shadow: 0 20px 45px rgba(16, 185, 129, 0.15);
+.award-eyebrow::before,
+.award-eyebrow::after {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: rgba(212, 175, 55, 0.5);
 }
 
-.award-card__icon {
-    width: 68px;
-    height: 68px;
-    min-width: 68px;
-    border-radius: 18px;
-    background: linear-gradient(135deg, var(--accent-emerald), var(--teal-accent));
+.award-hex {
+    width: 128px;
+    height: 148px;
+    margin: 0 auto 32px;
+    position: relative;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: linear-gradient(150deg, #F4E5B2 0%, #D4AF37 45%, #B8912C 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.7rem;
-    color: white;
-    flex-shrink: 0;
+    box-shadow: 0 20px 50px rgba(212, 175, 55, 0.18);
 }
 
-.award-card__meta {
-    flex: 1;
-    min-width: 0;
+.award-hex::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: var(--darker-bg);
 }
 
-.award-card__eyebrow {
-    display: block;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent-emerald);
-    margin-bottom: 8px;
+.award-hex i {
+    position: relative;
+    z-index: 1;
+    font-size: 2.1rem;
+    background: linear-gradient(150deg, #F4E5B2, #D4AF37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.award-card__title {
-    font-size: 1.25rem;
-    font-weight: 700;
+.award-title {
+    font-size: 2.1rem;
+    font-weight: 800;
+    line-height: 1.25;
     color: var(--text-primary);
-    margin-bottom: 6px;
+    max-width: 620px;
+    margin: 0 auto 16px;
 }
 
-.award-card__desc {
-    font-size: 14px;
+.award-title em {
+    font-style: normal;
+    background: linear-gradient(135deg, #F4E5B2, #D4AF37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.award-sub {
+    font-size: 1.05rem;
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.7;
+    max-width: 540px;
+    margin: 0 auto 40px;
 }
 
-.award-card__arrow {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    flex-shrink: 0;
-    transition: transform 0.3s ease, color 0.3s ease;
+.award-sub strong {
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
-.award-card:hover .award-card__arrow {
-    transform: translateX(4px);
-    color: var(--accent-emerald);
+.award-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    padding: 16px 32px;
+    border-radius: 50px;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    color: #F4E5B2;
+    font-weight: 600;
+    font-size: 14.5px;
+    letter-spacing: 0.02em;
+    transition: all 0.3s ease;
+}
+
+.award-cta:hover {
+    background: rgba(212, 175, 55, 0.08);
+    border-color: #D4AF37;
+    transform: translateY(-2px);
+}
+
+.award-cta i {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.award-cta:hover i {
+    transform: translate(3px, -3px);
 }
 
 @media (max-width: 560px) {
-    .award-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 28px 24px;
-    }
-    .award-card__arrow {
-        transform: rotate(90deg);
-    }
-    .award-card:hover .award-card__arrow {
-        transform: rotate(90deg) translateX(4px);
-    }
+    .award-title { font-size: 1.6rem; }
+    .award-hex { width: 108px; height: 124px; }
 }
     
         /* Early Access CTA */
@@ -2252,20 +2296,24 @@ body.no-scroll{ overflow:hidden; }
         </div>
     </section>
 
-    <!-- Award Recognition -->
+    <!-- Award Winner -->
 <section class="award-section">
     <div class="container">
-        <a href="https://smenews.digital/winners/seekive/" target="_blank" rel="noopener noreferrer" class="award-card" aria-label="Seekive shortlisted for SME News UK Enterprise Awards 2026 - view listing">
-            <div class="award-card__icon">
+        <div class="award-wrap">
+            <span class="award-eyebrow">SME News · UK Enterprise Awards 2026</span>
+
+            <div class="award-hex">
                 <i class="fa-solid fa-trophy"></i>
             </div>
-            <div class="award-card__meta">
-                <span class="award-card__eyebrow">Industry Recognition</span>
-                <h3 class="award-card__title">Shortlisted — SME News UK Enterprise Awards 2026</h3>
-                <p class="award-card__desc">Seekive has been recognised among the UK's most ambitious and innovative SMEs. View the full listing on SME News.</p>
-            </div>
-            <i class="fa-solid fa-arrow-up-right-from-square award-card__arrow"></i>
-        </a>
+
+            <h2 class="award-title">Winner: <em>Most Innovative Start-Up Discovery Platform 2026</em></h2>
+            <p class="award-sub">Seekive has been named a <strong>2026 winner</strong> of the SME News UK Enterprise Awards, recognising the UK's most ambitious and innovative SMEs.</p>
+
+            <a href="https://smenews.digital/winners/seekive/" target="_blank" rel="noopener noreferrer" class="award-cta">
+                View official announcement
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+        </div>
     </div>
 </section>
     
